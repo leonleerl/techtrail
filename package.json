@@ -2,8 +2,8 @@
   "name": "techtrail",
   "version": "0.1.0",
   "private": true,
-  "prisma":{ 
-    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts" 
+  "prisma": {
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
   },
   "scripts": {
     "dev": "next dev --turbopack",
@@ -16,7 +16,8 @@
     "@prisma/client": "^6.8.2",
     "next": "15.3.2",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "zod": "^3.24.4"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
