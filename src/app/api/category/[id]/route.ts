@@ -51,6 +51,7 @@ export async function PUT(
 
 // delete a category by id
 export async function DELETE(
+  req: Request,
   { params }: { params: { id: string } }
 ) {
     try{
