@@ -4,9 +4,9 @@ import { PostFormSchemaType } from "@/schemas/post.schema";
 import { PostFormSchema } from "@/schemas/post.schema";
 
 // get a single post by id
-export async function GET(req: Request, { params }: { params: { id: string } }) {
+export async function GET(req: Request, { params }: { params: Promise<{ id: string }> }) {
     try{
-        const { id } = params;
+        const { id } = await params;
         const post = await prisma.post.findUnique({
             where: { id },
         });
@@ -17,9 +17,9 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
 }
 
 // update a post by id
-export async function PUT(req: Request, { params }: { params: { id: string } }) {
+export async function PUT(req: Request, { params }: { params: Promise<{ id: string }> }) {
     try{
-        const { id } = params;
+        const { id } = await params;
         const body = await req.json();
         const parsedBody : PostFormSchemaType = PostFormSchema.parse(body);
 
@@ -34,9 +34,9 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
 }
 
 // delete a post by id
-export async function DELETE(req: Request, { params }: { params: { id: string } }) {
+export async function DELETE(req: Request, { params }: { params: Promise<{ id: string }> }) {
     try{
-        const { id } = params;
+        const { id } = await params;
         const deletedPost = await prisma.post.delete({
             where: { id },
         });
