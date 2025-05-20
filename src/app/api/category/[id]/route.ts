@@ -6,9 +6,9 @@ import { CategoryFormSchema } from "@/schemas/category.schema";
 // get a single category by id
 export async function GET(
   req: Request, 
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
-  const { id } = params;
+  const { id } = await params;
   const category = await prisma.category.findUnique({
     where: { id }
   });
@@ -21,11 +21,10 @@ export async function GET(
 // update a category by id
 export async function PUT(
   req: Request, 
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
     try{
-        const {id} = params;
-
+        const {id} = await params;
         const existingCategory = await prisma.category.findUnique({
             where: {id},
         });
@@ -51,10 +50,11 @@ export async function PUT(
 
 // delete a category by id
 export async function DELETE(
-  { params }: { params: { id: string } }
+  req: Request,
+  { params }: { params: Promise<{ id: string }> }
 ) {
     try{
-        const {id} = params;
+        const {id} = await params;
         const deletedCategory = await prisma.category.delete({
             where: {id},
         });
