@@ -12,14 +12,14 @@ import {
   // Menu items.
 const items = [
   {
-    title: "分类管理",
+    title: "Categories",
     url: "/admin/categories",
     icon: "🏠",
   },
   {
-    title: "博客管理",
+    title: "Posts",
     url: "/admin/posts",
-    icon: "📨",
+    icon: "📖",
   }
 ]
    
