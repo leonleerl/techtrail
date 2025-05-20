@@ -30,7 +30,8 @@ import {
     FormItem,
     FormLabel,
     FormControl,
-    FormMessage
+    FormMessage,
+    DialogClose
   } from "@/components/ui"
 import { CategoryFormSchema, CategoryFormSchemaType } from "@/schemas/category.schema";
 import { CategoryDto } from "@/types/category";
@@ -38,15 +39,15 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 function CategoriesTable() {
   const [categories, setCategories] = useState<CategoryDto[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
   const [currentCategory, setCurrentCategory] = useState<CategoryDto>();
+  const [isSaving, setIsSaving] = useState(false);
   const router = useRouter();
 
-
-  const [editName, setEditName] = useState<string>("");
 
   const form = useForm<CategoryFormSchemaType>({
     resolver: zodResolver(CategoryFormSchema),
@@ -72,14 +73,13 @@ function CategoriesTable() {
   }, []);
 
   const handleDeleteCategory = async (category: CategoryDto) => {
-
     try {
       const response = await fetch(`/api/category/${category.id}`, {
         method: 'DELETE',
       });
       
       if (response.ok) {
-        fetchCategories();
+        await fetchCategories();
       } else {
         const errorData = await response.json();
         alert(`Failed to delete: ${errorData.message || 'Unknown error'}`);
@@ -94,13 +94,16 @@ function CategoriesTable() {
 
   const handleUpdateCategory = async (formData: CategoryFormSchemaType) => {
     try {
-      const response = await fetch(`/api/category/${formData.id}`, {
+      setIsSaving(true);
+      const response = await fetch(`/api/category/${currentCategory!.id}`, {
         method: 'PUT',
-        body: JSON.stringify(formData.name),
+        body: JSON.stringify(formData),
       });
 
       if (response.ok) {
-        router.push('/admin/categories');
+        await fetchCategories();
+        toast.success('Category updated successfully');
+        setIsSaving(false);
       }
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Unknown error';
@@ -111,7 +114,7 @@ function CategoriesTable() {
 
   const handleEditDialogOpen = (category: CategoryDto) => {
     setCurrentCategory(category);
-    setEditName(category.name);
+    form.setValue("name", category.name);
   };
 
   if (isLoading) return <div>Loading...</div>;
@@ -145,7 +148,7 @@ function CategoriesTable() {
                       </DialogDescription>
                     </DialogHeader>
                         <Form {...form}>
-                        <form onSubmit={form.handleSubmit(handleUpdateCategory)} className="space-y-6">
+                        <form id="updateCategoryForm" onSubmit={form.handleSubmit(handleUpdateCategory)} className="space-y-6">
                           <div className="grid gap-4 py-4">
                             <div className="grid items-center gap-4">
                               <FormField
@@ -166,7 +169,10 @@ function CategoriesTable() {
                         </form>
                       </Form>
                     <DialogFooter>
-                      <Button onClick={() => handleUpdateCategory(category)}>Save changes</Button>
+                      <DialogClose asChild>
+                        <Button variant="outline">Cancel</Button>
+                      </DialogClose>
+                      <Button type="submit" form="updateCategoryForm" disabled={isSaving}>Save changes</Button>
                     </DialogFooter>
                   </DialogContent>
                 </Dialog>
