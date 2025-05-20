@@ -38,15 +38,14 @@ import { CategoryDto } from "@/types/category";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+
 function CategoriesTable() {
   const [categories, setCategories] = useState<CategoryDto[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
   const [currentCategory, setCurrentCategory] = useState<CategoryDto>();
   const [isSaving, setIsSaving] = useState(false);
-  const router = useRouter();
 
 
   const form = useForm<CategoryFormSchemaType>({
@@ -117,10 +116,72 @@ function CategoriesTable() {
     form.setValue("name", category.name);
   };
 
+  const handleAddCategory = async (formData: CategoryFormSchemaType) => {
+    try {
+        const response = await fetch('/api/category', {
+        method: 'POST',
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        await fetchCategories();
+        toast.success('Category added successfully');
+      }
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : 'Unknown error';
+      alert(`Error: ${errorMessage}`);
+      console.error(err);
+    }
+  }
+
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
 
   return (
+    <>
+    {/* Add Button */}
+      <Dialog>
+      <DialogTrigger asChild>
+        <Button variant="outline">Add</Button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-[425px]">
+        <DialogHeader>
+          <DialogTitle>Add</DialogTitle>
+          <DialogDescription>
+            Make changes to your profile here. Click save when you&apos;re done.
+          </DialogDescription>
+        </DialogHeader>
+            <Form {...form}>
+            <form id="AddCategoryForm" onSubmit={form.handleSubmit(handleAddCategory)} className="space-y-6">
+              <div className="grid gap-4 py-4">
+                <div className="grid items-center gap-4">
+                  <FormField
+                    control={form.control}
+                    name="name"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Name</FormLabel>
+                        <FormControl>
+                          <Input {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+              </div>
+            </form>
+          </Form>
+        <DialogFooter>
+          <DialogClose asChild>
+            <Button variant="outline">Cancel</Button>
+          </DialogClose>
+          <Button type="submit" form="AddCategoryForm" disabled={isSaving}>Add</Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+
+{/* Table */}
     <Table>
       <TableCaption>A list of your recent invoices.</TableCaption>
         <TableHeader>
@@ -198,6 +259,7 @@ function CategoriesTable() {
           ))}
         </TableBody>
       </Table>
+      </>
     )
   }
   
