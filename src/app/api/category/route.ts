@@ -11,12 +11,22 @@ export async function GET(req: Request) {
 
     const name = searchParams.get('name');
 
+    const page = searchParams.get('page') ? parseInt(searchParams.get('page')!) : 1;
+
+    const limit = searchParams.get('limit') ? parseInt(searchParams.get('limit')!) : 10;
+
+
     const categories : CategoryDto[] = await prisma.category.findMany({
       where: {
         name: {
           contains: name || '',
           mode: 'insensitive',
         },
+      },
+      skip: (page - 1) * limit,
+      take: limit,
+      orderBy: {
+        name: 'asc',
       },
     });
     return success(
