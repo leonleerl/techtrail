@@ -1,1 +1,6 @@
-export * from './categories-table'
+export * from './CategoriesTable'
+export * from './SearchBar'
+export * from './AddCategoryDialog'
+export * from './EditCategoryDialog'
+export * from './DeleteCategoryDialog'
+export * from './CategoryForm'

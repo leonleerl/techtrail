@@ -19,7 +19,7 @@ interface DeleteCategoryDialogProps {
   onDelete: (id: string) => Promise<boolean>;
 }
 
-export default function DeleteCategoryDialog({ category, onDelete }: DeleteCategoryDialogProps) {
+ function DeleteCategoryDialog({ category, onDelete }: DeleteCategoryDialogProps) {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
@@ -40,3 +40,5 @@ export default function DeleteCategoryDialog({ category, onDelete }: DeleteCateg
     </AlertDialog>
   );
 } 
+
+export { DeleteCategoryDialog }
