@@ -20,7 +20,7 @@ interface AddCategoryDialogProps {
   isSubmitting: boolean;
 }
 
-export default function AddCategoryDialog({ onAdd, isSubmitting }: AddCategoryDialogProps) {
+function AddCategoryDialog({ onAdd, isSubmitting }: AddCategoryDialogProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleSubmit = async (data: CategoryFormSchemaType) => {
@@ -62,3 +62,5 @@ export default function AddCategoryDialog({ onAdd, isSubmitting }: AddCategoryDi
     </Dialog>
   );
 } 
+
+export { AddCategoryDialog }
