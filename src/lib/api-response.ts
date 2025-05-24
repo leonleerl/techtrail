@@ -1,8 +1,12 @@
 import { NextResponse } from 'next/server';
 
-/**
- * 自定义 404 错误类
- */
+export class AlreadyExistsError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = 'AlreadyExistsError';
+  }
+}
+
 export class NotFoundError extends Error {
   constructor(message: string) {
     super(message);
@@ -10,9 +14,6 @@ export class NotFoundError extends Error {
   }
 }
 
-/**
- * 验证错误类
- */
 export class ValidationError extends Error {
   errors: string[];
   
@@ -23,40 +24,37 @@ export class ValidationError extends Error {
   }
 }
 
-/**
- * 响应数据接口
- */
+export interface PaginationMeta {
+  totalItems: number;
+  itemsPerPage: number;
+  currentPage: number;
+  totalPages: number;
+}
+
 export interface ApiResponse<T> {
   status: boolean;
   message?: string;
   data?: T;
   errors?: string[];
+  meta?: PaginationMeta;
 }
 
-/**
- * 请求成功
- * @param message 成功信息
- * @param data 响应数据
- * @param code HTTP状态码
- */
 export function success<T>(
   message?: string, 
   data?: T, 
-  status: number = 200
+  status: number = 200,
+  meta?: PaginationMeta
 ): NextResponse<ApiResponse<T>> {
   return NextResponse.json({
     status: true,
     message,
-    data
+    data,
+    meta
   }, { status });
 }
 
-/**
- * 请求失败
- * @param error 错误对象
- */
 export function failure(
-  error: Error | ValidationError | NotFoundError
+  error: Error | ValidationError | NotFoundError | AlreadyExistsError
 ): NextResponse<ApiResponse<null>> {
   if (error instanceof ValidationError) {
     return NextResponse.json({
@@ -74,7 +72,14 @@ export function failure(
     }, { status: 404 });
   }
 
-  // 默认服务器错误
+  if (error instanceof AlreadyExistsError) {
+    return NextResponse.json({
+      status: false,
+      message: 'resource already exists',
+      errors: [error.message]
+    }, { status: 409 });
+  }
+
   return NextResponse.json({
     status: false,
     message: 'server error',
