@@ -1,8 +1,13 @@
 import { CategoryDto } from "@/types/category";
 import { CategoryFormSchemaType } from "@/schemas/category.schema";
 
-export async function fetchCategories(): Promise<CategoryDto[]> {
-  const response = await fetch('/api/category');
+export async function fetchCategories(name?: string): Promise<CategoryDto[]> {
+  let response;
+  if (name) {
+    response = await fetch(`/api/category?name=${name}`);
+  } else {
+    response = await fetch('/api/category');
+  }
   const result = await response.json();
   if (!response.ok) {
     throw new Error(result.message || 'Failed to fetch categories');
