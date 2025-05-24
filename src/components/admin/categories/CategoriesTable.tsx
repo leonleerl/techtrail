@@ -1,5 +1,5 @@
 "use client"
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   Table,
   TableBody,
@@ -11,8 +11,16 @@ import {
 } from "@/components/ui";
 import { toast } from "sonner";
 import { useCategories } from "@/hooks/useCategories";
-import { AddCategoryDialog, EditCategoryDialog, DeleteCategoryDialog, SearchBar } from "./index";
+import { AddCategoryDialog, EditCategoryDialog, DeleteCategoryDialog, SearchBar, CategoryPagination } from "./index";
 export function CategoriesTable() {
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalItems, setTotalItems] = useState(0);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
+
+  const onPageChange = (page: number) => {
+    setCurrentPage(page);
+  };
 
   const {
     categories,
@@ -22,12 +30,25 @@ export function CategoriesTable() {
     fetchCategories,
     addCategory,
     updateCategory,
-    deleteCategory
+    deleteCategory,
+    pagination
   } = useCategories();
 
   useEffect(() => {
     fetchCategories();
   }, [fetchCategories]);
+
+  useEffect(()=>{
+    fetchCategories("", currentPage, itemsPerPage);
+  }, [currentPage, itemsPerPage, fetchCategories])
+
+  // 当数据加载后更新分页信息
+  useEffect(() => {
+    if (pagination) {
+      setTotalItems(pagination.totalItems);
+      setItemsPerPage(pagination.itemsPerPage);
+    }
+  }, [pagination]);
 
   if (isLoading && categories.length === 0) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
@@ -46,7 +67,14 @@ export function CategoriesTable() {
       </div>
 
       <Table>
-        <TableCaption>A list of categories</TableCaption>
+        <TableCaption>
+          <CategoryPagination 
+            currentPage={currentPage}
+            totalItems={totalItems}
+            itemsPerPage={itemsPerPage}
+            onPageChange={onPageChange}
+          />
+        </TableCaption>
         <TableHeader>
           <TableRow>
             <TableHead className="w-[100px]">Id</TableHead>

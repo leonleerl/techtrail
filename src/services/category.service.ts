@@ -1,18 +1,26 @@
 import { CategoryDto } from "@/types/category";
 import { CategoryFormSchemaType } from "@/schemas/category.schema";
+import { ValidationError, AlreadyExistsError } from "@/lib/api-response";
 
-export async function fetchCategories(name?: string): Promise<CategoryDto[]> {
-  let response;
-  if (name) {
-    response = await fetch(`/api/category?name=${name}`);
-  } else {
-    response = await fetch('/api/category');
+export interface PaginatedResponse<T> {
+  data: T[];
+  meta: {
+    totalItems: number;
+    itemsPerPage: number;
+    currentPage: number;
+    totalPages: number;
   }
+}
+
+export async function fetchCategories(name: string = "", page: number = 1, limit: number = 10): Promise<PaginatedResponse<CategoryDto>> {
+
+  const response = await fetch(`/api/category?name=${name}&page=${page}&limit=${limit}`);
+
   const result = await response.json();
   if (!response.ok) {
     throw new Error(result.message || 'Failed to fetch categories');
   }
-  return result.data;
+  return result;
 }
 
 export async function fetchCategory(id: string): Promise<CategoryDto> {
@@ -34,7 +42,13 @@ export async function createCategory(data: CategoryFormSchemaType): Promise<Cate
   });
   const result = await response.json();
   if (!response.ok) {
-    throw new Error(result.message || 'Failed to create category');
+    if (response.status === 409) {
+      throw new AlreadyExistsError(result.message || 'Category name already exists');
+    } else if (response.status === 400) {
+      throw new ValidationError(result.message || 'Invalid data', result.errors);
+    } else {
+      throw new Error(result.message || 'Failed to create category');
+    }
   }
   return result.data;
 }
