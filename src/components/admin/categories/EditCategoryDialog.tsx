@@ -22,7 +22,7 @@ interface EditCategoryDialogProps {
   isSubmitting: boolean;
 }
 
-export default function EditCategoryDialog({ category, onUpdate, isSubmitting }: EditCategoryDialogProps) {
+function EditCategoryDialog({ category, onUpdate, isSubmitting }: EditCategoryDialogProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleSubmit = async (data: CategoryFormSchemaType) => {
@@ -65,3 +65,5 @@ export default function EditCategoryDialog({ category, onUpdate, isSubmitting }:
     </Dialog>
   );
 } 
+
+export { EditCategoryDialog }
