@@ -10,11 +10,11 @@ export function useCategories() {
   const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
-  const fetchCategories = useCallback(async () => {
+  const fetchCategories = useCallback(async (name?: string) => {
     setIsLoading(true);
     setError(null);
     try {
-      const data = await categoryService.fetchCategories();
+      const data = await categoryService.fetchCategories(name);
       setCategories(data);
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Unknown error occurred';
@@ -23,6 +23,7 @@ export function useCategories() {
       setIsLoading(false);
     }
   }, []);
+
 
   const addCategory = useCallback(async (data: CategoryFormSchemaType) => {
     setIsSubmitting(true);

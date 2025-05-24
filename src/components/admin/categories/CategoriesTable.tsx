@@ -1,5 +1,4 @@
 "use client"
-
 import { useEffect } from "react";
 import {
   Table,
@@ -12,10 +11,7 @@ import {
 } from "@/components/ui";
 import { toast } from "sonner";
 import { useCategories } from "@/hooks/useCategories";
-import AddCategoryDialog from "./AddCategoryDialog";
-import EditCategoryDialog from "./EditCategoryDialog";
-import DeleteCategoryDialog from "./DeleteCategoryDialog";
-
+import { AddCategoryDialog, EditCategoryDialog, DeleteCategoryDialog, SearchBar } from "./index";
 export function CategoriesTable() {
 
   const {
@@ -40,10 +36,13 @@ export function CategoriesTable() {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h2 className="text-2xl font-bold">Categories</h2>
-        <AddCategoryDialog 
-          onAdd={addCategory} 
-          isSubmitting={isSubmitting} 
-        />
+        <div className="flex items-center gap-2">
+            <SearchBar onSearch={fetchCategories} />
+            <AddCategoryDialog 
+              onAdd={addCategory} 
+              isSubmitting={isSubmitting} 
+            />
+        </div>
       </div>
 
       <Table>

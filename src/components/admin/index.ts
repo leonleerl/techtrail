@@ -1,2 +1,2 @@
-export * from './categories/categories-table';
+export * from './categories/CategoriesTable';
 export * from './app-sidebar';

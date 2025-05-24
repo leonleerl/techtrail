@@ -3,19 +3,28 @@ import { failure, success } from "@/lib/api-response";
 import { CategoryDto } from "@/types";
 import { CategoryFormSchema, CategoryFormSchemaType } from "@/schemas/category.schema";
 
-// get all categories
-export async function GET() {
-  try {
-    const categories = await prisma.category.findMany();
-    const result : CategoryDto[] = categories.map((category) => ({
-        id: category.id,
-        name: category.name,
-    }));
+// if there is a search param looks like "http://localhost:3000/admin/categories?name=data", return the categories that contain the data in the name. If there is no search param, return all categories.
+export async function GET(req: Request) {
+  try{
+    
+    const { searchParams } = new URL(req.url);
+
+    const name = searchParams.get('name');
+
+    const categories : CategoryDto[] = await prisma.category.findMany({
+      where: {
+        name: {
+          contains: name || '',
+          mode: 'insensitive',
+        },
+      },
+    });
     return success(
-        'Categories fetched successfully', 
-        result
+        'Categories fetched successfully',
+        categories,
+        200
     );
-  } catch (error) {
+  } catch(error){
     return failure(error as Error);
   }
 }
