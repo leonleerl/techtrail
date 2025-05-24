@@ -4,18 +4,27 @@ import { CategoryFormSchemaType } from '@/schemas/category.schema';
 import { toast } from 'sonner';
 import * as categoryService from '@/services/category.service';
 
+interface PaginationState {
+  totalItems: number;
+  itemsPerPage: number;
+  currentPage: number;
+  totalPages: number;
+}
+
 export function useCategories() {
   const [categories, setCategories] = useState<CategoryDto[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [pagination, setPagination] = useState<PaginationState | null>(null);
 
-  const fetchCategories = useCallback(async (name?: string) => {
+  const fetchCategories = useCallback(async (name: string = "", page: number=1, limit: number=10) => {
     setIsLoading(true);
     setError(null);
     try {
-      const data = await categoryService.fetchCategories(name);
-      setCategories(data);
+      const response = await categoryService.fetchCategories(name, page, limit);
+      setCategories(response.data);
+      setPagination(response.meta);
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Unknown error occurred';
       setError(message);
@@ -31,12 +40,8 @@ export function useCategories() {
       await categoryService.createCategory(data);
       await fetchCategories();
       toast.success('Category added successfully');
-      return true;
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Unknown error';
-      toast.error(`Error: ${errorMessage}`);
-      console.error(err);
-      return false;
+      toast.error(`Error: ${err}`);
     } finally {
       setIsSubmitting(false);
     }
@@ -48,12 +53,8 @@ export function useCategories() {
       await categoryService.updateCategory(id, data);
       await fetchCategories();
       toast.success('Category updated successfully');
-      return true;
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Unknown error';
-      toast.error(`Error: ${errorMessage}`);
-      console.error(err);
-      return false;
+      toast.error(`Error: ${err}`);
     } finally {
       setIsSubmitting(false);
     }
@@ -66,9 +67,7 @@ export function useCategories() {
       toast.success('Category deleted successfully');
       return true;
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Unknown error';
-      toast.error(`Error: ${errorMessage}`);
-      console.error(err);
+      toast.error(`Error: ${err}`);
       return false;
     }
   }, [fetchCategories]);
@@ -81,6 +80,7 @@ export function useCategories() {
     fetchCategories,
     addCategory,
     updateCategory,
-    deleteCategory
+    deleteCategory,
+    pagination
   };
 } 
