@@ -2,7 +2,7 @@ import { useState, useCallback } from 'react';
 import { CategoryDto } from '@/types/category';
 import { CategoryFormSchemaType } from '@/schemas/category.schema';
 import { toast } from 'sonner';
-import * as categoryService from '@/services/category.service';
+import * as categoryService from '@/lib/api-client/category.client';
 
 interface PaginationState {
   totalItems: number;
