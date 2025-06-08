@@ -15,4 +15,15 @@ interface CategoryUpdateDto {
     name: string;
 }
 
-export type { CategoryDto, CategoryCreateDto, CategoryUpdateDto };
+interface PaginatedResponse<T> {
+    data: T[];
+    meta: {
+      totalItems: number;
+      itemsPerPage: number;
+      currentPage: number;
+      totalPages: number;
+    }
+  }
+  
+
+export type { CategoryDto, CategoryCreateDto, CategoryUpdateDto, PaginatedResponse };
