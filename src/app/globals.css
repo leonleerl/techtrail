@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import "@uiw/react-md-editor/markdown-editor.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -139,4 +140,81 @@
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
+}
+
+/* Markdown Editor 自定义样式 */
+.w-md-editor {
+  background: white !important;
+}
+
+.w-md-editor-text-textarea, 
+.w-md-editor-text {
+  font-size: 14px !important;
+  line-height: 1.5 !important;
+}
+
+.w-md-editor.w-md-editor-focus {
+  border-color: hsl(var(--ring)) !important;
+  box-shadow: 0 0 0 2px hsl(var(--ring) / 0.2) !important;
+}
+
+/* Prose 样式优化 */
+.prose {
+  max-width: none;
+}
+
+.prose h1 {
+  @apply text-2xl font-bold mt-6 mb-4 text-gray-900;
+}
+
+.prose h2 {
+  @apply text-xl font-semibold mt-5 mb-3 text-gray-800;
+}
+
+.prose h3 {
+  @apply text-lg font-medium mt-4 mb-2 text-gray-700;
+}
+
+.prose p {
+  @apply mb-3 text-gray-600 leading-relaxed;
+}
+
+.prose ul, .prose ol {
+  @apply mb-3 pl-6;
+}
+
+.prose li {
+  @apply mb-1;
+}
+
+.prose blockquote {
+  @apply border-l-4 border-blue-400 pl-4 py-2 mb-3 bg-gray-50 italic text-gray-700;
+}
+
+.prose code {
+  @apply bg-gray-100 px-1 py-0.5 rounded text-sm font-mono text-red-600;
+}
+
+.prose pre {
+  @apply bg-gray-100 p-3 rounded mb-3 overflow-x-auto;
+}
+
+.prose pre code {
+  @apply bg-transparent p-0 text-gray-800;
+}
+
+.prose a {
+  @apply text-blue-600 hover:underline;
+}
+
+.prose table {
+  @apply min-w-full border border-gray-300 mb-3;
+}
+
+.prose th {
+  @apply border border-gray-300 px-3 py-2 bg-gray-100 text-left font-semibold;
+}
+
+.prose td {
+  @apply border border-gray-300 px-3 py-2;
 }
