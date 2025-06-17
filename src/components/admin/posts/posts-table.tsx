@@ -1,89 +1,134 @@
+"use client"
+import { useEffect, useState } from "react";
 import {
-    Table,
-    TableBody,
-    TableCaption,
-    TableCell,
-    TableFooter,
-    TableHead,
-    TableHeader,
-    TableRow,
-  } from "@/components/ui"
-  
-  const invoices = [
-    {
-      invoice: "INV001",
-      paymentStatus: "Paid",
-      totalAmount: "$250.00",
-      paymentMethod: "Credit Card",
-    },
-    {
-      invoice: "INV002",
-      paymentStatus: "Pending",
-      totalAmount: "$150.00",
-      paymentMethod: "PayPal",
-    },
-    {
-      invoice: "INV003",
-      paymentStatus: "Unpaid",
-      totalAmount: "$350.00",
-      paymentMethod: "Bank Transfer",
-    },
-    {
-      invoice: "INV004",
-      paymentStatus: "Paid",
-      totalAmount: "$450.00",
-      paymentMethod: "Credit Card",
-    },
-    {
-      invoice: "INV005",
-      paymentStatus: "Paid",
-      totalAmount: "$550.00",
-      paymentMethod: "PayPal",
-    },
-    {
-      invoice: "INV006",
-      paymentStatus: "Pending",
-      totalAmount: "$200.00",
-      paymentMethod: "Bank Transfer",
-    },
-    {
-      invoice: "INV007",
-      paymentStatus: "Unpaid",
-      totalAmount: "$300.00",
-      paymentMethod: "Credit Card",
-    },
-  ]
-  
-function PostsTable() {
-    return (
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui";
+import { toast } from "sonner";
+import { usePosts } from "@/hooks/usePosts";
+import { AddPostDialog, EditPostDialog, DeletePostDialog, SearchBar, PostPagination } from "./index";
+
+export function PostsTable() {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalItems, setTotalItems] = useState(0);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
+
+  const onPageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+
+  const {
+    posts,
+    isLoading,
+    error,
+    isSubmitting,
+    fetchPosts,
+    addPost,
+    updatePost,
+    deletePost,
+    pagination
+  } = usePosts();
+
+  useEffect(() => {
+    fetchPosts();
+  }, [fetchPosts]);
+
+  useEffect(() => {
+    fetchPosts("", currentPage, itemsPerPage);
+  }, [currentPage, itemsPerPage, fetchPosts])
+
+  useEffect(() => {
+    if (pagination) {
+      setTotalItems(pagination.totalItems);
+      setItemsPerPage(pagination.itemsPerPage);
+    }
+  }, [pagination]);
+
+  if (isLoading && posts.length === 0) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
+
+  return (
+    <div className="space-y-6">
+      <div className="flex justify-between items-center">
+        <h2 className="text-2xl font-bold">Posts</h2>
+        <div className="flex items-center gap-2">
+          <SearchBar onSearch={fetchPosts} />
+          <AddPostDialog 
+            onAdd={addPost} 
+            isSubmitting={isSubmitting} 
+          />
+        </div>
+      </div>
+
       <Table>
-        <TableCaption>A list of your recent invoices.</TableCaption>
+        <TableCaption>
+          <PostPagination 
+            currentPage={currentPage}
+            totalItems={totalItems}
+            itemsPerPage={itemsPerPage}
+            onPageChange={onPageChange}
+          />
+        </TableCaption>
         <TableHeader>
           <TableRow>
-            <TableHead className="w-[100px]">Invoice</TableHead>
+            <TableHead>Title</TableHead>
+            <TableHead>Slug</TableHead>
+            <TableHead>Category</TableHead>
             <TableHead>Status</TableHead>
-            <TableHead>Method</TableHead>
-            <TableHead className="text-right">Amount</TableHead>
+            <TableHead>Views</TableHead>
+            <TableHead>Created At</TableHead>
+            <TableHead>Actions</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          {invoices.map((invoice) => (
-            <TableRow key={invoice.invoice}>
-              <TableCell className="font-medium">{invoice.invoice}</TableCell>
-              <TableCell>{invoice.paymentStatus}</TableCell>
-              <TableCell>{invoice.paymentMethod}</TableCell>
-              <TableCell className="text-right">{invoice.totalAmount}</TableCell>
+          {posts.length === 0 ? (
+            <TableRow>
+              <TableCell colSpan={7} className="text-center">No posts found</TableCell>
             </TableRow>
-          ))}
+          ) : (
+            posts.map((post) => (
+              <TableRow key={post.id}>
+                <TableCell className="font-medium">{post.title}</TableCell>
+                <TableCell>{post.slug}</TableCell>
+                <TableCell>
+                  <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded text-xs">
+                    {post.category?.name || 'No Category'}
+                  </span>
+                </TableCell>
+                <TableCell>
+                  <span className={`px-2 py-1 rounded text-xs ${
+                    post.published 
+                      ? 'bg-green-100 text-green-800' 
+                      : 'bg-yellow-100 text-yellow-800'
+                  }`}>
+                    {post.published ? 'Published' : 'Draft'}
+                  </span>
+                </TableCell>
+                <TableCell>{post.views.toLocaleString()}</TableCell>
+                <TableCell>{new Date(post.createdAt).toLocaleDateString()}</TableCell>
+                <TableCell className="text-right space-x-2">
+                  <EditPostDialog 
+                    post={post} 
+                    onUpdate={updatePost} 
+                    isSubmitting={isSubmitting} 
+                  />
+                  <DeletePostDialog 
+                    post={post} 
+                    onDelete={deletePost} 
+                  />
+                </TableCell>
+              </TableRow>
+            ))
+          )}
         </TableBody>
-        <TableFooter>
-          <TableRow>
-            <TableCell colSpan={3}>Total</TableCell>
-            <TableCell className="text-right">$2,500.00</TableCell>
-          </TableRow>
-        </TableFooter>
       </Table>
-    )
-  }
-  
-  export { PostsTable };
+
+      {error && toast.error(`Error: ${error}`)}
+    </div>
+  );
+}

@@ -4,10 +4,55 @@ import { PostFormSchema } from "@/schemas/post.schema";
 import { PostFormSchemaType } from "@/schemas/post.schema";
 
 // get all posts
-export async function GET() {
+export async function GET(req: Request) {
     try{
-        const posts = await prisma.post.findMany();
-        return success('Posts fetched successfully', posts);
+        const { searchParams } = new URL(req.url);
+
+        const title = searchParams.get('title');
+
+        const page = searchParams.get('page') ? parseInt(searchParams.get('page')!) : 1;
+
+        const limit = searchParams.get('limit') ? parseInt(searchParams.get('limit')!) : 10;
+    
+        const totalItems = await prisma.post.count({
+            where: {
+                title: {
+                    contains: title || '',
+                    mode: 'insensitive',
+                },
+            },
+        });
+
+        const totalPages = Math.ceil(totalItems / limit);
+
+        const posts = await prisma.post.findMany({
+            where: {
+                title: {
+                    contains: title || '',
+                    mode: 'insensitive',
+                },
+            },
+            include: {
+                category: {
+                    select: {
+                        id: true,
+                        name: true,
+                    }
+                }
+            },
+            skip: (page - 1) * limit,
+            take: limit,
+        });
+
+        return success('Posts fetched successfully', {
+            data: posts,
+            meta: {
+                totalItems,
+                itemsPerPage: limit,
+                currentPage: page,
+                totalPages,
+            },
+        });
     } catch (error) {
         return failure(error as Error);
     }
