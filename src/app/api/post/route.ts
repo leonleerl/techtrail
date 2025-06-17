@@ -13,7 +13,7 @@ export async function GET(req: Request) {
         const page = searchParams.get('page') ? parseInt(searchParams.get('page')!) : 1;
 
         const limit = searchParams.get('limit') ? parseInt(searchParams.get('limit')!) : 10;
-
+    
         const totalItems = await prisma.post.count({
             where: {
                 title: {
@@ -32,6 +32,14 @@ export async function GET(req: Request) {
                     mode: 'insensitive',
                 },
             },
+            include: {
+                category: {
+                    select: {
+                        id: true,
+                        name: true,
+                    }
+                }
+            },
             skip: (page - 1) * limit,
             take: limit,
         });
@@ -40,6 +48,8 @@ export async function GET(req: Request) {
             data: posts,
             meta: {
                 totalItems,
+                itemsPerPage: limit,
+                currentPage: page,
                 totalPages,
             },
         });

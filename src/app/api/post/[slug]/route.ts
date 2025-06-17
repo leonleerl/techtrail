@@ -3,12 +3,20 @@ import prisma from "@/lib/prisma";
 import { PostFormSchemaType } from "@/schemas/post.schema";
 import { PostFormSchema } from "@/schemas/post.schema";
 
-// get a single post by id
-export async function GET(req: Request, { params }: { params: Promise<{ id: string }> }) {
+// get a single post by slug
+export async function GET(req: Request, { params }: { params: Promise<{ slug: string }> }) {
     try{
-        const { id } = await params;
+        const { slug } = await params;
         const post = await prisma.post.findUnique({
-            where: { id },
+            where: { slug },
+            include: {
+                category: {
+                    select: {
+                        id: true,
+                        name: true,
+                    }
+                }
+            },
         });
         return success('Post found', post);
     } catch (error) {
@@ -16,15 +24,15 @@ export async function GET(req: Request, { params }: { params: Promise<{ id: stri
     }
 }
 
-// update a post by id
-export async function PUT(req: Request, { params }: { params: Promise<{ id: string }> }) {
+// update a post by slug
+export async function PUT(req: Request, { params }: { params: Promise<{ slug: string }> }) {
     try{
-        const { id } = await params;
+        const { slug } = await params;
         const body = await req.json();
         const parsedBody : PostFormSchemaType = PostFormSchema.parse(body);
 
         const updatedPost = await prisma.post.update({
-            where: { id },
+            where: { slug },
             data: parsedBody,
         });
         return success('Post updated', updatedPost);
@@ -33,12 +41,12 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: stri
     }
 }
 
-// delete a post by id
-export async function DELETE(req: Request, { params }: { params: Promise<{ id: string }> }) {
+// delete a post by slug
+export async function DELETE(req: Request, { params }: { params: Promise<{ slug: string }> }) {
     try{
-        const { id } = await params;
+        const { slug } = await params;
         const deletedPost = await prisma.post.delete({
-            where: { id },
+            where: { slug },
         });
         return success('Post deleted', deletedPost);
     } catch (error) {

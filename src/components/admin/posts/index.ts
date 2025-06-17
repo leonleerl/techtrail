@@ -1,1 +1,7 @@
 export * from './posts-table'
+export * from './SearchBar'
+export * from './PostPagination'
+export * from './AddPostDialog'
+export * from './EditPostDialog'
+export * from './DeletePostDialog'
+export * from './PostForm'
