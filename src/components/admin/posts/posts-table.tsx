@@ -88,7 +88,7 @@ export function PostsTable() {
         <TableBody>
           {posts.length === 0 ? (
             <TableRow>
-              <TableCell colSpan={7} className="text-center">No posts found</TableCell>
+              <TableCell colSpan={8} className="text-center">No posts found</TableCell>
             </TableRow>
           ) : (
             posts.map((post) => (

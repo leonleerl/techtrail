@@ -55,7 +55,7 @@ export function EditPostDialog({ post, onUpdate, isSubmitting }: EditPostDialogP
       <DialogTrigger asChild>
         <Button variant="outline" size="sm">Edit</Button>
       </DialogTrigger>
-      <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+      <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto flex flex-col">
         <DialogHeader>
           <DialogTitle>Edit Post</DialogTitle>
           <DialogDescription>
