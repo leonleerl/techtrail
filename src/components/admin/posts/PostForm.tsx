@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import dynamic from 'next/dynamic';
 import { 
   Form, 
   FormField, 
@@ -11,7 +12,6 @@ import {
   FormControl, 
   FormMessage, 
   Input,
-  Textarea,
   Select,
   SelectContent,
   SelectItem,
@@ -21,6 +21,13 @@ import {
 import { PostFormSchema, PostFormSchemaType } from '@/schemas/post.schema';
 import { CategoryDto } from '@/types/category';
 import * as categoryService from '@/lib/api-client/category.client';
+import { MarkdownPreviewModal } from './MarkdownPreviewModal';
+
+// 动态导入 Markdown 编辑器，避免 SSR 问题
+const MDEditor = dynamic(
+  () => import('@uiw/react-md-editor').then((mod) => mod.default),
+  { ssr: false }
+);
 
 interface Post {
   id: string
@@ -142,13 +149,24 @@ export default function PostForm({ initialData, onSubmit, formId }: PostFormProp
           name="content"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Content</FormLabel>
-              <FormControl>
-                <Textarea 
-                  placeholder="Write your post content here..." 
-                  className="min-h-[120px]"
-                  {...field} 
+              <div className="flex items-center justify-between">
+                <FormLabel>Content (Markdown)</FormLabel>
+                <MarkdownPreviewModal 
+                  content={field.value || ''} 
+                  title="Markdown Preview"
                 />
+              </div>
+              <FormControl>
+                <div className="border rounded-md">
+                  <MDEditor
+                    value={field.value}
+                    onChange={(value) => field.onChange(value || '')}
+                    preview="edit"
+                    hideToolbar={false}
+                    height={300}
+                    data-color-mode="light"
+                  />
+                </div>
               </FormControl>
               <FormMessage />
             </FormItem>
