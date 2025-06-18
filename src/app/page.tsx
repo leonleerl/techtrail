@@ -107,13 +107,15 @@ export default function Home() {
               </span>
               <br />
               <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent animate-gradient-x">
-                TechTrail
+                MY BLOG
               </span>
             </h1>
             
-            <p className="text-xl lg:text-2xl mb-12 text-blue-100/90 max-w-3xl mx-auto leading-relaxed animate-fade-in-up delay-300">
+            <p className="text-xl lg:text-2xl text-blue-100/90 max-w-3xl mx-auto leading-relaxed animate-fade-in-up delay-300">
               Discover the latest insights, tutorials, and trends in technology. 
-              Join our community of developers and tech enthusiasts on an incredible journey.
+            </p>
+            <p className="text-xl lg:text-2xl mb-12 text-blue-100/90 max-w-3xl mx-auto leading-relaxed animate-fade-in-up delay-300">
+              Keep hamble and keep learning.
             </p>
             
             {/* Enhanced Search Bar */}
@@ -125,7 +127,7 @@ export default function Home() {
                     <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white/70 w-5 h-5" />
                     <Input
                       type="text"
-                      placeholder="Search for amazing articles..."
+                      placeholder="Search for articles..."
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
                       className="pl-12 py-4 text-lg bg-transparent border-0 text-white placeholder:text-white/70 focus:ring-2 focus:ring-white/30 rounded-xl"
@@ -362,11 +364,11 @@ export default function Home() {
         <div className="relative container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl lg:text-5xl font-bold mb-4 bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
-              Our Impact
+              Summary
             </h2>
-            <p className="text-xl text-blue-100/80 max-w-2xl mx-auto">
+            {/* <p className="text-xl text-blue-100/80 max-w-2xl mx-auto">
               Join thousands of developers and tech enthusiasts in our growing community
-            </p>
+            </p> */}
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
