@@ -18,6 +18,11 @@ export async function GET(req: Request, { params }: { params: Promise<{ slug: st
                 }
             },
         });
+        // increment the views count
+        await prisma.post.update({
+            where: { slug },
+            data: { views: { increment: 1 } },
+        });
         return success('Post found', post);
     } catch (error) {
         return failure(error as Error);
