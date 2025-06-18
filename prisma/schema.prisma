@@ -27,14 +27,15 @@ model Like {
 }
 
 model Post {
-  id        String   @id @default(uuid())
-  title     String
-  slug      String   @unique
-  content   String
-  published Boolean  @default(false)
-  views     Int      @default(0)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id          String   @id @default(uuid())
+  title       String
+  slug        String   @unique
+  description String?
+  content     String
+  published   Boolean  @default(false)
+  views       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
   category    Category?  @relation(fields: [categoryId], references: [id])
   categoryId  String?
