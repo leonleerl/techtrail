@@ -34,27 +34,31 @@ export function useCategories() {
   }, []);
 
 
-  const addCategory = useCallback(async (data: CategoryFormSchemaType) => {
+  const addCategory = useCallback(async (data: CategoryFormSchemaType): Promise<boolean> => {
     setIsSubmitting(true);
     try {
       await categoryService.createCategory(data);
       await fetchCategories();
       toast.success('Category added successfully');
+      return true;
     } catch (err) {
       toast.error(`Error: ${err}`);
+      return false;
     } finally {
       setIsSubmitting(false);
     }
   }, [fetchCategories]);
 
-  const updateCategory = useCallback(async (id: string, data: CategoryFormSchemaType) => {
+  const updateCategory = useCallback(async (id: string, data: CategoryFormSchemaType): Promise<boolean> => {
     setIsSubmitting(true);
     try {
       await categoryService.updateCategory(id, data);
       await fetchCategories();
       toast.success('Category updated successfully');
+      return true;
     } catch (err) {
       toast.error(`Error: ${err}`);
+      return false;
     } finally {
       setIsSubmitting(false);
     }

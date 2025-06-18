@@ -17,7 +17,7 @@ import {
   CardContent,
   CardHeader
 } from '@/components/ui';
-import { Search, Filter, BookOpen, ChevronLeft, ChevronRight, Sparkles, TrendingUp } from 'lucide-react';
+import { Search, Filter, BookOpen, ChevronLeft, ChevronRight, TrendingUp } from 'lucide-react';
 
 export default function Home() {
   const { posts, isLoading, fetchPosts } = usePosts();
