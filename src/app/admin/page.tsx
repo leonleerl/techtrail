@@ -1,9 +1,8 @@
 
-import React from 'react'
-
-export default function MainContent() {
+export default function AdminContent() {
   return (
     <div>
+      Welcome to Admin!
     </div>
-  )
+  );
 }
