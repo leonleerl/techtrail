@@ -1,12 +1,12 @@
-import { PostsTable } from '@/components/admin/posts/posts-table'
-import React from 'react'
+'use client';
 
-function Posts() {
+import { PostsTable } from "@/components/admin/posts";
+
+export default function Posts() {
   return (
     <div>
-      <PostsTable />
-    </div>
-  )
-}
+      <PostsTable/>
 
-export default Posts
+    </div>
+  );
+}
