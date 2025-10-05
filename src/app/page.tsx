@@ -18,8 +18,10 @@ import {
   CardHeader
 } from '@/components/ui';
 import { Search, Filter, BookOpen, ChevronLeft, ChevronRight, TrendingUp } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 export default function Home() {
+  const router = useRouter();
   const { posts, isLoading, fetchPosts } = usePosts();
   const { categories, fetchCategories } = useCategories();
   const [searchTerm, setSearchTerm] = useState('');
@@ -27,6 +29,10 @@ export default function Home() {
   const [currentPage, setCurrentPage] = useState(1);
   const [mounted, setMounted] = useState(false);
   const itemsPerPage = 9;
+
+  // useEffect(()=>{
+  //   router.push('/home');
+  // }, [router])
 
   useEffect(() => {
     setMounted(true);
