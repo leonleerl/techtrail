@@ -1,14 +1,17 @@
 'use client'
 import React from 'react'
 import { BlogCard, CategoryBar, Filter, Navbar } from '@/components/home';
+import { useCategories } from '@/hooks/useCategories';
 
 function HomePage() {
+
+  const { categories, isLoading, error } = useCategories();
 
   return (
     <div>
         <Navbar />
         <div className='flex items-center justify-between h-10 w-4/5 mx-auto gap-4 text-lg px-2 mt-2'>
-            <CategoryBar />
+            <CategoryBar categories={categories} isLoading={isLoading} error={error} />
             <Filter />
         </div>
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-4/5 mx-auto mt-4'>
