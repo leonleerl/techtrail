@@ -61,7 +61,7 @@ export function PostCard({ post }: PostCardProps) {
           </div>
           
           <CardTitle className="text-xl font-bold text-gray-800 group-hover:text-blue-600 transition-colors duration-300 line-clamp-2 leading-tight">
-            <Link href={`/post/${post.slug}`} className="block">
+            <Link href={`/blogs/${post.slug}`} className="block">
               {post.title}
             </Link>
           </CardTitle>
@@ -88,7 +88,7 @@ export function PostCard({ post }: PostCardProps) {
             />
           </div>
           
-          <Link href={`/post/${post.slug}`} className="block">
+          <Link href={`/blogs/${post.slug}`} className="block">
             <div className="relative group/btn">
               <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl blur opacity-0 group-hover/btn:opacity-30 transition-opacity duration-300"></div>
               <Button 

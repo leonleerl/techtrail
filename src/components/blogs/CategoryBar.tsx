@@ -5,7 +5,7 @@ import { Skeleton } from '../ui';
 interface CategoryBarProps {
   categories: CategoryDto[];
   isLoading: boolean;
-  error: string;
+  error: string | null;
 }
 
  function CategoryBar({ categories, isLoading, error }: CategoryBarProps) {
