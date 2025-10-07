@@ -10,8 +10,8 @@ function Filter() {
             <SelectValue placeholder="-----" />
         </SelectTrigger>
         <SelectContent>
-            <SelectItem value="time_created">Time created</SelectItem>
-            <SelectItem value="time_updated">Title</SelectItem>
+            <SelectItem value="time_created">-----</SelectItem>
+            <SelectItem value="time_updated">-----</SelectItem>
         </SelectContent>
     </Select>
 </div>
