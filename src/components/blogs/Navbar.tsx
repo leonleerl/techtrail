@@ -1,3 +1,5 @@
+"use client"
+
 import React from 'react'
 import { Button } from '../ui'
 import Image from 'next/image'
@@ -7,14 +9,14 @@ function Navbar() {
     const router = useRouter();
 
     const handleBlogs = () => {
-        alert('Blogs');
+        router.push('/blogs');
     }
 
     const handleAboutMe = () => {
         router.push('/about');
     }
   return (
-    <div className='h-14 w-4/5 mx-auto bg-gray-600 rounded-b-xl'>
+    <div className={`h-14 w-4/5 mx-auto fixed top-0 left-0 right-0 z-50 bg-gray-600 rounded-b-xl opacity-80`}>
     <div className='flex items-center justify-between h-full px-4'>
         <div>
             <Image src='/leon.JPG' alt='logo' width={100} height={100} className='rounded-full w-10 h-10 object-cover border-1 border-white transition-transform duration-500 hover:scale-110' onClick={()=>{router.push('/')}}/>

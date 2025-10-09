@@ -1,3 +1,5 @@
+"use client"
+
 import { EyeIcon, TimerIcon } from 'lucide-react'
 import React from 'react'
 import { useRouter } from 'next/navigation'
