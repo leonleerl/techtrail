@@ -165,8 +165,8 @@ const router = useRouter();
         <div className="mb-16">
           <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">Experience</h2>
           <div className="space-y-12">
-            <div className="flex gap-8">
-              <div className="flex-shrink-0 w-32 text-right">
+            <div className="flex gap-4">
+              <div className="flex-shrink-0 w-36 text-right">
                 <span className="text-lg font-bold text-gray-900">2024.11 - 2025.3</span>
               </div>
               <div className="flex-grow border-l-4 border-gray-900 pl-8 pb-8">
@@ -180,8 +180,8 @@ const router = useRouter();
               </div>
             </div>
 
-            <div className="flex gap-8">
-              <div className="flex-shrink-0 w-32 text-right">
+            <div className="flex gap-4">
+              <div className="flex-shrink-0 w-36 text-right">
                 <span className="text-lg font-bold text-gray-900">2024 - 2025</span>
               </div>
               <div className="flex-grow border-l-4 border-gray-300 pl-8 pb-8">
@@ -190,8 +190,8 @@ const router = useRouter();
               </div>
             </div>
 
-            <div className="flex gap-8">
-              <div className="flex-shrink-0 w-32 text-right">
+            <div className="flex gap-4">
+              <div className="flex-shrink-0 w-36 text-right">
                 <span className="text-lg font-bold text-gray-900">2019 - 2023</span>
               </div>
               <div className="flex-grow border-l-4 border-gray-300 pl-8 pb-8">
