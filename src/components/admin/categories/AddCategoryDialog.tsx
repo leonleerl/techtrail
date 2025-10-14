@@ -34,9 +34,9 @@ function AddCategoryDialog({ onAdd, isSubmitting }: AddCategoryDialogProps) {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline">Add Category</Button>
+        <Button variant="outline" className='hover:bg-blue-300 hover:text-white bg-blue-400'>Add Category</Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="bg-gray-300">
         <DialogHeader>
           <DialogTitle>Add New Category</DialogTitle>
           <DialogDescription>
@@ -54,7 +54,7 @@ function AddCategoryDialog({ onAdd, isSubmitting }: AddCategoryDialogProps) {
           <DialogClose asChild>
             <Button variant="outline">Cancel</Button>
           </DialogClose>
-          <Button type="submit" form="addCategoryForm" disabled={isSubmitting}>
+          <Button type="submit" className='bg-green-600' form="addCategoryForm" disabled={isSubmitting}>
             Add Category
           </Button>
         </DialogFooter>
