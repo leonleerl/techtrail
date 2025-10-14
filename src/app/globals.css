@@ -5,3 +5,21 @@
 body {
     font-family: "Alan Sans", sans-serif;
   }
+
+
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+  100% {
+      transform: translateX(-50%);
+    }
+  }
+  
+  .animate-scroll {
+    animation: scroll 24s linear infinite;
+  }
+  
+  .animate-scroll:hover {
+    animation-play-state: paused;
+  }
