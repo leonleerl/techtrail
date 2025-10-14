@@ -60,7 +60,9 @@ export function GithubPinnedRepos({ username = 'leonleerl' }: GithubPinnedReposP
   if (loading) {
     return (
       <div className="mb-20">
-        <h2 className="text-3xl font-bold text-gray-900 mb-8">Featured Projects</h2>
+
+        <div className="text-3xl font-bold text-gray-900 mb-8 text-center">Featured Projects</div>
+
         <div className="grid md:grid-cols-2 gap-6">
           {[1, 2, 3, 4].map((i) => (
             <div key={i} className="bg-white rounded-lg border border-gray-300 p-6 animate-pulse">
@@ -81,7 +83,7 @@ export function GithubPinnedRepos({ username = 'leonleerl' }: GithubPinnedReposP
   if (error) {
     return (
       <div className="mb-20">
-        <h2 className="text-3xl font-bold text-gray-900 mb-8">Featured Projects</h2>
+        <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Featured Projects</h2>
         <div className="bg-amber-50 border border-amber-200 rounded-lg p-6">
           <p className="text-amber-900 font-semibold mb-3">⚠️ GitHub Token Required</p>
           <p className="text-amber-800 text-sm mb-3">
@@ -104,7 +106,7 @@ export function GithubPinnedRepos({ username = 'leonleerl' }: GithubPinnedReposP
   if (repos.length === 0) {
     return (
       <div className="mb-20">
-        <h2 className="text-3xl font-bold text-gray-900 mb-8">Featured Projects</h2>
+        <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Featured Projects</h2>
         <div className="bg-gray-50 border border-gray-200 rounded-lg p-6">
           <p className="text-gray-600">No pinned repositories found</p>
         </div>
@@ -114,7 +116,7 @@ export function GithubPinnedRepos({ username = 'leonleerl' }: GithubPinnedReposP
 
   return (
     <div className="mb-20">
-      <h2 className="text-3xl font-bold text-gray-900 mb-8">Featured Projects</h2>
+      <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Featured Projects</h2>
       <div className="grid md:grid-cols-2 gap-6">
         {repos.map((repo) => (
           <Link
