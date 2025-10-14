@@ -1,6 +1,6 @@
 'use client'
 import React, { useEffect } from 'react'
-import { BlogCard, CategoryBar, Filter, Navbar } from '@/components/blogs';
+import { BlogCard, CategoryBar, Navbar } from '@/components/blogs';
 import { useCategories } from '@/hooks/useCategories';
 import { usePosts } from '@/hooks/usePosts';
 

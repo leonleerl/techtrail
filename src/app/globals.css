@@ -3,7 +3,7 @@
 @import "@uiw/react-md-editor/markdown-editor.css";
 
 body {
-    font-family: "Alan Sans", sans-serif;
+    font-family: var(--font-alan-sans), sans-serif;
   }
 
 

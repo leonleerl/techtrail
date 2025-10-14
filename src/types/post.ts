@@ -35,4 +35,5 @@ export interface PostQueryParams {
     title?: string;
     page?: number;
     limit?: number;
+    [key: string]: string | number | boolean | undefined;
 }
