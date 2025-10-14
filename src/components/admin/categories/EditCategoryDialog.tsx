@@ -38,7 +38,7 @@ function EditCategoryDialog({ category, onUpdate, isSubmitting }: EditCategoryDi
       <DialogTrigger asChild>
         <Button variant="outline">Edit</Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="bg-gray-300">
         <DialogHeader>
           <DialogTitle>Edit Category</DialogTitle>
           <DialogDescription>
@@ -57,7 +57,7 @@ function EditCategoryDialog({ category, onUpdate, isSubmitting }: EditCategoryDi
           <DialogClose asChild>
             <Button variant="outline">Cancel</Button>
           </DialogClose>
-          <Button type="submit" form="editCategoryForm" disabled={isSubmitting}>
+          <Button type="submit" className='bg-green-600 text-white' form="editCategoryForm" disabled={isSubmitting}>
             Save changes
           </Button>
         </DialogFooter>

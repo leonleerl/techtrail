@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { CategoryDto } from '@/types/category';
 import { CategoryFormSchemaType } from '@/schemas/category.schema';
 import { toast } from 'sonner';
@@ -32,6 +32,11 @@ export function useCategories() {
       setIsLoading(false);
     }
   }, []);
+
+  // 组件挂载时自动获取分类数据
+  useEffect(() => {
+    fetchCategories();
+  }, [fetchCategories]);
 
 
   const addCategory = useCallback(async (data: CategoryFormSchemaType): Promise<boolean> => {

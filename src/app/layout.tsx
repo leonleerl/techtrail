@@ -1,5 +1,47 @@
 import type { Metadata } from 'next'
+import localFont from 'next/font/local'
 import "./globals.css";
+
+const alanSans = localFont({
+  src: [
+    {
+      path: '../../public/fonts/AlanSans-Light.ttf',
+      weight: '300',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/AlanSans-Regular.ttf',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/AlanSans-Medium.ttf',
+      weight: '500',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/AlanSans-SemiBold.ttf',
+      weight: '600',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/AlanSans-Bold.ttf',
+      weight: '700',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/AlanSans-ExtraBold.ttf',
+      weight: '800',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/AlanSans-Black.ttf',
+      weight: '900',
+      style: 'normal',
+    },
+  ],
+  variable: '--font-alan-sans',
+})
 
 export const metadata: Metadata = {
   title: 'Leon\'s Blog',
@@ -17,7 +59,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body>
+      <body className={alanSans.className}>
         {children}
       </body>
     </html>

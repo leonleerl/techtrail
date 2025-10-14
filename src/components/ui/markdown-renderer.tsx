@@ -16,9 +16,18 @@ export function MarkdownRenderer({ content, className = "" }: MarkdownRendererPr
         rehypePlugins={[rehypeRaw, rehypeSanitize]}
         components={{
           // 自定义组件样式
-          h1: ({ children }) => <h1 className="text-2xl font-bold mb-4 text-gray-900 dark:text-gray-100">{children}</h1>,
-          h2: ({ children }) => <h2 className="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-200">{children}</h2>,
-          h3: ({ children }) => <h3 className="text-lg font-medium mb-2 text-gray-700 dark:text-gray-300">{children}</h3>,
+          h1: ({ children }) => {
+            const id = String(children).toLowerCase().replace(/[^\u4e00-\u9fa5a-z0-9]+/g, '-');
+            return <h1 id={id} className="text-2xl font-bold mb-4 mt-6 text-gray-900 dark:text-gray-100 scroll-mt-20">{children}</h1>;
+          },
+          h2: ({ children }) => {
+            const id = String(children).toLowerCase().replace(/[^\u4e00-\u9fa5a-z0-9]+/g, '-');
+            return <h2 id={id} className="text-xl font-semibold mb-3 mt-5 text-gray-800 dark:text-gray-200 scroll-mt-20">{children}</h2>;
+          },
+          h3: ({ children }) => {
+            const id = String(children).toLowerCase().replace(/[^\u4e00-\u9fa5a-z0-9]+/g, '-');
+            return <h3 id={id} className="text-lg font-medium mb-2 mt-4 text-gray-700 dark:text-gray-300 scroll-mt-20">{children}</h3>;
+          },
           p: ({ children }) => <p className="mb-3 text-gray-600 dark:text-gray-400 leading-relaxed">{children}</p>,
           ul: ({ children }) => <ul className="mb-3 pl-6 list-disc text-gray-600 dark:text-gray-400">{children}</ul>,
           ol: ({ children }) => <ol className="mb-3 pl-6 list-decimal text-gray-600 dark:text-gray-400">{children}</ol>,

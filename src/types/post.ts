@@ -1,5 +1,5 @@
 
-interface PostDto{
+export interface PostDto {
     id: string;
     title: string;
     slug: string;
@@ -9,9 +9,13 @@ interface PostDto{
     createdAt: Date;
     updatedAt: Date;
     categoryId: string;
+    category?: {
+        id: string;
+        name: string;
+    }
 }
 
-interface PostCreateDto{
+export interface PostCreateDto {
     title: string;
     slug: string;
     content: string;
@@ -19,7 +23,7 @@ interface PostCreateDto{
     categoryId: string;
 }
 
-interface PostUpdateDto{
+export interface PostUpdateDto {
     title?: string;
     slug?: string;
     content?: string;
@@ -27,4 +31,9 @@ interface PostUpdateDto{
     categoryId?: string;
 }
 
-export type { PostDto, PostCreateDto, PostUpdateDto };
+export interface PostQueryParams {
+    title?: string;
+    page?: number;
+    limit?: number;
+    [key: string]: string | number | boolean | undefined;
+}

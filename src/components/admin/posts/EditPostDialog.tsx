@@ -55,7 +55,7 @@ export function EditPostDialog({ post, onUpdate, isSubmitting }: EditPostDialogP
       <DialogTrigger asChild>
         <Button variant="outline" size="sm">Edit</Button>
       </DialogTrigger>
-      <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto flex flex-col">
+      <DialogContent className="min-w-full overflow-y-auto flex flex-col bg-white">
         <DialogHeader>
           <DialogTitle>Edit Post</DialogTitle>
           <DialogDescription>
@@ -78,6 +78,7 @@ export function EditPostDialog({ post, onUpdate, isSubmitting }: EditPostDialogP
             type="submit"
             form="edit-post-form"
             disabled={isSubmitting}
+            className="hover:bg-green-300 hover:text-white bg-green-400"
           >
             {isSubmitting ? 'Updating...' : 'Update Post'}
           </Button>

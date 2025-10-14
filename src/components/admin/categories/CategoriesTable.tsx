@@ -42,7 +42,6 @@ export function CategoriesTable() {
     fetchCategories("", currentPage, itemsPerPage);
   }, [currentPage, itemsPerPage, fetchCategories])
 
-  // 当数据加载后更新分页信息
   useEffect(() => {
     if (pagination) {
       setTotalItems(pagination.totalItems);

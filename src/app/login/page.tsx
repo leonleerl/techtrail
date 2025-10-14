@@ -53,22 +53,22 @@ function LoginPage() {
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <FormField control={form.control} name="username" render={({field}) => (
               <FormItem>
-                <FormLabel>username</FormLabel>
+                <FormLabel>Username</FormLabel>
                 <FormControl>
-                  <Input type="text" placeholder="username" autoComplete="username" {...field} />
+                  <Input type="text" placeholder="Username" autoComplete="username" {...field} />
                 </FormControl>
               </FormItem>
             )} />
             <FormField control={form.control} name="password" render={({field}) => (
               <FormItem>
-                <FormLabel>password</FormLabel>
+                <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <Input type="password" placeholder="password" autoComplete="current-password" {...field} /> 
+                  <Input type="password" placeholder="Password" autoComplete="current-password" {...field} /> 
                 </FormControl>
               </FormItem>
             )} />
             {error && <div className="text-red-500 text-sm text-center">{error}</div>}
-            <Button type="submit" disabled={loading} className="w-full mt-2">{loading ? 'Loading...' : 'Login'}</Button>
+            <Button type="submit" disabled={loading} className="w-full mt-2 hover:bg-blue-300 hover:text-white bg-blue-400">{loading ? 'Loading...' : 'Login'}</Button>
           </form>
         </Form>
       </Card>

@@ -23,9 +23,9 @@ interface DeleteCategoryDialogProps {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="destructive">Delete</Button>
+        <Button variant="destructive" className="bg-red-500">Delete</Button>
       </AlertDialogTrigger>
-      <AlertDialogContent>
+      <AlertDialogContent className="bg-gray-300">
         <AlertDialogHeader>
           <AlertDialogTitle>Are you sure you want to delete {category.name}?</AlertDialogTitle>
           <AlertDialogDescription>
@@ -34,7 +34,7 @@ interface DeleteCategoryDialogProps {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={() => onDelete(category.id)}>Delete</AlertDialogAction>
+          <AlertDialogAction className='bg-red-600 text-white' onClick={() => onDelete(category.id)}>Delete</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
