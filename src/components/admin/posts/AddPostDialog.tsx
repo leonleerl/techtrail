@@ -36,7 +36,7 @@ export function AddPostDialog({ onAdd, isSubmitting }: AddPostDialogProps) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button>Add Post</Button>
+        <Button className='hover:bg-blue-300 hover:text-white bg-blue-400'>Add Post</Button>
       </DialogTrigger>
       <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
         <DialogHeader>

@@ -1,5 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
+import { GithubPinnedRepos } from '@/components/ui/GithubPinnedRepos'
 
 function AboutPage() {
   return (
@@ -10,7 +12,7 @@ function AboutPage() {
           <h1 className="text-5xl font-bold text-gray-900 mb-4">About Me</h1>
           <div className="w-20 h-1 bg-gray-900 mx-auto mb-6"></div>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            I am a frontend developer with a passion for building scalable and efficient systems 💻
+            I am a Full Stack Developer with a passion for building scalable and efficient systems 💻
           </p>
         </div>
 
@@ -27,30 +29,61 @@ function AboutPage() {
         </div>
 
         {/* Introduction Section */}
-        <div className="mb-20">
+        <div className="mb-20 mx-4">
           <h2 className="text-3xl font-bold text-gray-900 mb-8">Introduction</h2>
           <div className="grid md:grid-cols-2 gap-16 items-center">
             <div>
               <p className="text-gray-700 leading-relaxed mb-3">
               Hi there, I&apos;m Leon, a passionate developer who loves programming 💻. I&apos;m always fascinated by the latest technologies and spend a significant amount of time coding every day. 
               </p>
+              <div className="text-gray-700 leading-relaxed mb-3">
+                I&apos;m particularly enthusiastic about the 
+                <span className="font-bold text-gray-900 inline-flex items-center gap-1 ml-1 align-middle">
+                  <Image src="/react-icon.png" alt="React" width={10} height={10} className='w-4 h-4 object-cover' />
+                  <span className='font-bold text-gray-900'>React ecosystem</span>
+                </span>
+                . React and TypeScript, along with their related technologies, are my most frequently used and strongest skills.
+              </div>
+              <p className="text-gray-700 leading-relaxed">
+              I also have experience in 
+              <span className="font-bold text-gray-900 inline-flex items-center gap-1 ml-1 align-middle">
+                <Image src="/dotnet-icon.png" alt="C#" width={10} height={10} className='w-4 h-4 object-cover'/>
+                <span className='font-bold text-gray-900'>C# desktop application development</span>
+              </span>
+              . I&apos;m highly familiar with WPF, Avalonia, and WinForms with the serial communication protocol.
+
+              </p>
               <p className="text-gray-700 leading-relaxed mb-3">
-              I&apos;m particularly enthusiastic about the <span className="font-bold text-gray-900">React ecosystem</span>. React and TypeScript, along with their related technologies, are my most frequently used and strongest skills.
-              </p>
-              <p className="text-gray-700 leading-relaxed">
-              I also have one year of full-time professional experience in <span className="font-bold text-gray-900">C# desktop application development</span>. I&apos;m highly proficient in WPF, Avalonia, and WinForms.
-
-              </p>
-              <p className="text-gray-700 leading-relaxed mb-6">
               Beyond programming languages, I&apos;m also passionate about learning natural languages. I speak four languages: <span className="font-bold text-gray-900">English, Chinese, Japanese, and Spanish</span>.
-
               </p>
+              <div className="text-gray-700 leading-relaxed mb-1 flex gap-1">
+                <Image src="/github-icon.png" alt="GitHub" width={10} height={10} className='w-4 h-4 object-cover' />
+                <div className='font-bold text-gray-900'>GitHub:</div><Link href="https://github.com/leonleerl" className="text-blue-400 underline">https://github.com/leonleerl</Link>
+              </div>
+                <div className="text-gray-700 leading-relaxed mb-3 flex gap-1">
+                <Image src="/linkedin-icon.png" alt="Linkedin" width={10} height={10} className='w-4 h-4 object-cover' />
+
+                <div className='font-bold text-gray-900'>Linkedin:</div> <Link href="https://www.linkedin.com/in/runlong-li-7603582b7" className="text-blue-400 underline">https://www.linkedin.com/in/runlong-li-7603582b7</Link>
+                </div>
+
               <p className="text-gray-700 leading-relaxed">
-                Not only that, I like singing with <span className="font-bold text-gray-900">guitar 🎸</span> and also <span className="font-bold text-gray-900">finger style</span> at my spare time for fun and relief. A guitar playing video is here 
+                Not only that, I like singing with <span className="font-bold text-gray-900">guitar 🎸</span> and also <span className="font-bold text-gray-900">finger style</span> at my spare time for fun and relief. A guitar playing video is here ⬇️
               </p>
             </div>
-            <div className='ml-16'>
-                <Image src="/leon.JPG" alt="I'm Leon" width={400} height={400} className='rounded-2xl border-1 border-gray-900'/>
+            <div className='ml-16 relative group'>
+              <div className='absolute top-6 -right-14 opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-200 z-10 pointer-events-none'>
+                <div className='bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg relative'>
+                  <div className='text-sm'>Hi, I&apos;m Leon, a software engineer 👨‍💻</div>
+                  <div className='absolute left-1/12 -translate-x-1/2 -bottom-1.5 w-3 h-3 bg-gray-900 rotate-45'></div>
+                </div>
+              </div>
+              <Image 
+                src="/leon.JPG" 
+                alt="I'm Leon" 
+                width={450} 
+                height={450} 
+                className='rounded-2xl border-1 border-gray-900'
+              />
             </div>
           </div>
         </div>
@@ -59,34 +92,6 @@ function AboutPage() {
 
         <video src="/guitar.mov" controls className='rounded-2xl border-1 border-gray-900 w-full mb-20'></video>
 
-
-        {/* What I Do Section */}
-        <div className="mb-20">
-          <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">What I Do</h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-white p-8 rounded-xl shadow-lg">
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Full Stack Development</h3>
-              <p className="text-gray-600 leading-relaxed">
-                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium 
-                doloremque laudantium, totam rem aperiam.
-              </p>
-            </div>
-            <div className="bg-white p-8 rounded-xl shadow-lg">
-              <h3 className="text-xl font-bold text-gray-900 mb-4">C# Desktop Applications</h3>
-              <p className="text-gray-600 leading-relaxed">
-                At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis 
-                praesentium voluptatum deleniti atque.
-              </p>
-            </div>
-            <div className="bg-white p-8 rounded-xl shadow-lg">
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Consectetur</h3>
-              <p className="text-gray-600 leading-relaxed">
-                Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus 
-                saepe eveniet ut et voluptates.
-              </p>
-            </div>
-          </div>
-        </div>
 
         {/* Second Image with Text */}
         <div className="mb-20">
@@ -103,97 +108,39 @@ function AboutPage() {
               </div>
             </div>
             <div className="md:col-span-3">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">My Journey</h2>
-              <p className="text-gray-700 leading-relaxed mb-4">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
-                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud 
-                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-              </p>
-              <p className="text-gray-700 leading-relaxed mb-4">
-                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu 
-                fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in 
-                culpa qui officia deserunt mollit anim id est laborum.
-              </p>
-              <p className="text-gray-700 leading-relaxed">
-                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque 
-                laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis.
-              </p>
+              <h2 className="text-3xl font-bold text-gray-900 mb-3">My Journey</h2>
+              <div className="text-gray-700 leading-relaxed mb-4">
+                After obtaining <span className='text-gray-900 font-bold'>Bachelor&apos;s Degree</span> in{' '}
+                <span className='text-gray-900 font-bold'>Data Science and Big Data Technology</span> in China 🇨🇳 
+                in 2023, I continued to pursue the{' '}
+                <span className='text-gray-900 font-bold'>Master of Information Technology</span> at{' '}
+                <span className='text-gray-900 font-bold'>the University of Western Australia</span> 🇦🇺 from 2024.
+              </div>
+              <div className='text-gray-700 leading-relaxed mb-4'>
+              I have a solid grounding in computer science fundamentals, but it was in 2024 that 
+              I truly found my passion—the 
+              <span className='inline-flex items-center align-middle gap-1 ml-1'>
+                <Image 
+                  src="/react-icon.png" 
+                  alt="React" 
+                  width={16} 
+                  height={16} 
+                  className='w-4 h-4 object-cover' 
+                />
+                <span className='font-bold text-gray-900'>React ecosystem</span>
+              </span>
+              . From the moment I started building 
+              with React, I was hooked. Over these years, I&apos;ve developed numerous React applications, each one teaching me 
+              something new. Through these projects, I&apos;ve built a strong foundation in <div className='text-gray-900 font-bold inline-block'>React & TypeScript</div>
+              , modern state management solutions, and best practices for scalable 
+              front-end architecture.
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Skills/Interests Section */}
-        <div className="mb-20">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8">Skills & Interests</h2>
-          <div className="grid md:grid-cols-2 gap-12">
-            <div>
-              <h3 className="text-2xl font-semibold text-gray-900 mb-6">Professional Skills</h3>
-              <ul className="space-y-4">
-                <li className="flex items-start">
-                  <span className="text-gray-900 font-bold mr-3">•</span>
-                  <div>
-                    <h4 className="font-semibold text-gray-900">Lorem Ipsum Dolor</h4>
-                    <p className="text-gray-600">Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.</p>
-                  </div>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-gray-900 font-bold mr-3">•</span>
-                  <div>
-                    <h4 className="font-semibold text-gray-900">Sit Amet Consectetur</h4>
-                    <p className="text-gray-600">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.</p>
-                  </div>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-gray-900 font-bold mr-3">•</span>
-                  <div>
-                    <h4 className="font-semibold text-gray-900">Adipiscing Elite</h4>
-                    <p className="text-gray-600">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia.</p>
-                  </div>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-gray-900 font-bold mr-3">•</span>
-                  <div>
-                    <h4 className="font-semibold text-gray-900">Sed Do Eiusmod</h4>
-                    <p className="text-gray-600">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-2xl font-semibold text-gray-900 mb-6">Personal Interests</h3>
-              <ul className="space-y-4">
-                <li className="flex items-start">
-                  <span className="text-gray-900 font-bold mr-3">•</span>
-                  <div>
-                    <h4 className="font-semibold text-gray-900">Tempor Incididunt</h4>
-                    <p className="text-gray-600">Sed ut perspiciatis unde omnis iste natus error sit voluptatem.</p>
-                  </div>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-gray-900 font-bold mr-3">•</span>
-                  <div>
-                    <h4 className="font-semibold text-gray-900">Ut Labore Dolore</h4>
-                    <p className="text-gray-600">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit.</p>
-                  </div>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-gray-900 font-bold mr-3">•</span>
-                  <div>
-                    <h4 className="font-semibold text-gray-900">Magna Aliqua</h4>
-                    <p className="text-gray-600">Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.</p>
-                  </div>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-gray-900 font-bold mr-3">•</span>
-                  <div>
-                    <h4 className="font-semibold text-gray-900">Quis Nostrud</h4>
-                    <p className="text-gray-600">At vero eos et accusamus et iusto odio dignissimos ducimus qui.</p>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
+        {/* Github repos */}
+        <GithubPinnedRepos username="leonleerl" />
 
         {/* Experience Timeline */}
         <div className="mb-20">
