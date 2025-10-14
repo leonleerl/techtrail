@@ -80,9 +80,18 @@ const router = useRouter();
 
               <div className="text-gray-700 leading-relaxed relative">
                 Not only that, I like singing with <span className="font-bold text-gray-900">guitar 🎸</span> and also <span className="font-bold text-gray-900">finger style</span> at my spare time for fun and relief. 
-                <span className='underline'>A guitar playing video is here</span>
+                <a 
+                  href="#guitar-video" 
+                  className='underline cursor-pointer text-blue-600 hover:text-blue-800 transition-colors'
+                  onClick={(e) => {
+                    e.preventDefault();
+                    document.getElementById('guitar-video')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                  }}
+                >
+                  A guitar playing video is here
+                </a>
               
-                <Image src="/point-to-guitar-video.png" alt="Point to guitar video" width={20} height={20} className='w-20 h-20 object-cover absolute -bottom-12 right-9 -rotate-15' />
+                <Image src="/point-to-guitar-video.png" alt="Point to guitar video" width={20} height={20} className='hidden xl:block w-20 h-20 object-cover absolute -bottom-12 right-9 -rotate-15' />
                 </div>
             </div>
             <div className='ml-10 relative group'>
@@ -105,7 +114,7 @@ const router = useRouter();
 
         {/* Video Section */}
 
-        <video src="/guitar.mov" controls className='rounded-2xl border-1 border-gray-900 w-full mb-20'></video>
+        <video id="guitar-video" src="/guitar.mov" controls className='rounded-2xl border-1 border-gray-900 w-full mb-20'></video>
 
 
         {/* Second Image with Text */}
