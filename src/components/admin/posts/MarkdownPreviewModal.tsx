@@ -33,7 +33,7 @@ export function MarkdownPreviewModal({ content, title = "Content Preview" }: Mar
           Preview
         </Button>
       </DialogTrigger>
-      <DialogContent className="min-w-full bg-white overflow-y-auto flex flex-col">
+      <DialogContent className="min-w-2/3 h-[90vh] bg-white overflow-y-auto flex flex-col">
         <DialogHeader className="flex-shrink-0">
           <DialogTitle className="text-xl font-bold">{title}</DialogTitle>
         </DialogHeader>
