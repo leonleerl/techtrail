@@ -38,7 +38,7 @@ export function AddPostDialog({ onAdd, isSubmitting }: AddPostDialogProps) {
       <DialogTrigger asChild>
         <Button className='hover:bg-blue-300 hover:text-white bg-blue-400'>Add Post</Button>
       </DialogTrigger>
-      <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+      <DialogContent className="min-w-full overflow-y-auto bg-white">
         <DialogHeader>
           <DialogTitle>Add New Post</DialogTitle>
           <DialogDescription>
