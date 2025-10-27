@@ -1,3 +1,4 @@
+@config "../../tailwind.config.ts";
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "@uiw/react-md-editor/markdown-editor.css";

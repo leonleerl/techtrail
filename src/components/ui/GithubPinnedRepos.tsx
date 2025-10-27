@@ -116,7 +116,7 @@ export function GithubPinnedRepos({ username = 'leonleerl' }: GithubPinnedReposP
 
   return (
     <div className="mb-20">
-      <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Featured Projects</h2>
+      <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8 text-center">Featured Projects</h2>
       <div className="grid md:grid-cols-2 gap-6">
         {repos.map((repo) => (
           <Link
@@ -126,7 +126,7 @@ export function GithubPinnedRepos({ username = 'leonleerl' }: GithubPinnedReposP
             rel="noopener noreferrer"
             className="group"
           >
-            <div className="bg-white rounded-lg border border-gray-300 p-6 h-full hover:border-blue-500 hover:shadow-md transition-all duration-200">
+            <div className="bg-white rounded-lg border border-gray-300 p-6 h-full dark:bg-slate-100 hover:border-blue-500 hover:shadow-md transition-all duration-200">
               {/* Header */}
               <div className="flex items-start justify-between mb-3">
                 <div className="flex items-center gap-2 flex-1 min-w-0">
