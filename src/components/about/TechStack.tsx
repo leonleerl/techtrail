@@ -23,12 +23,12 @@ function TechStack() {
 
   return (
     <div className="mb-20">
-      <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">Tech Stacks</h2>
+      <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-12 text-center">Tech Stacks</h2>
       
       <div className="relative overflow-hidden">
-        <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-white to-transparent z-10"></div>
+        <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-white dark:from-slate-900 to-transparent z-10"></div>
         
-        <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-white to-transparent z-10"></div>
+        <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-white dark:from-slate-900 to-transparent z-10"></div>
         
         <div className="inline-flex w-max animate-scroll">
           <div className="flex">
