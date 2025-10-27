@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 import "./globals.css";
+import Providers from '@/components/providers';
 
 const alanSans = localFont({
   src: [
@@ -59,8 +60,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={alanSans.className}>
-        {children}
+      <body className={alanSans.className + ' bg-white dark:bg-slate-800'}>
+        <Providers>
+          {children}
+        </Providers>
       </body>
     </html>
   );
