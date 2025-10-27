@@ -60,7 +60,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={alanSans.className + ' bg-white dark:bg-slate-800'}>
+      <body className={alanSans.className}>
         <Providers>
           {children}
         </Providers>

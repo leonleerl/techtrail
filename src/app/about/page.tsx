@@ -13,12 +13,12 @@ function AboutPage() {
 const router = useRouter();
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 mt-4">
+    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 dark:from-slate-900 dark:to-slate-900 dark:text-white mt-4">
       <div className="max-w-6xl mx-auto px-6 py-16">
         {/* Header Section */}
         <div className="text-center mb-4">
-          <h1 className="text-5xl font-bold text-gray-900 mb-4">About Me</h1>
-          <div className="w-20 h-1 bg-gray-900 mx-auto mb-6"></div>
+          <h1 className="text-5xl font-bold text-gray-900 dark:text-white mb-4">About Me</h1>
+          <div className="w-20 h-1 bg-gray-900 dark:bg-white mx-auto mb-6"></div>
           <TypewriterText />
         </div>
 
@@ -36,50 +36,50 @@ const router = useRouter();
 
         {/* Introduction Section */}
         <div className="mb-20 mx-4">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8">Introduction</h2>
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">Introduction</h2>
           <div className="grid md:grid-cols-2 gap-2 items-center">
             <div>
-              <p className="text-gray-700 leading-relaxed mb-3">
+              <p className="text-gray-700 dark:text-white leading-relaxed mb-3">
               Hi there 👋, I&apos;m Leon, a passionate developer 💻. I&apos;m always fascinated by the latest technologies and spend a lot of time coding. 
               </p>
-              <div className="text-gray-700 leading-relaxed mb-3">
+              <div className="text-gray-700 dark:text-white leading-relaxed mb-3">
                 I&apos;m particularly enthusiastic about the 
-                <span className="font-bold text-gray-900 inline-flex items-center gap-1 ml-1 align-middle">
+                <span className="font-bold text-gray-900 dark:text-white inline-flex items-center gap-1 ml-1 align-middle">
                   <Image src="/react-icon.png" alt="React" width={10} height={10} className='w-4 h-4 object-cover' />
-                  <span className='font-bold text-gray-900'>React ecosystem</span>
+                  <span className='font-bold text-gray-900 dark:text-white'>React ecosystem</span>
                 </span>
                 . React and TypeScript, along with their related technologies, are my most frequently used and strongest skills.
               </div>
-              <p className="text-gray-700 leading-relaxed mb-3">
+              <p className="text-gray-700 dark:text-white leading-relaxed mb-3">
               I also have experience in 
-              <span className="font-bold text-gray-900 inline-flex items-center gap-1 ml-1 align-middle">
+              <span className="font-bold text-gray-900 dark:text-white inline-flex items-center gap-1 ml-1 align-middle">
                 <Image src="/dotnet-icon.png" alt="C#" width={10} height={10} className='w-4 h-4 object-cover'/>
-                <span className='font-bold text-gray-900'>C# desktop application development</span>
+                <span className='font-bold text-gray-900 dark:text-white'>C# desktop application development</span>
               </span>
               . I&apos;m highly familiar with WPF, Avalonia, and WinForms with the serial communication protocol.
               </p>
-              <p className="text-gray-700 leading-relaxed mb-3">
+              <p className="text-gray-700 dark:text-white leading-relaxed mb-3">
               Commonly used could services such as 
-              <span className="font-bold text-gray-900 inline-flex items-center gap-1 ml-1 align-middle">
+              <span className="font-bold text-gray-900 dark:text-white inline-flex items-center gap-1 ml-1 align-middle">
                 <Image src="/aws-icon.png" alt="AWS" width={10} height={10} className='w-4 h-4 object-cover'/>
-                <span className='font-bold text-gray-900'>AWS could services</span>
+                <span className='font-bold text-gray-900 dark:text-white'>AWS could services</span>
               </span>
               , is widely used in my personal deployed projects.
               </p>
-              <p className="text-gray-700 leading-relaxed mb-3">
-              Beyond programming languages, I&apos;m also passionate about learning natural languages. I speak four languages: <span className="font-bold text-gray-900">English, Chinese, Japanese, and Spanish</span>.
+              <p className="text-gray-700 dark:text-white leading-relaxed mb-3">
+              Beyond programming languages, I&apos;m also passionate about learning natural languages. I speak four languages: <span className="font-bold text-gray-900 dark:text-white">English, Chinese, Japanese, and Spanish</span>.
               </p>
-              <div className="text-gray-700 leading-relaxed mb-1 flex gap-1 items-center">
+              <div className="text-gray-700 dark:text-white leading-relaxed mb-1 flex gap-1 items-center">
                 <Image src="/github-icon.png" alt="GitHub" width={10} height={10} className='w-4 h-4 object-cover' />
-                <div className='font-bold text-gray-900'>GitHub:</div><Link href="https://github.com/leonleerl" className="text-blue-400 underline">https://github.com/leonleerl</Link>
+                <div className='font-bold text-gray-900 dark:text-white'>GitHub:</div><Link href="https://github.com/leonleerl" className="text-blue-400 underline">https://github.com/leonleerl</Link>
               </div>
-              <div className="text-gray-700 leading-relaxed mb-3 flex gap-1 items-center">
+              <div className="text-gray-700 dark:text-white leading-relaxed mb-3 flex gap-1 items-center">
                 <Image src="/linkedin-icon.png" alt="Linkedin" width={10} height={10} className='w-4 h-4 object-cover' />
-                <div className='font-bold text-gray-900'>Linkedin:</div> <Link href="https://www.linkedin.com/in/runlong-li-7603582b7" className="text-blue-400 underline">https://www.linkedin.com/in/runlong-li-7603582b7</Link>
+                <div className='font-bold text-gray-900 dark:text-white'>Linkedin:</div> <Link href="https://www.linkedin.com/in/runlong-li-7603582b7" className="text-blue-400 underline">https://www.linkedin.com/in/runlong-li-7603582b7</Link>
               </div>
 
-              <div className="text-gray-700 leading-relaxed relative">
-                Not only that, I like singing with <span className="font-bold text-gray-900">guitar 🎸</span> and also <span className="font-bold text-gray-900">finger style</span> at my spare time for fun and relief.&nbsp;
+              <div className="text-gray-700 dark:text-white leading-relaxed relative">
+                Not only that, I like singing with <span className="font-bold text-gray-900 dark:text-white">guitar 🎸</span> and also <span className="font-bold text-gray-900 dark:text-white">finger style</span> at my spare time for fun and relief.&nbsp;
                 <a 
                   href="#guitar-video" 
                   className='underline cursor-pointer text-blue-600 hover:text-blue-800 transition-colors'
@@ -132,15 +132,15 @@ const router = useRouter();
               </div>
             </div>
             <div className="md:col-span-3">
-              <h2 className="text-3xl font-bold text-gray-900 mb-3">My Journey</h2>
-              <div className="text-gray-700 leading-relaxed mb-4">
-                After obtaining <span className='text-gray-900 font-bold'>Bachelor&apos;s Degree</span> in{' '}
-                <span className='text-gray-900 font-bold'>Data Science and Big Data Technology</span> in China 🇨🇳 
+              <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-3">My Journey</h2>
+              <div className="text-gray-700 dark:text-white leading-relaxed mb-4">
+                After obtaining <span className='text-gray-900 dark:text-white font-bold'>Bachelor&apos;s Degree</span> in{' '}
+                <span className='text-gray-900 dark:text-white font-bold'>Data Science and Big Data Technology</span> in China 🇨🇳 
                 in 2023, I continued to pursue the{' '}
-                <span className='text-gray-900 font-bold'>Master of Information Technology</span> at{' '}
-                <span className='text-gray-900 font-bold'>the University of Western Australia</span> 🇦🇺 from 2024.
+                <span className='text-gray-900 dark:text-white font-bold'>Master of Information Technology</span> at{' '}
+                <span className='text-gray-900 dark:text-white font-bold'>the University of Western Australia</span> 🇦🇺 from 2024.
               </div>
-              <div className='text-gray-700 leading-relaxed mb-4'>
+              <div className='text-gray-700 dark:text-white leading-relaxed mb-4'>
               I have a solid grounding in computer science fundamentals, but it was in 2024 that 
               I truly found my passion — 
               <span className='inline-flex items-center align-middle gap-1 ml-1'>
@@ -151,11 +151,11 @@ const router = useRouter();
                   height={16} 
                   className='w-4 h-4 object-cover' 
                 />
-                <span className='font-bold text-gray-900'>React ecosystem</span>
+                <span className='font-bold text-gray-900 dark:text-white'>React ecosystem</span>
               </span>
               . From the moment I started building 
               with React, I was hooked. So far, I&apos;ve developed some React applications, each one teaching me 
-              something new. Through these projects, I&apos;ve built a strong foundation in <div className='text-gray-900 font-bold inline-block'>React & TypeScript</div>
+              something new. Through these projects, I&apos;ve built a strong foundation in <div className='text-gray-900 dark:text-white font-bold inline-block'>React & TypeScript</div>
               , modern state management solutions, and best practices for scalable 
               front-end architecture.
               </div>
@@ -172,16 +172,16 @@ const router = useRouter();
 
         {/* Experience Timeline */}
         <div className="mb-16">
-          <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">Experience</h2>
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-12 text-center">Experience</h2>
           <div className="space-y-12">
             <div className="flex gap-4">
               <div className="flex-shrink-0 w-36 text-right">
-                <span className="text-lg font-bold text-gray-900">2024.11 - 2025.3</span>
+                <span className="text-lg font-bold text-gray-900 dark:text-white">2024.11 - 2025.3</span>
               </div>
               <div className="flex-grow border-l-4 border-gray-900 pl-8 pb-8">
-                <h3 className="text-xl font-bold text-gray-900 mb-3">Frontend Developer (Internship)</h3>
-                <p className="text-gray-600 mb-3 font-semibold">Coders for Causes</p>
-                <p className="text-gray-700 leading-relaxed">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">Frontend Developer (Internship)</h3>
+                <p className="text-gray-600 dark:text-white mb-3 font-semibold">Coders for Causes</p>
+                <p className="text-gray-700 dark:text-white leading-relaxed">
                 Developed an online mathematics examination platform using Next.js and TypeScript. 
                 Implemented core features including real-time test delivery, automated grading, and student performance analytics. 
                 Collaborated with the team to ensure responsive design and optimal user experience across different devices.
@@ -191,21 +191,21 @@ const router = useRouter();
 
             <div className="flex gap-4">
               <div className="flex-shrink-0 w-36 text-right">
-                <span className="text-lg font-bold text-gray-900">2024 - 2025</span>
+                <span className="text-lg font-bold text-gray-900 dark:text-white">2024 - 2025</span>
               </div>
               <div className="flex-grow border-l-4 border-gray-300 pl-8 pb-8">
-                <h3 className="text-xl font-bold text-gray-900 mb-3">University of Western Australia</h3>
-                <p className="text-gray-600 mb-3 font-semibold">Master of Information Technology</p>
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">University of Western Australia</h3>
+                <p className="text-gray-600 dark:text-white mb-3 font-semibold">Master of Information Technology</p>
               </div>
             </div>
 
             <div className="flex gap-4">
               <div className="flex-shrink-0 w-36 text-right">
-                <span className="text-lg font-bold text-gray-900">2019 - 2023</span>
+                <span className="text-lg font-bold text-gray-900 dark:text-white">2019 - 2023</span>
               </div>
               <div className="flex-grow border-l-4 border-gray-300 pl-8 pb-8">
-                <h3 className="text-xl font-bold text-gray-900 mb-3">Chengdu Neusoft University</h3>
-                <p className="text-gray-600 mb-3 font-semibold">Bachelor of Engineering (Data Science and Big Data Technology)</p>
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">Chengdu Neusoft University</h3>
+                <p className="text-gray-600 dark:text-white mb-3 font-semibold">Bachelor of Engineering (Data Science and Big Data Technology)</p>
               </div>
             </div>
           </div>

@@ -117,10 +117,10 @@ function BlogPage() {
   // Loading state
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-900 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading...</p>
+          <p className="mt-4 text-gray-600 dark:text-white">Loading...</p>
         </div>
       </div>
     )
@@ -129,9 +129,9 @@ function BlogPage() {
   // Error state
   if (error || !post) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-900 flex items-center justify-center">
         <div className="text-center">
-          <p className="text-red-600 mb-4">{error || 'Post not found'}</p>
+          <p className="text-red-600 dark:text-red-400 mb-4">{error || 'Post not found'}</p>
           <Button onClick={() => router.push('/blogs')}>
             <Home className="w-4 h-4 mr-2" />
             Back to Blogs
@@ -152,14 +152,14 @@ function BlogPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-900">
       {/* Top navigation back to home button */}
-      <nav className="bg-white shadow-sm border-b sticky top-0 z-50">
+      <nav className="bg-white dark:bg-slate-800 shadow-sm border-b dark:border-slate-700 sticky top-0 z-50">
         <div className="container mx-auto px-4 py-3">
           <Button 
             variant="ghost" 
             onClick={() => router.push('/blogs')}
-            className="hover:bg-gray-100 flex items-center gap-2"
+            className="hover:bg-gray-100 dark:hover:bg-slate-700 flex items-center gap-2"
           >
             <Home className="w-4 h-4" />
             Back to Blogs
@@ -172,8 +172,8 @@ function BlogPage() {
         <div className="grid grid-cols-10 gap-6">
           {/* Left sidebar (1/10) */}
           <aside className="col-span-10 lg:col-span-2">
-            <div className="sticky top-20 bg-white rounded-lg shadow-sm p-4 max-h-[calc(100vh-120px)] overflow-y-auto">
-              <h3 className="text-sm font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <div className="sticky top-20 bg-white dark:bg-slate-800 rounded-lg shadow-sm p-4 max-h-[calc(100vh-120px)] overflow-y-auto">
+              <h3 className="text-sm font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
                 <span className="w-1 h-4 bg-blue-600 rounded"></span>
                 Table of Contents
               </h3>
@@ -186,7 +186,7 @@ function BlogPage() {
                       className={`
                         w-full text-left text-sm py-2 px-3 rounded transition-all
                         hover:bg-blue-50 hover:text-blue-600
-                        ${activeId === heading.id ? 'bg-blue-100 text-blue-700 font-medium' : 'text-gray-600'}
+                        ${activeId === heading.id ? 'bg-blue-100 text-blue-700 font-medium' : 'text-gray-600 dark:text-gray-300'}
                       `}
                       style={{ paddingLeft: `${(heading.level - 1) * 12 + 12}px` }}
                     >
@@ -194,7 +194,7 @@ function BlogPage() {
                     </button>
                   ))
                 ) : (
-                  <p className="text-sm text-gray-500">No headings</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">No headings</p>
                 )}
               </nav>
             </div>
@@ -202,19 +202,19 @@ function BlogPage() {
 
           {/* Right main content (9/10) */}
           <main className="col-span-10 lg:col-span-8">
-            <article className="bg-white rounded-lg shadow-sm p-8 lg:p-12">
+            <article className="bg-white dark:bg-slate-800 rounded-lg shadow-sm p-8 lg:p-12">
               {/* Article title */}
-              <h1 className="text-4xl font-bold text-gray-900 mb-6">{post.title}</h1>
+              <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-6">{post.title}</h1>
               
               {/* Article metadata */}
-              <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 mb-8 pb-6 border-b">
+              <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 dark:text-gray-300 mb-8 pb-6 border-b dark:border-slate-700">
                 <div className="flex items-center gap-2">
                   <Calendar className="w-4 h-4" />
                   <span>{formatDate(post.createdAt)}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Tag className="w-4 h-4" />
-                  <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full">
+                  <span className="bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 px-3 py-1 rounded-full">
                     {post.category.name}
                   </span>
                 </div>
@@ -225,7 +225,7 @@ function BlogPage() {
               </div>
 
               {/* Article content */}
-              <div className="prose prose-lg max-w-none">
+              <div className="prose prose-lg max-w-none dark:prose-invert">
                 <MarkdownRenderer content={post.content} />
               </div>
             </article>
