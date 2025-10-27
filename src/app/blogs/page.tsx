@@ -16,7 +16,7 @@ function BlogsPage() {
 
   return (
     <div>
-        <Navbar />
+      <Navbar />
         <div className='flex items-center justify-between h-10 w-4/5 mx-auto gap-4 text-lg px-2 mt-18'>
             <CategoryBar categories={categories} isLoading={isLoading} error={error} />
             {/* <Filter /> */}
@@ -25,7 +25,7 @@ function BlogsPage() {
       {postsLoading && <div>
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading...</p>
+          <p className="mt-4 text-gray-600 dark:text-white">Loading...</p>
         </div>
       </div>}
       {postsError && <div>Error: {postsError}</div>}

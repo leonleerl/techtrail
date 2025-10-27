@@ -23,7 +23,6 @@ function BlogCard({ post }: { post: Post }) {
     router.push(`/blogs/${post.slug}`)
   }
 
-  // Format date
   const formatDate = (dateString: string) => {
     const date = new Date(dateString)
     return date.toLocaleDateString('en-US', { 
@@ -36,10 +35,10 @@ function BlogCard({ post }: { post: Post }) {
   return (
     <div 
       onClick={handleClick}
-      className='bg-gray-200 h-40 rounded-xl flex flex-col justify-between p-4 cursor-pointer hover:bg-gray-300 hover:shadow-lg hover:shadow-gray-500/50 hover:scale-[1.01] transition-all duration-300'
+      className='bg-gray-200 dark:bg-slate-800 h-40 rounded-xl flex flex-col justify-between p-4 cursor-pointer hover:bg-gray-300 hover:shadow-lg hover:shadow-gray-500/50 hover:scale-[1.01] transition-all duration-200'
     >
-        <div className='text-xl font-bold break-words line-clamp-2'>{post.title}</div>
-        <div className='flex items-center gap-2 text-sm text-gray-600'>
+        <div className='text-xl font-bold break-words line-clamp-2 dark:text-white'>{post.title}</div>
+        <div className='flex items-center gap-2 text-sm text-gray-600 dark:text-white'>
             <TimerIcon className='w-4 h-4' />
             <div>{formatDate(post.createdAt)}</div>
         </div>
@@ -48,7 +47,7 @@ function BlogCard({ post }: { post: Post }) {
             <div className='flex items-center gap-2'>
             <div className='bg-blue-500 text-white px-2 py-1 rounded-full text-sm'>{post.category.name}</div>
             </div>
-            <div className='flex items-center gap-2 text-sm text-gray-600'>
+            <div className='flex items-center gap-2 text-sm text-gray-600 dark:text-white'>
                 <EyeIcon className='w-4 h-4' />
                 <div>{post.views}</div>
             </div>
