@@ -40,6 +40,10 @@ export async function GET(req: Request) {
                     }
                 }
             },
+            orderBy: [
+                { is_featured: 'desc' },
+                { createdAt: 'desc' }
+            ],
             skip: (page - 1) * limit,
             take: limit,
         });

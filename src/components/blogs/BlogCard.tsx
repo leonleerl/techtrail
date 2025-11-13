@@ -1,22 +1,30 @@
 "use client"
 
-import { EyeIcon, TimerIcon } from 'lucide-react'
+import { EyeIcon, CalendarIcon, ArrowRightIcon } from 'lucide-react'
 import React from 'react'
 import { useRouter } from 'next/navigation'
+import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/components/ui/card'
+import { cn } from '@/lib/utils'
 
 interface Post {
   id: string
   slug: string
   title: string
+  description?: string
   createdAt: string
   category: {
     id: string
     name: string
   }
   views: number
+  is_featured: boolean
 }
 
-function BlogCard({ post }: { post: Post }) {
+interface BlogCardProps {
+  post: Post
+}
+
+function BlogCard({ post }: BlogCardProps) {
   const router = useRouter()
 
   const handleClick = () => {
@@ -27,32 +35,56 @@ function BlogCard({ post }: { post: Post }) {
     const date = new Date(dateString)
     return date.toLocaleDateString('en-US', { 
       year: 'numeric', 
-      month: '2-digit', 
-      day: '2-digit' 
+      month: 'short', 
+      day: 'numeric' 
     })
   }
 
   return (
-    <div 
+    <Card 
       onClick={handleClick}
-      className='bg-gray-200 dark:bg-slate-800 h-40 rounded-xl flex flex-col justify-between p-4 cursor-pointer hover:bg-gray-300 hover:shadow-lg hover:shadow-gray-500/50 hover:scale-[1.01] transition-all duration-200'
+      className={cn(
+        "group h-full flex flex-col cursor-pointer transition-all duration-300",
+        "hover:shadow-lg hover:shadow-primary/5 hover:-translate-y-1",
+        "border hover:border-primary/30"
+      )}
     >
-        <div className='text-xl font-bold break-words line-clamp-2 dark:text-white'>{post.title}</div>
-        <div className='flex items-center gap-2 text-sm text-gray-600 dark:text-white'>
-            <TimerIcon className='w-4 h-4' />
-            <div>{formatDate(post.createdAt)}</div>
+      <CardHeader className="pb-3">
+        <div className="flex items-center justify-between mb-2">
+          <span className="px-2.5 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary border border-primary/20">
+            {post.category.name}
+          </span>
         </div>
-        <div></div>
-        <div className='flex justify-between items-center gap-2'>
-            <div className='flex items-center gap-2'>
-            <div className='bg-blue-500 text-white px-2 py-1 rounded-full text-sm'>{post.category.name}</div>
-            </div>
-            <div className='flex items-center gap-2 text-sm text-gray-600 dark:text-white'>
-                <EyeIcon className='w-4 h-4' />
-                <div>{post.views}</div>
-            </div>
+        <CardTitle className="text-lg font-bold leading-snug line-clamp-2 group-hover:text-primary transition-colors">
+          {post.title}
+        </CardTitle>
+        {post.description && (
+          <p className="text-muted-foreground mt-2 text-sm line-clamp-2">
+            {post.description}
+          </p>
+        )}
+      </CardHeader>
+
+      <CardContent className="flex-1 flex flex-col justify-end pt-0">
+        <div className="flex items-center justify-between text-xs text-muted-foreground">
+          <div className="flex items-center gap-1.5">
+            <CalendarIcon className="w-3.5 h-3.5" />
+            <span>{formatDate(post.createdAt)}</span>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <EyeIcon className="w-3.5 h-3.5" />
+            <span>{post.views.toLocaleString()}</span>
+          </div>
         </div>
-    </div>
+      </CardContent>
+
+      <CardFooter className="pt-3 border-t">
+        <div className="flex items-center gap-2 text-sm font-medium text-primary/70 group-hover:text-primary group-hover:gap-3 transition-all w-full">
+          <span>Read article</span>
+          <ArrowRightIcon className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+        </div>
+      </CardFooter>
+    </Card>
   )
 }
 
