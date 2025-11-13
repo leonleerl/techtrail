@@ -19,6 +19,7 @@ interface Post {
   slug: string
   content: string
   published: boolean
+  is_featured: boolean
   views: number
   createdAt: string
   updatedAt: string

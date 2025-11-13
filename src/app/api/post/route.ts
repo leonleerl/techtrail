@@ -69,6 +69,7 @@ export async function POST(req: Request) {
             slug: parsedBody.slug,
             content: parsedBody.content,
             published: parsedBody.published,
+            is_featured: parsedBody.is_featured,
             categoryId: parsedBody.categoryId,
         }
 

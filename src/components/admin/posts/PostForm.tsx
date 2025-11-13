@@ -35,6 +35,7 @@ interface Post {
   slug: string
   content: string
   published: boolean
+  is_featured: boolean
   views: number
   createdAt: string
   updatedAt: string
@@ -63,6 +64,7 @@ export default function PostForm({ initialData, onSubmit, formId }: PostFormProp
       slug: initialData?.slug || '',
       content: initialData?.content || '',
       published: initialData?.published || false,
+      is_featured: initialData?.is_featured || false,
       categoryId: initialData?.categoryId || '',
     },
   });
@@ -207,6 +209,29 @@ export default function PostForm({ initialData, onSubmit, formId }: PostFormProp
                 <FormLabel className="text-base">Published</FormLabel>
                 <div className="text-sm text-muted-foreground">
                   Make this post visible to the public
+                </div>
+              </div>
+              <FormControl>
+                <input
+                  type="checkbox"
+                  checked={field.value}
+                  onChange={field.onChange}
+                  className="w-4 h-4"
+                />
+              </FormControl>
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="is_featured"
+          render={({ field }) => (
+            <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+              <div className="space-y-0.5">
+                <FormLabel className="text-base">Featured</FormLabel>
+                <div className="text-sm text-muted-foreground">
+                  Pin this post to the top
                 </div>
               </div>
               <FormControl>
