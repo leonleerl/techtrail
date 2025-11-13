@@ -68,13 +68,24 @@ function BlogPage() {
 
     const extractedHeadings: Heading[] = []
     const lines = post.content.split('\n')
+    const usedIds = new Set<string>()
     
     lines.forEach((line) => {
       const match = line.match(/^(#{1,6})\s+(.+)$/)
       if (match) {
         const level = match[1].length
         const text = match[2]
-        const id = text.toLowerCase().replace(/[^\u4e00-\u9fa5a-z0-9]+/g, '-')
+        const baseId = text.toLowerCase().replace(/[^\u4e00-\u9fa5a-z0-9]+/g, '-').replace(/^-+|-+$/g, '')
+        
+        // Ensure unique ID by appending number if duplicate
+        let id = baseId
+        let counter = 1
+        while (usedIds.has(id)) {
+          id = `${baseId}-${counter}`
+          counter++
+        }
+        usedIds.add(id)
+        
         extractedHeadings.push({ id, text, level })
       }
     })
