@@ -5,6 +5,7 @@ export interface PostDto {
     slug: string;
     content: string;
     published: boolean;
+    is_featured: boolean;
     views: number;
     createdAt: Date;
     updatedAt: Date;
@@ -20,6 +21,7 @@ export interface PostCreateDto {
     slug: string;
     content: string;
     published: boolean;
+    is_featured: boolean;
     categoryId: string;
 }
 
@@ -28,6 +30,7 @@ export interface PostUpdateDto {
     slug?: string;
     content?: string;
     published?: boolean;
+    is_featured?: boolean;
     categoryId?: string;
 }
 

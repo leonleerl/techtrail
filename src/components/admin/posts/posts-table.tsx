@@ -80,6 +80,7 @@ export function PostsTable() {
             <TableHead>Slug</TableHead>
             <TableHead>Category</TableHead>
             <TableHead>Status</TableHead>
+            <TableHead>Featured</TableHead>
             <TableHead>Views</TableHead>
             <TableHead>Created At</TableHead>
             <TableHead>Actions</TableHead>
@@ -107,6 +108,15 @@ export function PostsTable() {
                       : 'bg-yellow-100 text-yellow-800'
                   }`}>
                     {post.published ? 'Published' : 'Draft'}
+                  </span>
+                </TableCell>
+                <TableCell>
+                  <span className={`px-2 py-1 rounded text-xs ${
+                    post.is_featured 
+                      ? 'bg-purple-100 text-purple-800' 
+                      : 'bg-gray-100 text-gray-800'
+                  }`}>
+                    {post.is_featured ? 'Featured' : 'Normal'}
                   </span>
                 </TableCell>
                 <TableCell>{post.views.toLocaleString()}</TableCell>
