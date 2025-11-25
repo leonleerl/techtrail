@@ -44,7 +44,6 @@ export function EditPostDialog({ post, onUpdate, isSubmitting }: EditPostDialogP
   const handleSubmit = async (data: PostFormSchemaType): Promise<boolean> => {
     try {
       await onUpdate(post.slug, data);
-      setOpen(false);
       return true;
     } catch {
       return false;
