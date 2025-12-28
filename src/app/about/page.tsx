@@ -67,7 +67,7 @@ const router = useRouter();
               , is widely used in my personal deployed projects.
               </p>
               <p className="text-gray-700 dark:text-white leading-relaxed mb-3">
-              Beyond programming languages, I&apos;m also passionate about learning natural languages. I speak four languages: <span className="font-bold text-gray-900 dark:text-white">English, Chinese, Japanese, and Spanish</span>.
+              Beyond programming languages, I&apos;m also passionate about learning natural languages. I speak four languages: <span className="font-bold text-gray-900 dark:text-white">English 🇦🇺, Chinese 🇨🇳, Japanese 🇯🇵, and Spanish 🇪🇸</span>.
               </p>
               <div className="text-gray-700 dark:text-white leading-relaxed mb-1 flex gap-1 items-center">
                 <Image src="/github-icon.png" alt="GitHub" width={10} height={10} className='w-4 h-4 object-cover' />
