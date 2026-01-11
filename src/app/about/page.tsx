@@ -75,7 +75,7 @@ const router = useRouter();
               </div>
               <div className="text-gray-700 dark:text-white leading-relaxed mb-3 flex gap-1 items-center">
                 <Image src="/linkedin-icon.png" alt="Linkedin" width={10} height={10} className='w-4 h-4 object-cover' />
-                <div className='font-bold text-gray-900 dark:text-white'>Linkedin:</div> <Link href="https://www.linkedin.com/in/runlong-li-7603582b7" className="text-blue-400 underline">https://www.linkedin.com/in/runlong-li-7603582b7</Link>
+                <div className='font-bold text-gray-900 dark:text-white'>Linkedin:</div> <Link href="https://linkedin.com/in/leon-li-7603582b7" className="text-blue-400 underline">https://linkedin.com/in/leon-li-7603582b7</Link>
               </div>
 
               <div className="text-gray-700 dark:text-white leading-relaxed relative">
