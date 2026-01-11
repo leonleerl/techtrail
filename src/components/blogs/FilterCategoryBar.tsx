@@ -27,8 +27,8 @@ function FilterCategoryBar({
   onCategoryClick 
 }: FilterCategoryBarProps) {
   const filters: { id: FilterType; label: string }[] = [
-    { id: 'featured', label: 'Featured' },
-    { id: 'latest', label: 'Latest' },
+    { id: 'featured', label: 'Featured 🌟' },
+    { id: 'latest', label: 'Latest 🕒' },
   ]
 
   if (isLoading) {
