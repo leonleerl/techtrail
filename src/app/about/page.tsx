@@ -13,7 +13,7 @@ function AboutPage() {
 const router = useRouter();
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 dark:from-slate-900 dark:to-slate-900 dark:text-white mt-4">
+    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 dark:bg-web3-gradient dark:text-metallic-50 mt-1">
       <div className="max-w-6xl mx-auto px-6 py-16">
         {/* Header Section */}
         <div className="text-center mb-4">
@@ -212,8 +212,8 @@ const router = useRouter();
         </div>
 
         {/* Footer Quote */}
-        <div className="text-center pt-12 border-t-2 border-gray-200">
-          <Button className='bg-blue-400 hover:bg-blue-300 text-white cursor-pointer text-lg p-6' onClick={()=>{router.push('/blogs')}}>Visit my blogs ➡️</Button>
+        <div className="text-center pt-12 border-t-2 border-gray-200 dark:border-cold-blue-400/50 ">
+          <Button className='bg-blue-400 hover:bg-blue-300 dark:bg-cold-blue-500 dark:hover:bg-cold-blue-400 dark:shadow-armor-blue dark:border dark:border-cold-blue-400/50 text-white cursor-pointer text-lg p-6' onClick={()=>{router.push('/blogs')}}>Visit my blogs ➡️</Button>
         </div>
       </div>
     </div>

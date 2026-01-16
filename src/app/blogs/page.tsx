@@ -1,6 +1,6 @@
 'use client'
 import React, { useEffect, useMemo, useState, useRef } from 'react'
-import { PostListItem, BlogSidebar, FilterCategoryBar } from '@/components/blogs';
+import { PostListItem, BlogSidebar, FilterCategoryBar, NavbarBlogs } from '@/components/blogs';
 import { useCategories } from '@/hooks/useCategories';
 import { usePosts } from '@/hooks/usePosts';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -139,6 +139,7 @@ function BlogsPage() {
 
   return (
     <div className="min-h-screen bg-background">
+      <NavbarBlogs />
       
       {/* Main content area */}
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-6 mt-12">
