@@ -203,3 +203,40 @@ body {
   .animate-scroll:hover {
     animation-play-state: paused;
   }
+
+/* Admin 页面强制使用亮色模式 */
+.admin-layout-wrapper,
+.admin-layout-wrapper * {
+  color-scheme: light !important;
+}
+
+.admin-layout-wrapper.dark,
+.admin-layout-wrapper .dark {
+  background: white !important;
+  color: #1f2937 !important;
+}
+
+.admin-layout-wrapper .dark input,
+.admin-layout-wrapper .dark textarea,
+.admin-layout-wrapper .dark select {
+  background: white !important;
+  border-color: #e5e7eb !important;
+  color: #1f2937 !important;
+  box-shadow: none !important;
+}
+
+.admin-layout-wrapper .dark input:focus,
+.admin-layout-wrapper .dark textarea:focus,
+.admin-layout-wrapper .dark select:focus {
+  border-color: #3b82f6 !important;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
+  background: white !important;
+}
+
+.admin-layout-wrapper .dark .card,
+.admin-layout-wrapper .dark [class*="Card"] {
+  background: white !important;
+  border-color: #e5e7eb !important;
+  color: #1f2937 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+}
