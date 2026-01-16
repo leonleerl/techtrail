@@ -4,5 +4,5 @@ export * from './CategoryBar'
 export * from './Filter'
 export * from './PostListItem'
 export * from './BlogSidebar'
-
+export * from './NavbarBlogs'
 export * from './FilterCategoryBar'
