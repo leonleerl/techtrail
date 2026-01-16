@@ -1,13 +1,12 @@
 'use client'
 import React, { useEffect, useMemo, useState, useRef } from 'react'
 import { PostListItem, BlogSidebar, FilterCategoryBar } from '@/components/blogs';
-import { Navbar } from '@/components/Navbar';
 import { useCategories } from '@/hooks/useCategories';
 import { usePosts } from '@/hooks/usePosts';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Card } from '@/components/ui/card';
 
-type FilterType = 'all' | 'featured' | 'latest'
+type FilterType = 'all' | 'featured' | null
 
 function BlogsPage() {
   const { categories, isLoading, error } = useCategories();
@@ -16,9 +15,11 @@ function BlogsPage() {
   const [activeFilter, setActiveFilter] = useState<FilterType>('all');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
+  const [isLatestActive, setIsLatestActive] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [displayedPosts, setDisplayedPosts] = useState<typeof posts>([]);
   const [hasMore, setHasMore] = useState(true);
+  const [refreshKey, setRefreshKey] = useState(0); // Key to force refresh
   const observerTarget = useRef<HTMLDivElement>(null);
 
   const pageSize = 20;
@@ -32,31 +33,18 @@ function BlogsPage() {
   const filteredPosts = useMemo(() => {
     let result = [...posts].filter(post => post.published);
 
-    // Filter by filter type
-    switch (activeFilter) {
-      case 'all':
-        // For 'all': show all posts, ignore category filter
-        // No additional filtering needed
-        break;
-      case 'featured':
-        result = result.filter(post => post.is_featured);
-        // Filter by category if selected
-        if (selectedCategory !== 'all') {
-          result = result.filter(post => post.categoryId === selectedCategory);
-        }
-        break;
-      case 'latest':
-        // Filter by category if selected
-        if (selectedCategory !== 'all') {
-          result = result.filter(post => post.categoryId === selectedCategory);
-        }
-        break;
+    // Filter by category (always apply if selected)
+    if (selectedCategory !== 'all') {
+      result = result.filter(post => post.categoryId === selectedCategory);
     }
 
-    // Sort by time
-    // For 'all' and 'featured': always desc (newest first)
-    // For 'latest': use sortOrder state
-    const currentSortOrder = activeFilter === 'latest' ? sortOrder : 'desc';
+    // Filter by Featured (only if Featured is active)
+    if (activeFilter === 'featured') {
+      result = result.filter(post => post.is_featured);
+    }
+
+    // Sort by time (use sortOrder if Latest is active, otherwise default to desc)
+    const currentSortOrder = isLatestActive ? sortOrder : 'desc';
     result.sort((a, b) => {
       const timeA = new Date(a.createdAt).getTime();
       const timeB = new Date(b.createdAt).getTime();
@@ -64,7 +52,7 @@ function BlogsPage() {
     });
 
     return result;
-  }, [posts, activeFilter, selectedCategory, sortOrder]);
+  }, [posts, activeFilter, selectedCategory, sortOrder, isLatestActive]);
 
   // Update displayed posts list
   useEffect(() => {
@@ -74,7 +62,7 @@ function BlogsPage() {
       setDisplayedPosts(prev => [...prev, ...filteredPosts.slice((currentPage - 1) * pageSize, currentPage * pageSize)]);
     }
     setHasMore(filteredPosts.length > currentPage * pageSize);
-  }, [filteredPosts, currentPage]);
+  }, [filteredPosts, currentPage, pageSize, refreshKey]);
 
   // Infinite scroll observer
   useEffect(() => {
@@ -110,27 +98,47 @@ function BlogsPage() {
   // Handle category selection
   const handleCategoryChange = (categoryId: string) => {
     setSelectedCategory(categoryId);
+    // Cancel Featured and Latest when selecting category
+    setActiveFilter(null);
+    setIsLatestActive(false);
+    setSortOrder('desc');
     setCurrentPage(1);
-    setDisplayedPosts([]);
   };
 
   // Handle filter type change
   const handleFilterChange = (filter: FilterType) => {
-    setActiveFilter(filter);
+    if (filter === 'all') {
+      // Clicking All: reset category and cancel Featured/Latest
+      setSelectedCategory('all');
+      setActiveFilter('all');
+      setIsLatestActive(false);
+      setSortOrder('desc');
+    } else if (filter === 'featured') {
+      // Clicking Featured: activate Featured, keep category if selected
+      setActiveFilter('featured');
+      // Don't reset category - Featured works with category
+    }
+    
+    // Increment refreshKey to force useEffect to re-run even if other states don't change
+    setRefreshKey(prev => prev + 1);
     setCurrentPage(1);
-    setDisplayedPosts([]);
   };
 
-  // Handle sort toggle
-  const handleSortToggle = () => {
-    setSortOrder(prev => prev === 'desc' ? 'asc' : 'desc');
+  // Handle Latest toggle
+  const handleLatestToggle = () => {
+    if (isLatestActive) {
+      // If Latest is active, toggle sort order
+      setSortOrder(prev => prev === 'desc' ? 'asc' : 'desc');
+    } else {
+      // If Latest is not active, activate it
+      setIsLatestActive(true);
+      setSortOrder('desc'); // Start with desc
+    }
     setCurrentPage(1);
-    setDisplayedPosts([]);
   };
 
   return (
     <div className="min-h-screen bg-background">
-      <Navbar />
       
       {/* Main content area */}
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-6 mt-12">
@@ -143,9 +151,10 @@ function BlogsPage() {
             activeFilter={activeFilter}
             selectedCategory={selectedCategory}
             sortOrder={sortOrder}
+            isLatestActive={isLatestActive}
             onFilterChange={handleFilterChange}
             onCategoryChange={handleCategoryChange}
-            onSortToggle={handleSortToggle}
+            onLatestToggle={handleLatestToggle}
           />
         </div>
 

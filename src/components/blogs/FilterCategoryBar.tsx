@@ -6,7 +6,7 @@ import { Skeleton, Select, SelectContent, SelectItem, SelectTrigger, SelectValue
 import { cn } from '@/lib/utils';
 import { MoveUp, MoveDown } from 'lucide-react';
 
-type FilterType = 'all' | 'featured' | 'latest'
+type FilterType = 'all' | 'featured' | null
 
 interface FilterCategoryBarProps {
   categories: CategoryDto[];
@@ -15,9 +15,10 @@ interface FilterCategoryBarProps {
   activeFilter: FilterType;
   selectedCategory: string;
   sortOrder: 'asc' | 'desc';
+  isLatestActive: boolean;
   onFilterChange: (filter: FilterType) => void;
   onCategoryChange: (categoryId: string) => void;
-  onSortToggle: () => void;
+  onLatestToggle: () => void;
 }
 
 function FilterCategoryBar({ 
@@ -27,9 +28,10 @@ function FilterCategoryBar({
   activeFilter, 
   selectedCategory, 
   sortOrder,
+  isLatestActive,
   onFilterChange,
   onCategoryChange,
-  onSortToggle
+  onLatestToggle
 }: FilterCategoryBarProps) {
   if (isLoading) {
     return (
@@ -76,25 +78,17 @@ function FilterCategoryBar({
 
       {/* Latest button with sort indicator */}
       <button
-        onClick={() => {
-          if (activeFilter === 'latest') {
-            // If already on latest, toggle sort order
-            onSortToggle();
-          } else {
-            // Otherwise, switch to latest filter
-            onFilterChange('latest');
-          }
-        }}
+        onClick={onLatestToggle}
         className={cn(
           "px-4 py-2 text-sm font-medium rounded-md whitespace-nowrap transition-colors flex items-center gap-1 w-[110px] justify-center relative",
-          activeFilter === 'latest'
+          isLatestActive
             ? "bg-primary text-primary-foreground"
             : "text-muted-foreground hover:text-foreground hover:bg-accent"
         )}
       >
         <span className="flex items-center gap-1">
           Latest 🕒
-          {activeFilter === 'latest' && (
+          {isLatestActive && (
             sortOrder === 'desc' ? (
               <MoveDown className="w-4 h-4 flex-shrink-0" />
             ) : (
@@ -112,7 +106,7 @@ function FilterCategoryBar({
         <SelectTrigger className="w-[180px]">
           <SelectValue placeholder="Choose a category" />
         </SelectTrigger>
-        <SelectContent className='bg-amber-100'>
+        <SelectContent className='bg-amber-100 dark:bg-amber-900'>
           {categories.map(category => (
             <SelectItem key={category.id} value={category.id}>
               {category.name}
