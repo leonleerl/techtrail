@@ -50,8 +50,8 @@ function PostListItem({ post, commentCount = 0 }: PostListItemProps) {
     <div 
       onClick={handleClick}
       className={cn(
-        "group cursor-pointer border-b border-border/50 py-5 px-6 hover:bg-accent/30 transition-colors",
-        "flex items-start gap-4"
+        "group cursor-pointer border-b pb-3 px-5 hover:bg-accent/30 transition-colors",
+        "flex"
       )}
     >
       {/* Left content */}
