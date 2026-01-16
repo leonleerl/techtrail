@@ -62,55 +62,111 @@ function BlogPage() {
     loadPost()
   }, [slug])
 
-  // Extract headings from Markdown content
+  // 从 DOM 中提取标题（在 Markdown 渲染完成后）
   useEffect(() => {
     if (!post?.content) return
 
-    const extractedHeadings: Heading[] = []
-    const lines = post.content.split('\n')
-    
-    lines.forEach((line) => {
-      const match = line.match(/^(#{1,6})\s+(.+)$/)
-      if (match) {
-        const level = match[1].length
-        const text = match[2]
-        const id = text.toLowerCase().replace(/[^\u4e00-\u9fa5a-z0-9]+/g, '-')
-        extractedHeadings.push({ id, text, level })
+    // 等待 Markdown 渲染完成
+    const timer = setTimeout(() => {
+      const articleElement = document.querySelector('article')
+      if (!articleElement) return
+      
+      // 查找文章内容区域内的所有标题（排除文章标题）
+      const allHeadings = Array.from(articleElement.querySelectorAll('h1, h2, h3, h4, h5, h6')) as HTMLElement[]
+      
+      // 过滤掉文章标题（第一个 h1，如果存在）
+      const contentHeadings = allHeadings.filter((el, index) => {
+        // 跳过文章标题（第一个 h1，如果存在）
+        if (index === 0 && el.tagName === 'H1') {
+          return false
+        }
+        return true
+      })
+      
+      // 从 DOM 中提取标题信息
+      const extractedHeadings: Heading[] = contentHeadings.map((element) => {
+        const level = parseInt(element.tagName.charAt(1)) // H1 -> 1, H2 -> 2, etc.
+        const text = element.textContent?.trim() || ''
+        const id = element.id || ''
+        
+        return {
+          id,
+          text,
+          level
+        }
+      }).filter(h => h.id) // 只保留有 id 的标题
+      
+      if (extractedHeadings.length > 0) {
+        setHeadings(extractedHeadings)
       }
-    })
-    
-    setHeadings(extractedHeadings)
-  }, [post])
+    }, 500) // 增加延迟，确保 Markdown 完全渲染
+
+    return () => clearTimeout(timer)
+  }, [post?.content])
 
   // Listen to scroll and highlight current heading
   useEffect(() => {
-    const handleScroll = () => {
-      const headingElements = headings.map(h => document.getElementById(h.id))
-      const scrollPosition = window.scrollY + 100
+    if (headings.length === 0) return
 
-      for (let i = headingElements.length - 1; i >= 0; i--) {
-        const element = headingElements[i]
-        if (element && element.offsetTop <= scrollPosition) {
-          setActiveId(headings[i].id)
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY + 150 // 增加偏移量
+      
+      // 获取所有标题元素的位置
+      const headingPositions = headings.map(heading => {
+        const element = document.getElementById(heading.id)
+        if (!element) return null
+        return {
+          id: heading.id,
+          top: element.getBoundingClientRect().top + window.pageYOffset
+        }
+      }).filter((pos): pos is { id: string; top: number } => pos !== null)
+
+      // 找到当前应该高亮的标题
+      let activeHeadingId = ''
+      for (let i = headingPositions.length - 1; i >= 0; i--) {
+        if (headingPositions[i].top <= scrollPosition) {
+          activeHeadingId = headingPositions[i].id
           break
         }
       }
+
+      if (activeHeadingId && activeHeadingId !== activeId) {
+        setActiveId(activeHeadingId)
+      }
     }
 
-    window.addEventListener('scroll', handleScroll)
+    // 初始检查
+    handleScroll()
+    
+    window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [headings])
+  }, [headings, activeId])
 
   // Scroll to heading on click
   const scrollToHeading = (id: string) => {
-    const element = document.getElementById(id)
-    if (element) {
-      const offset = 80
-      const elementPosition = element.offsetTop - offset
-      window.scrollTo({
-        top: elementPosition,
-        behavior: 'smooth'
-      })
+    const scrollToElement = () => {
+      const element = document.getElementById(id)
+      
+      if (element) {
+        const offset = 120 // 偏移量，确保标题不被导航栏遮挡
+        const elementTop = element.getBoundingClientRect().top + window.pageYOffset
+        const targetPosition = elementTop - offset
+        
+        window.scrollTo({
+          top: Math.max(0, targetPosition),
+          behavior: 'smooth'
+        })
+        return true
+      }
+      return false
+    }
+    
+    // 立即尝试滚动
+    if (!scrollToElement()) {
+      // 如果找不到元素，等待一下再尝试
+      setTimeout(() => {
+        scrollToElement()
+      }, 100)
     }
   }
 
