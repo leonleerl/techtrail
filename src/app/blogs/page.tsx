@@ -5,19 +5,17 @@ import { Navbar } from '@/components/Navbar';
 import { useCategories } from '@/hooks/useCategories';
 import { usePosts } from '@/hooks/usePosts';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Input } from '@/components/ui/input';
-import { Search } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 
-type FilterType = 'featured' | 'latest'
+type FilterType = 'all' | 'featured' | 'latest'
 
 function BlogsPage() {
   const { categories, isLoading, error } = useCategories();
   const { posts, isLoading: postsLoading, error: postsError, fetchPosts } = usePosts();
   
-  const [activeFilter, setActiveFilter] = useState<FilterType>('featured');
+  const [activeFilter, setActiveFilter] = useState<FilterType>('all');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
-  const [searchQuery, setSearchQuery] = useState('');
+  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
   const [currentPage, setCurrentPage] = useState(1);
   const [displayedPosts, setDisplayedPosts] = useState<typeof posts>([]);
   const [hasMore, setHasMore] = useState(true);
@@ -27,31 +25,46 @@ function BlogsPage() {
 
   // Fetch posts list
   useEffect(() => {
-    fetchPosts(searchQuery, currentPage, pageSize);
-  }, [fetchPosts, searchQuery, currentPage]);
+    fetchPosts('', currentPage, pageSize);
+  }, [fetchPosts, currentPage]);
 
   // Filter posts based on filter conditions
   const filteredPosts = useMemo(() => {
     let result = [...posts].filter(post => post.published);
 
-    // Filter by category
-    if (selectedCategory !== 'all') {
-      result = result.filter(post => post.categoryId === selectedCategory);
-    }
-
-    // Sort by filter type
+    // Filter by filter type
     switch (activeFilter) {
+      case 'all':
+        // For 'all': show all posts, ignore category filter
+        // No additional filtering needed
+        break;
       case 'featured':
         result = result.filter(post => post.is_featured);
-        result.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+        // Filter by category if selected
+        if (selectedCategory !== 'all') {
+          result = result.filter(post => post.categoryId === selectedCategory);
+        }
         break;
       case 'latest':
-        result.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+        // Filter by category if selected
+        if (selectedCategory !== 'all') {
+          result = result.filter(post => post.categoryId === selectedCategory);
+        }
         break;
     }
 
+    // Sort by time
+    // For 'all' and 'featured': always desc (newest first)
+    // For 'latest': use sortOrder state
+    const currentSortOrder = activeFilter === 'latest' ? sortOrder : 'desc';
+    result.sort((a, b) => {
+      const timeA = new Date(a.createdAt).getTime();
+      const timeB = new Date(b.createdAt).getTime();
+      return currentSortOrder === 'desc' ? timeB - timeA : timeA - timeB;
+    });
+
     return result;
-  }, [posts, activeFilter, selectedCategory]);
+  }, [posts, activeFilter, selectedCategory, sortOrder]);
 
   // Update displayed posts list
   useEffect(() => {
@@ -95,23 +108,22 @@ function BlogsPage() {
   }, [posts]);
 
   // Handle category selection
-  const handleCategoryClick = (categoryId: string) => {
+  const handleCategoryChange = (categoryId: string) => {
     setSelectedCategory(categoryId);
     setCurrentPage(1);
     setDisplayedPosts([]);
   };
 
-  // Handle search
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    setCurrentPage(1);
-    setDisplayedPosts([]);
-    fetchPosts(searchQuery, 1, pageSize);
-  };
-
   // Handle filter type change
   const handleFilterChange = (filter: FilterType) => {
     setActiveFilter(filter);
+    setCurrentPage(1);
+    setDisplayedPosts([]);
+  };
+
+  // Handle sort toggle
+  const handleSortToggle = () => {
+    setSortOrder(prev => prev === 'desc' ? 'asc' : 'desc');
     setCurrentPage(1);
     setDisplayedPosts([]);
   };
@@ -122,20 +134,6 @@ function BlogsPage() {
       
       {/* Main content area */}
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-6 mt-12">
-        {/* Search bar */}
-        <div className="mb-6">
-          <form onSubmit={handleSearch} className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-            <Input
-              type="text"
-              placeholder="Search, discover more exciting content"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10 h-12 text-base"
-            />
-          </form>
-        </div>
-
         {/* Filter and Category bar */}
         <div className="mb-6">
           <FilterCategoryBar 
@@ -144,8 +142,10 @@ function BlogsPage() {
             error={error}
             activeFilter={activeFilter}
             selectedCategory={selectedCategory}
+            sortOrder={sortOrder}
             onFilterChange={handleFilterChange}
-            onCategoryClick={handleCategoryClick}
+            onCategoryChange={handleCategoryChange}
+            onSortToggle={handleSortToggle}
           />
         </div>
 
