@@ -35,7 +35,7 @@ function BlogSidebar({ popularPosts = [] }: BlogSidebarProps) {
                 <div key={post.id}>
                   <button
                     onClick={() => router.push(`/blogs/${post.slug}`)}
-                    className="w-full text-left group"
+                    className="w-full text-left group hover:cursor-pointer hover:-translate-y-0.5 transition-transform duration-300"
                   >
                     <div className="flex items-start gap-3">
                       <div className="flex-shrink-0 w-6 h-6 rounded-full bg-primary/10 text-primary text-xs font-semibold flex items-center justify-center">
