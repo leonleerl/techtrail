@@ -92,13 +92,13 @@ export function MarkdownRenderer({ content, className = "" }: MarkdownRendererPr
             }
             // 代码块会被 rehype-highlight 处理，className 包含语言信息
             return (
-              <code className={`hljs ${className || ''}`}>
+              <code className={`hljs text-sm ${className || ''}`}>
                 {children}
               </code>
             );
           },
           pre: ({ children }) => (
-            <pre className="rounded mb-3 overflow-x-auto">
+            <pre className="rounded mb-3 overflow-x-auto text-sm">
               {children}
             </pre>
           ),
