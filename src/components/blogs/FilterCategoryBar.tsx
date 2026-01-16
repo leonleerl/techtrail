@@ -54,7 +54,7 @@ function FilterCategoryBar({
       <button
         onClick={() => onFilterChange('all')}
         className={cn(
-          "px-4 py-2 text-sm font-medium rounded-md whitespace-nowrap transition-colors",
+          "hover:cursor-pointer hover:-translate-y-0.5 transition-transform duration-300 px-4 py-2 text-sm font-medium rounded-md whitespace-nowrap",
           activeFilter === 'all'
             ? "bg-primary text-primary-foreground"
             : "text-muted-foreground hover:text-foreground hover:bg-accent"
@@ -67,7 +67,7 @@ function FilterCategoryBar({
       <button
         onClick={() => onFilterChange('featured')}
         className={cn(
-          "px-4 py-2 text-sm font-medium rounded-md whitespace-nowrap transition-colors",
+          "hover:cursor-pointer hover:-translate-y-0.5 transition-transform duration-300 px-4 py-2 text-sm font-medium rounded-md whitespace-nowrap",
           activeFilter === 'featured'
             ? "bg-primary text-primary-foreground"
             : "text-muted-foreground hover:text-foreground hover:bg-accent"
@@ -80,7 +80,7 @@ function FilterCategoryBar({
       <button
         onClick={onLatestToggle}
         className={cn(
-          "px-4 py-2 text-sm font-medium rounded-md whitespace-nowrap transition-colors flex items-center gap-1 w-[110px] justify-center relative",
+          "hover:cursor-pointer hover:-translate-y-0.5 transition-transform duration-300 px-4 py-2 text-sm font-medium rounded-md whitespace-nowrap flex items-center gap-1 w-[110px] justify-center relative",
           isLatestActive
             ? "bg-primary text-primary-foreground"
             : "text-muted-foreground hover:text-foreground hover:bg-accent"
