@@ -27,7 +27,7 @@ function BlogSidebar({ popularPosts = [] }: BlogSidebarProps) {
       {popularPosts.length > 0 && (
         <Card>
           <CardHeader>
-            <CardTitle className="text-lg">Popular Articles</CardTitle>
+            <CardTitle className="text-lg">Popular Articles 🔥</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
@@ -69,70 +69,70 @@ function BlogSidebar({ popularPosts = [] }: BlogSidebarProps) {
         <CardContent>
           <div className="space-y-2">
             <div className="flex flex-wrap items-start gap-2">
-                <div className="flex-shrink-0 font-semibold">Etherscan:</div>
-                <div className="flex-1 min-w-0">
-                    <a 
-                      href="https://etherscan.io/" 
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block text-sm text-muted-foreground hover:text-primary transition-colors py-1 break-words"
-                    >
-                      https://etherscan.io/
-                    </a>
-                </div>
+              <div className="flex-shrink-0 font-semibold">Etherscan:</div>
+              <div className="flex-1 min-w-0">
+                <a
+                  href="https://etherscan.io/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block text-sm text-muted-foreground hover:text-primary transition-colors py-1 break-words"
+                >
+                  https://etherscan.io/
+                </a>
+              </div>
             </div>
             <div className="flex flex-wrap items-start gap-2">
-                <div className="flex-shrink-0 font-semibold">OpenSea:</div>
-                <div className="flex-1 min-w-0">
-                    <a 
-                      href="https://opensea.io/" 
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block text-sm text-muted-foreground hover:text-primary transition-colors py-1 break-words"
-                    >
-                      https://opensea.io/
-                    </a>
-                </div>
+              <div className="flex-shrink-0 font-semibold">OpenSea:</div>
+              <div className="flex-1 min-w-0">
+                <a
+                  href="https://opensea.io/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block text-sm text-muted-foreground hover:text-primary transition-colors py-1 break-words"
+                >
+                  https://opensea.io/
+                </a>
+              </div>
             </div>
-            
+
             <div className="flex flex-wrap items-start gap-2">
-                <div className="flex-shrink-0 font-semibold">Foundry:</div>
-                <div className="flex-1 min-w-0">
-                    <a 
-                      href="https://getfoundry.sh/introduction/getting-started" 
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block text-sm text-muted-foreground hover:text-primary transition-colors py-1 break-words"
-                    >
-                      https://getfoundry.sh/introduction/getting-started
-                    </a>
-                </div>
-            </div>
-            <div className="flex flex-wrap items-start gap-2">
-                <div className="flex-shrink-0 font-semibold">Wagmi:</div>
-                <div className="flex-1 min-w-0">
-                    <a 
-                      href="https://wagmi.sh/react/guides/connect-wallet" 
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block text-sm text-muted-foreground hover:text-primary transition-colors py-1 break-words"
-                    >
-                      https://wagmi.sh/react/guides/connect-wallet
-                    </a>
-                </div>
+              <div className="flex-shrink-0 font-semibold">Foundry:</div>
+              <div className="flex-1 min-w-0">
+                <a
+                  href="https://getfoundry.sh/introduction/getting-started"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block text-sm text-muted-foreground hover:text-primary transition-colors py-1 break-words"
+                >
+                  https://getfoundry.sh/introduction/getting-started
+                </a>
+              </div>
             </div>
             <div className="flex flex-wrap items-start gap-2">
-                <div className="flex-shrink-0 font-semibold">PoW Faucet:</div>
-                <div className="flex-1 min-w-0">
-                    <a 
-                      href="https://faucets.pk910.de/" 
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block text-sm text-muted-foreground hover:text-primary transition-colors py-1 break-words"
-                    >
-                      https://faucets.pk910.de/
-                    </a>
-                </div>
+              <div className="flex-shrink-0 font-semibold">Wagmi:</div>
+              <div className="flex-1 min-w-0">
+                <a
+                  href="https://wagmi.sh/react/guides/connect-wallet"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block text-sm text-muted-foreground hover:text-primary transition-colors py-1 break-words"
+                >
+                  https://wagmi.sh/react/guides/connect-wallet
+                </a>
+              </div>
+            </div>
+            <div className="flex flex-wrap items-start gap-2">
+              <div className="flex-shrink-0 font-semibold">PoW Faucet:</div>
+              <div className="flex-1 min-w-0">
+                <a
+                  href="https://faucets.pk910.de/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block text-sm text-muted-foreground hover:text-primary transition-colors py-1 break-words"
+                >
+                  https://faucets.pk910.de/
+                </a>
+              </div>
             </div>
           </div>
         </CardContent>
