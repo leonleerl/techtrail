@@ -19,7 +19,7 @@ function Navbar() {
   return (
     <div className={`h-14 w-4/5 mx-auto fixed top-0 left-0 right-0 z-50 bg-gray-600 dark:bg-web3-dark-200/90 dark:border-b dark:border-cold-blue-400/50 dark:shadow-armor-blue rounded-b-xl opacity-80 dark:opacity-95 transition-colors duration-300 backdrop-blur-sm`}>
     <div className='flex items-center justify-between h-full px-4'>
-        <div>
+        <div className='hidden md:block'>
             <Image src='/leon.JPG' alt='logo' width={100} height={100} className='rounded-full w-10 h-10 object-cover border-1 border-white transition-transform duration-500 hover:scale-110 hover:cursor-pointer' onClick={()=>{router.push('/')}}/>
         </div>
         <div className='flex items-center gap-2'>
