@@ -48,7 +48,7 @@ function NavbarBlogs() {
       
       {/* Content layer */}
       <div className='relative h-full w-4/5 mx-auto flex items-center justify-between px-4 z-10'>
-        <div>
+        <div className='hidden md:block'>
           <Image src='/leon.JPG' alt='logo' width={100} height={100} className='rounded-full w-10 h-10 object-cover border-1 border-white transition-transform duration-500 hover:scale-110 hover:cursor-pointer' onClick={()=>{router.push('/')}}/>
         </div>
         <div className='flex items-center gap-2'>
