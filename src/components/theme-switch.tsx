@@ -23,12 +23,18 @@ export default function ThemeSwitch() {
     />
   )
 
-  if (resolvedTheme === 'dark') {
-    return <Sun onClick={() => setTheme('light')} />
+  const handleToggle = () => {
+    setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')
   }
 
-  if (resolvedTheme === 'light') {
-    return <Moon onClick={() => setTheme('dark')} />
-  }
-
+  return (
+    <button
+      type="button"
+      onClick={handleToggle}
+      className="p-2 rounded-md hover:bg-gray-200 dark:hover:bg-web3-dark-200/50 transition-colors cursor-pointer"
+      aria-label={resolvedTheme === 'dark' ? '切换到亮色模式' : '切换到暗黑模式'}
+    >
+      {resolvedTheme === 'dark' ? <Sun size={24} /> : <Moon size={24} />}
+    </button>
+  )
 }
