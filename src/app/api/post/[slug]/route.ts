@@ -10,7 +10,7 @@ export async function GET(req: Request, { params }: { params: Promise<{ slug: st
         const post = await prisma.post.findUnique({
             where: { slug },
             include: {
-                category: {
+                categories: {
                     select: {
                         id: true,
                         name: true,
@@ -36,12 +36,29 @@ export async function PUT(req: Request, { params }: { params: Promise<{ slug: st
         const body = await req.json();
         const parsedBody : PostFormSchemaType = PostFormSchema.parse(body);
 
+        const { categoryIds, ...rest } = parsedBody;
+
         const updatedPost = await prisma.post.update({
             where: { slug },
-            data: parsedBody,
+            data: {
+                title: rest.title,
+                slug: rest.slug,
+                content: rest.content,
+                published: rest.published,
+                is_featured: rest.is_featured,
+                categories: {
+                    set: categoryIds.map((id) => ({ id })),
+                },
+            },
+            include: {
+                categories: {
+                    select: { id: true, name: true },
+                },
+            },
         });
         return success('Post updated', updatedPost);
     } catch (error) {
+        console.error('PUT /api/post/[slug] error:', error);
         return failure(error as Error);
     }
 }

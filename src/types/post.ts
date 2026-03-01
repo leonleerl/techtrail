@@ -9,11 +9,10 @@ export interface PostDto {
     views: number;
     createdAt: Date;
     updatedAt: Date;
-    categoryId: string;
-    category?: {
+    categories: {
         id: string;
         name: string;
-    }
+    }[];
 }
 
 export interface PostCreateDto {
@@ -22,7 +21,7 @@ export interface PostCreateDto {
     content: string;
     published: boolean;
     is_featured: boolean;
-    categoryId: string;
+    categoryIds: string[];
 }
 
 export interface PostUpdateDto {
@@ -31,7 +30,7 @@ export interface PostUpdateDto {
     content?: string;
     published?: boolean;
     is_featured?: boolean;
-    categoryId?: string;
+    categoryIds?: string[];
 }
 
 export interface PostQueryParams {

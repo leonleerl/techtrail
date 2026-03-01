@@ -6,16 +6,16 @@ interface Post {
   title: string
   slug: string
   content: string
+  description?: string
   published: boolean
   is_featured: boolean
   views: number
   createdAt: string
   updatedAt: string
-  categoryId: string
-  category: {
+  categories: {
     id: string
     name: string
-  }
+  }[]
 }
 
 export interface PaginatedResponse<T> {
