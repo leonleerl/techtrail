@@ -1,6 +1,6 @@
 "use client"
 
-import { EyeIcon, MessageSquareIcon, BookmarkIcon, CalendarIcon } from 'lucide-react'
+import { EyeIcon, MessageSquareIcon, CalendarIcon, BookHeart } from 'lucide-react'
 import React from 'react'
 import { useRouter } from 'next/navigation'
 import { cn } from '@/lib/utils'
@@ -82,13 +82,7 @@ function PostListItem({ post, commentCount = 0 }: PostListItemProps) {
           </p>
         )}
         
-        <div className="flex items-center gap-5 text-xs text-muted-foreground">
-          <div className="flex items-center gap-1.5">
-            <span className="w-7 h-7 rounded-full bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center text-xs font-medium text-primary border border-primary/20">
-              {post.title.charAt(0).toUpperCase()}
-            </span>
-            <span>Author</span>
-          </div>
+        <div className="flex items-center gap-5 text-xs text-muted-foreground my-2">
           <div className="flex items-center gap-1.5">
             <CalendarIcon className="w-3.5 h-3.5" />
             <span>{formatDate(post.createdAt)}</span>
@@ -108,15 +102,7 @@ function PostListItem({ post, commentCount = 0 }: PostListItemProps) {
       
       {/* Right bookmark icon */}
       <div className="flex-shrink-0 pt-1">
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            // Handle bookmark logic
-          }}
-          className="p-1.5 rounded-md hover:bg-accent transition-colors"
-        >
-          <BookmarkIcon className="w-5 h-5 text-muted-foreground hover:text-primary transition-colors" />
-        </button>
+        <BookHeart className="w-5 h-5 text-muted-foreground hover:text-primary transition-colors" />
       </div>
     </div>
   )
