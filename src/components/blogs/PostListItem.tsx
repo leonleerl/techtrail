@@ -11,10 +11,10 @@ interface Post {
   title: string
   description?: string
   createdAt: string
-  category: {
+  categories: {
     id: string
     name: string
-  }
+  }[]
   views: number
   is_featured: boolean
 }
@@ -56,10 +56,15 @@ function PostListItem({ post, commentCount = 0 }: PostListItemProps) {
     >
       {/* Left content */}
       <div className="flex-1 min-w-0">
-        <div className="flex items-center gap-2 mb-2.5">
-          <span className="text-xs px-2.5 py-1 rounded-full bg-primary/10 text-primary border border-primary/20">
-            {post.category.name}
-          </span>
+        <div className="flex flex-wrap items-center gap-2 mb-2.5">
+          {post.categories?.map((c) => (
+            <span
+              key={c.id}
+              className="text-xs px-2.5 py-1 rounded-full bg-primary/10 text-primary border border-primary/20"
+            >
+              {c.name}
+            </span>
+          ))}
           {post.is_featured && (
             <span className="text-xs px-2.5 py-1 rounded-full bg-orange-500/10 text-orange-500 border border-orange-500/20">
               Featured
