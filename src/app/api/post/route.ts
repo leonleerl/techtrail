@@ -33,7 +33,7 @@ export async function GET(req: Request) {
                 },
             },
             include: {
-                category: {
+                categories: {
                     select: {
                         id: true,
                         name: true,
@@ -68,17 +68,17 @@ export async function POST(req: Request) {
         const body = await req.json();
         const parsedBody : PostFormSchemaType = PostFormSchema.parse(body);
 
-        const postCreate = {
-            title: parsedBody.title,
-            slug: parsedBody.slug,
-            content: parsedBody.content,
-            published: parsedBody.published,
-            is_featured: parsedBody.is_featured,
-            categoryId: parsedBody.categoryId,
-        }
-
         const result = await prisma.post.create({
-            data: postCreate,
+            data: {
+                title: parsedBody.title,
+                slug: parsedBody.slug,
+                content: parsedBody.content,
+                published: parsedBody.published,
+                is_featured: parsedBody.is_featured,
+                categories: parsedBody.categoryIds.length > 0
+                    ? { connect: parsedBody.categoryIds.map((id) => ({ id })) }
+                    : undefined,
+            },
         });
 
         return success('Post created successfully', result);

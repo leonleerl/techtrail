@@ -12,12 +12,13 @@ import {
   FormControl, 
   FormMessage, 
   Input,
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuCheckboxItem,
 } from '@/components/ui';
+import { Button } from '@/components/ui/button';
+import { ChevronDownIcon } from 'lucide-react';
 import { PostFormSchema, PostFormSchemaType } from '@/schemas/post.schema';
 import { CategoryDto } from '@/types/category';
 import * as categoryService from '@/lib/api-client/category.client';
@@ -39,11 +40,10 @@ interface Post {
   views: number
   createdAt: string
   updatedAt: string
-  categoryId: string
-  category: {
+  categories: {
     id: string
     name: string
-  }
+  }[]
 }
 
 interface PostFormProps {
@@ -65,7 +65,7 @@ export default function PostForm({ initialData, onSubmit, formId }: PostFormProp
       content: initialData?.content || '',
       published: initialData?.published || false,
       is_featured: initialData?.is_featured || false,
-      categoryId: initialData?.categoryId || '',
+      categoryIds: initialData?.categories?.map((c) => c.id) ?? [],
     },
   });
 
@@ -177,24 +177,47 @@ export default function PostForm({ initialData, onSubmit, formId }: PostFormProp
 
         <FormField
           control={form.control}
-          name="categoryId"
+          name="categoryIds"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Category</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <FormLabel>Categories</FormLabel>
+              <DropdownMenu modal={false}>
                 <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder={loadingCategories ? "Loading..." : "Select a category"} />
-                  </SelectTrigger>
+                  <DropdownMenuTrigger asChild>
+                    <Button
+                      variant="outline"
+                      role="combobox"
+                      className="w-full justify-between font-normal h-9 px-3"
+                    >
+                      {loadingCategories
+                        ? "Loading..."
+                        : field.value.length > 0
+                          ? categories
+                              .filter((c) => field.value.includes(c.id))
+                              .map((c) => c.name)
+                              .join(", ")
+                          : "Select categories"}
+                      <ChevronDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                    </Button>
+                  </DropdownMenuTrigger>
                 </FormControl>
-                <SelectContent>
+                <DropdownMenuContent align="start" className="w-[var(--radix-dropdown-menu-trigger-width)]">
                   {categories.map((category) => (
-                    <SelectItem key={category.id} value={category.id}>
+                    <DropdownMenuCheckboxItem
+                      key={category.id}
+                      checked={field.value.includes(category.id)}
+                      onCheckedChange={(checked) => {
+                        const next = checked
+                          ? [...field.value, category.id]
+                          : field.value.filter((id) => id !== category.id);
+                        field.onChange(next);
+                      }}
+                    >
                       {category.name}
-                    </SelectItem>
+                    </DropdownMenuCheckboxItem>
                   ))}
-                </SelectContent>
-              </Select>
+                </DropdownMenuContent>
+              </DropdownMenu>
               <FormMessage />
             </FormItem>
           )}

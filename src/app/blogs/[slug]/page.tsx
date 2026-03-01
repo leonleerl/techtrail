@@ -24,11 +24,10 @@ interface Post {
   views: number
   createdAt: string
   updatedAt: string
-  categoryId: string
-  category: {
+  categories: {
     id: string
     name: string
-  }
+  }[]
 }
 
 function BlogPage() {
@@ -268,11 +267,16 @@ function BlogPage() {
                   <Calendar className="w-4 h-4" />
                   <span>{formatDate(post.createdAt)}</span>
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex flex-wrap items-center gap-2">
                   <Tag className="w-4 h-4" />
-                  <span className="bg-blue-100 dark:bg-cold-blue-300/20 dark:border dark:border-cold-blue-400/50 dark:shadow-web3-glow-sm text-blue-700 dark:text-cold-blue-500 px-3 py-1 rounded-full">
-                    {post.category.name}
-                  </span>
+                  {post.categories?.map((c) => (
+                    <span
+                      key={c.id}
+                      className="bg-blue-100 dark:bg-cold-blue-300/20 dark:border dark:border-cold-blue-400/50 dark:shadow-web3-glow-sm text-blue-700 dark:text-cold-blue-500 px-3 py-1 rounded-full"
+                    >
+                      {c.name}
+                    </span>
+                  ))}
                 </div>
                 <div className="flex items-center gap-2">
                   <Eye className="w-4 h-4" />

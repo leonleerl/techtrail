@@ -6,7 +6,7 @@ export const PostFormSchema = z.object({
     content: z.string().min(1, { message: "Content is required" }),
     published: z.boolean(),
     is_featured: z.boolean(),
-    categoryId: z.string(),
+    categoryIds: z.array(z.string()),
 });
 
 export type PostFormSchemaType = z.infer<typeof PostFormSchema>;
