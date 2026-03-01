@@ -63,7 +63,7 @@ function AboutPage() {
                   <Image src="/dotnet-icon.png" alt="C#" width={10} height={10} className='w-4 h-4 object-cover' />
                   <span className='font-bold text-gray-900 dark:text-white'>C# desktop application development</span>
                 </span>
-                . I&apos;m highly familiar with WPF, Avalonia, and WinForms with the serial communication protocol.
+                . I&apos;m familiar with WPF, Avalonia, and WinForms with the serial communication protocol.
               </p>
               <p className="text-gray-700 dark:text-white leading-relaxed mb-3">
                 Commonly used cloud services such as
