@@ -35,7 +35,9 @@ function BlogsPage() {
 
     // Filter by category (always apply if selected)
     if (selectedCategory !== 'all') {
-      result = result.filter(post => post.categoryId === selectedCategory);
+      result = result.filter(
+        (post) => post.categories?.some((c) => c.id === selectedCategory)
+      );
     }
 
     // Filter by Featured (only if Featured is active)

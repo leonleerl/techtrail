@@ -14,11 +14,10 @@ interface Post {
   views: number
   createdAt: string
   updatedAt: string
-  categoryId: string
-  category: {
+  categories: {
     id: string
     name: string
-  }
+  }[]
 }
 
 interface PaginationState {

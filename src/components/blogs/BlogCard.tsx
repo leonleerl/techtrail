@@ -12,10 +12,10 @@ interface Post {
   title: string
   description?: string
   createdAt: string
-  category: {
+  categories: {
     id: string
     name: string
-  }
+  }[]
   views: number
   is_featured: boolean
 }
@@ -51,9 +51,16 @@ function BlogCard({ post }: BlogCardProps) {
     >
       <CardHeader className="pb-3">
         <div className="flex items-center justify-between mb-2">
-          <span className="px-2.5 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary border border-primary/20">
-            {post.category.name}
-          </span>
+          <div className="flex flex-wrap gap-1.5">
+            {post.categories?.map((c) => (
+              <span
+                key={c.id}
+                className="px-2.5 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary border border-primary/20"
+              >
+                {c.name}
+              </span>
+            ))}
+          </div>
         </div>
         <CardTitle className="text-lg font-bold leading-snug line-clamp-2 group-hover:text-primary transition-colors">
           {post.title}

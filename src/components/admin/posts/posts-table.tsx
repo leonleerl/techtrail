@@ -98,7 +98,9 @@ export function PostsTable() {
                 <TableCell>{post.slug}</TableCell>
                 <TableCell>
                   <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded text-xs">
-                    {post.category?.name || 'No Category'}
+                    {post.categories?.length
+                      ? post.categories.map((c) => c.name).join(", ")
+                      : "No Category"}
                   </span>
                 </TableCell>
                 <TableCell>
