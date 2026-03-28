@@ -37,63 +37,102 @@ function AboutPage() {
         {/* Introduction Section */}
         <div className="mb-20 mx-4">
           <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">Introduction</h2>
-          <div className="grid md:grid-cols-2 gap-2 items-center">
-            <div>
-              <p className="text-gray-700 dark:text-white leading-relaxed mb-3">
-                Hi there 👋, I&apos;m Leon, a
-                <span className="font-bold text-gray-900 dark:text-white inline-flex items-center gap-1 ml-1 align-middle">
-                  <Image src="/blockchain.png" alt="React" width={10} height={10} className='w-4 h-4 object-cover' />
-                  <span className='font-bold text-gray-900 dark:text-white'>Web3 Developer</span>
-                </span>
-                &nbsp;with a strong passion for blockchain technology. I work extensively with
-                <span className="font-bold text-gray-900 dark:text-white inline-flex items-center gap-1 ml-1 align-middle">
-                  <Image src="/react-icon.png" alt="React" width={10} height={10} className='w-4 h-4 object-cover' />
-                  <span className='font-bold text-gray-900 dark:text-white'>React</span>
-                </span>
-                &nbsp;and
-                <span className="font-bold text-gray-900 dark:text-white inline-flex items-center gap-1 ml-1 align-middle">
-                  <Image src="/solidity-icon.png" alt="Solidity" width={10} height={10} className='w-4 h-4 object-cover' />
-                  <span className='font-bold text-gray-900 dark:text-white'>Solidity</span>
-                </span>
-                , building decentralized applications that span both smart contract logic and modern frontend interfaces.
+          <div className="grid md:grid-cols-2 gap-6 md:gap-8 items-center">
+            <div className="space-y-3">
+              <p className="text-gray-700 dark:text-white leading-relaxed">
+                Hi there 👋, I&apos;m Leon, a Software Engineer.
               </p>
-              <p className="text-gray-700 dark:text-white leading-relaxed mb-3">
-                I also have experience in
+              <p className="text-gray-700 dark:text-white leading-relaxed">
+                My experience spans:
+              </p>
+              <ul className="text-gray-700 dark:text-white leading-relaxed list-none space-y-2 pl-0">
+                <li>
+                  <span className="font-bold text-gray-900 dark:text-white inline-flex items-center gap-1 ml-1 align-middle">
+                    <Image
+                      src="/react-icon.png"
+                      alt="React"
+                      width={10}
+                      height={10}
+                      className="w-4 h-4 object-cover"
+                    />
+                    <span className="font-bold text-gray-900 dark:text-white">React Front-End Development</span>
+                  </span>
+                </li>
+                <li>
+                  <span className="font-bold text-gray-900 dark:text-white inline-flex items-center gap-1 ml-1 align-middle">
+                    <Image
+                      src="/blockchain.png"
+                      alt="React"
+                      width={10}
+                      height={10}
+                      className="w-4 h-4 object-cover"
+                    />
+                    <span className="font-bold text-gray-900 dark:text-white">Web3 Solidity Smart Contracts</span>
+                  </span>
+                </li>
+                <li>
+                  <span className="font-bold text-gray-900 dark:text-white inline-flex items-center gap-1 ml-1 align-middle">
+                    <Image
+                      src="/dotnet-icon.png"
+                      alt="C#"
+                      width={10}
+                      height={10}
+                      className="w-4 h-4 object-cover"
+                    />
+                    <span className="font-bold text-gray-900 dark:text-white">C# WPF Desktop Apps</span>
+                  </span>
+                </li>
+              </ul>
+              <p className="text-gray-700 dark:text-white leading-relaxed">
+                I&apos;m also an{' '}
                 <span className="font-bold text-gray-900 dark:text-white inline-flex items-center gap-1 ml-1 align-middle">
-                  <Image src="/dotnet-icon.png" alt="C#" width={10} height={10} className='w-4 h-4 object-cover' />
-                  <span className='font-bold text-gray-900 dark:text-white'>C# desktop application development</span>
+                  <Image
+                    src="/aws-icon.png"
+                    alt="AWS"
+                    width={10}
+                    height={10}
+                    className="w-4 h-4 object-cover"
+                  />
+                  <span className="font-bold text-gray-900 dark:text-white">
+                    AWS Certified Solutions Architect – Associate.
+                  </span>
                 </span>
-                . I&apos;m familiar with WPF, Avalonia, and WinForms with the serial communication protocol.
               </p>
-              <p className="text-gray-700 dark:text-white leading-relaxed mb-3">
-                Commonly used cloud services such as
-                <span className="font-bold text-gray-900 dark:text-white inline-flex items-center gap-1 ml-1 align-middle">
-                  <Image src="/aws-icon.png" alt="AWS" width={10} height={10} className='w-4 h-4 object-cover' />
-                  <span className='font-bold text-gray-900 dark:text-white'>AWS</span>
-                </span>
-                , is widely used in my personal deployed projects.
+              <p className="text-gray-700 dark:text-white leading-relaxed">
+                Beyond code, I love learning natural languages and speak four: English 🇦🇺, Mandarin 🇨🇳, Japanese 🇯🇵,
+                and Spanish 🇪🇸. Just got my Japanese JLPT N3 certification in December, 2025.
               </p>
-              <p className="text-gray-700 dark:text-white leading-relaxed mb-3">
-                Beyond programming languages, I&apos;m also passionate about learning natural languages. I speak four languages: <span className="font-bold text-gray-900 dark:text-white">English 🇦🇺, Mandarin 🇨🇳, Japanese 🇯🇵, and Spanish 🇪🇸</span>.
-              </p>
-              <div className="text-gray-700 dark:text-white leading-relaxed mb-1 flex gap-1 items-center">
-                <Image src="/github-icon.png" alt="GitHub" width={10} height={10} className='w-4 h-4 object-cover' />
-                <div className='font-bold text-gray-900 dark:text-white'>GitHub:</div><Link href="https://github.com/leonleerl" className="text-blue-400 underline">https://github.com/leonleerl</Link>
+              <div className="text-gray-700 dark:text-white leading-relaxed flex flex-wrap gap-x-2 gap-y-1 items-center">
+                <Image src="/github-icon.png" alt="GitHub" width={10} height={10} className="w-4 h-4 object-cover" />
+                <span className="font-bold text-gray-900 dark:text-white shrink-0">GitHub:</span>
+                <Link href="https://github.com/leonleerl" className="text-blue-400 underline break-all">
+                  https://github.com/leonleerl
+                </Link>
               </div>
-              <div className="text-gray-700 dark:text-white leading-relaxed mb-1 flex gap-1 items-center">
-                <Image src="/linkedin-icon.png" alt="Linkedin" width={10} height={10} className='w-4 h-4 object-cover' />
-                <div className='font-bold text-gray-900 dark:text-white'>Linkedin:</div> <Link href="https://www.linkedin.com/in/leon-li-7603582b7" className="text-blue-400 underline">https://www.linkedin.com/in/leon-li-7603582b7</Link>
+              <div className="text-gray-700 dark:text-white leading-relaxed flex flex-wrap gap-x-2 gap-y-1 items-center">
+                <Image src="/linkedin-icon.png" alt="Linkedin" width={10} height={10} className="w-4 h-4 object-cover" />
+                <span className="font-bold text-gray-900 dark:text-white shrink-0">Linkedin:</span>
+                <Link
+                  href="https://www.linkedin.com/in/leon-li-7603582b7"
+                  className="text-blue-400 underline break-all"
+                >
+                  https://www.linkedin.com/in/leon-li-7603582b7
+                </Link>
               </div>
-              <div className="text-gray-700 dark:text-white leading-relaxed mb-3 flex gap-1 items-center">
-                <Image src="/twitter.png" alt="Linkedin" width={10} height={10} className='w-4 h-4 object-cover' />
-                <div className='font-bold text-gray-900 dark:text-white'>X:</div> <Link href="https://x.com/leonleerl" className="text-blue-400 underline">https://x.com/leonleerl</Link>
+              <div className="text-gray-700 dark:text-white leading-relaxed flex flex-wrap gap-x-2 gap-y-1 items-center">
+                <Image src="/twitter.png" alt="Linkedin" width={10} height={10} className="w-4 h-4 object-cover" />
+                <span className="font-bold text-gray-900 dark:text-white shrink-0">X:</span>
+                <Link href="https://x.com/leonleerl" className="text-blue-400 underline break-all">
+                  https://x.com/leonleerl
+                </Link>
               </div>
-
               <div className="text-gray-700 dark:text-white leading-relaxed relative">
-                Not only that, I like singing with <span className="font-bold text-gray-900 dark:text-white">guitar 🎸</span> and also <span className="font-bold text-gray-900 dark:text-white">finger style</span> at my spare time for fun and relief.&nbsp;
+                Not only that, I am a big fan of <span className="font-bold text-gray-900 dark:text-white">Detective Conan</span>. I like singing with{' '}
+                <span className="font-bold text-gray-900 dark:text-white">guitar 🎸</span> at my spare time for fun and
+                relief.&nbsp;
                 <a
                   href="#guitar-video"
-                  className='underline cursor-pointer text-blue-600 hover:text-blue-800 transition-colors'
+                  className="underline cursor-pointer text-blue-600 hover:text-blue-800 transition-colors"
                   onClick={(e) => {
                     e.preventDefault();
                     document.getElementById('guitar-video')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -101,15 +140,20 @@ function AboutPage() {
                 >
                   A guitar playing video is here
                 </a>
-
-                <Image src="/point-to-guitar-video.png" alt="Point to guitar video" width={20} height={20} className='hidden xl:block w-20 h-20 object-cover absolute -bottom-12 right-9 -rotate-15' />
+                <Image
+                  src="/point-to-guitar-video.png"
+                  alt="Point to guitar video"
+                  width={20}
+                  height={20}
+                  className="hidden xl:block w-20 h-20 object-cover absolute -bottom-12 right-9 -rotate-15"
+                />
               </div>
             </div>
-            <div className='ml-10 relative group'>
-              <div className='absolute top-12 -right-14 opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-200 z-10 pointer-events-none'>
-                <div className='bg-gray-700 text-white px-4 py-2 rounded-lg shadow-lg relative'>
-                  <div className='text-sm'>Hi, I&apos;m Leon, a software developer 👨‍💻</div>
-                  <div className='absolute left-1/12 -translate-x-1/2 -bottom-1.5 w-3 h-3 bg-gray-700 rotate-45'></div>
+            <div className="ml-10 relative group">
+              <div className="absolute top-12 -right-14 opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-200 z-10 pointer-events-none">
+                <div className="bg-gray-700 text-white px-4 py-2 rounded-lg shadow-lg relative">
+                  <div className="text-sm">Hi mate, I wrote lots of tech blogs.</div>
+                  <div className="absolute left-1/12 -translate-x-1/2 -bottom-1.5 w-3 h-3 bg-gray-700 rotate-45" />
                 </div>
               </div>
               <Image
@@ -117,7 +161,7 @@ function AboutPage() {
                 alt="I'm Leon"
                 width={450}
                 height={450}
-                className='rounded-2xl border-1 border-gray-900'
+                className="rounded-2xl border-1 border-gray-900"
               />
             </div>
           </div>
@@ -127,42 +171,6 @@ function AboutPage() {
 
         <video id="guitar-video" src="/guitar.mov" controls className='rounded-2xl border-1 border-gray-900 w-full mb-20'></video>
 
-
-        {/* Second Image with Text */}
-        <div className="mb-20">
-          <div className="grid md:grid-cols-5 gap-8 items-center">
-            <div className="md:col-span-2">
-              <div className="rounded-2xl overflow-hidden shadow-xl">
-                <Image
-                  src="/1.jpeg"
-                  alt="My Photo"
-                  width={800}
-                  height={600}
-                  className="w-full h-auto object-cover"
-                />
-              </div>
-            </div>
-            <div className="md:col-span-3">
-              <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-3">My Journey</h2>
-              <div className="text-gray-700 dark:text-white leading-relaxed mb-4">
-                After obtaining <span className='text-gray-900 dark:text-white font-bold'>Bachelor&apos;s Degree</span> in{' '}
-                <span className='text-gray-900 dark:text-white font-bold'>Data Science and Big Data Technology</span> in China 🇨🇳
-                in 2023, I continued to pursue the{' '}
-                <span className='text-gray-900 dark:text-white font-bold'>Master of Information Technology</span> at{' '}
-                <span className='text-gray-900 dark:text-white font-bold'>the University of Western Australia</span> 🇦🇺 from 2024.
-              </div>
-              <div className='text-gray-700 dark:text-white leading-relaxed mb-4'>
-                I have a solid grounding in computer science fundamentals, but now I truly discovered my passion for
-                &nbsp;
-                <span className="text-gray-900 dark:text-white font-bold">Smart Contract</span>
-                . From the moment I began writing and testing contracts, I was deeply drawn to on-chain logic and protocol design. I actively use
-                &nbsp;
-                <span className="text-gray-900 dark:text-white font-bold">Foundry</span>
-                &nbsp;in my workflow for writing, testing, and debugging Solidity code, and I enjoy building reliable, well-structured smart contracts. Through continuous practice and hands-on projects, I have developed a strong understanding of Solidity patterns, testing strategies, and best practices for secure and maintainable blockchain applications.
-              </div>
-            </div>
-          </div>
-        </div>
 
         {/* Github repos */}
         <GithubPinnedRepos username="leonleerl" />
@@ -175,6 +183,31 @@ function AboutPage() {
         <div className="mb-16">
           <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-12 text-center">Experience</h2>
           <div className="space-y-12">
+          {/* WordPress Development*/}
+          <div className="flex gap-4">
+              <div className="flex-shrink-0 w-36 text-right">
+                <span className="text-lg font-bold text-gray-900 dark:text-white">2025.10 - now</span>
+              </div>
+              <div className="flex-grow border-l-4 border-gray-900 pl-8 pb-8">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">WordPress Project</h3>
+                <p className="text-gray-700 dark:text-white leading-relaxed">
+                Developed a full WordPress personal website for a local author in Albany, Australia, featuring collaboration booking, new book showcases, animated UI effects, contact pages, and a complete CRUD-based admin dashboard.
+                </p>
+              </div>
+            </div>
+            {/* AI Travel Agent Project */}
+            <div className="flex gap-4">
+              <div className="flex-shrink-0 w-36 text-right">
+                <span className="text-lg font-bold text-gray-900 dark:text-white">2025.7 - 2025.8</span>
+              </div>
+              <div className="flex-grow border-l-4 border-gray-900 pl-8 pb-8">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">AI Travel Agent</h3>
+                <p className="text-gray-700 dark:text-white leading-relaxed">
+                Built an AI-powered travel recommendation assistant using React and Node.js, leveraging LangChain, MCP, and Google Maps API to deliver intelligent trip planning with interactive map-based attraction visualisation.
+                </p>
+              </div>
+            </div>
+            {/* Frontend Developer (Internship) */}
             <div className="flex gap-4">
               <div className="flex-shrink-0 w-36 text-right">
                 <span className="text-lg font-bold text-gray-900 dark:text-white">2024.11 - 2025.3</span>
