@@ -1,24 +1,43 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
+
+const phrases = [
+  'Hi 👋, I am a Software Developer.',
+  'I am a AWS Certified Solutions Architect – Associate.',
+  'I craft Web3 dApps & Smart Contracts.',
+  'I build immersive React experiences.',
+  'I sing with my guitar 🎸',
+]
 
 function TypewriterText() {
-  const text = "Hi 👋, I am a Software Developer 💻."
+  const [phraseIndex, setPhraseIndex] = useState(0)
   const [displayText, setDisplayText] = useState('')
-  const [currentIndex, setCurrentIndex] = useState(0)
+  const [isDeleting, setIsDeleting] = useState(false)
 
   useEffect(() => {
-    if (currentIndex < text.length) {
-      const timeout = setTimeout(() => {
-        setDisplayText(prev => prev + text[currentIndex])
-        setCurrentIndex(prev => prev + 1)
-      }, 100)
-
-      return () => clearTimeout(timeout)
-    }
-  }, [currentIndex, text])
+    const current = phrases[phraseIndex]
+    const speed = isDeleting ? 35 : 70
+    const t = setTimeout(() => {
+      if (!isDeleting) {
+        const next = current.slice(0, displayText.length + 1)
+        setDisplayText(next)
+        if (next === current) {
+          setTimeout(() => setIsDeleting(true), 1800)
+        }
+      } else {
+        const next = current.slice(0, displayText.length - 1)
+        setDisplayText(next)
+        if (next === '') {
+          setIsDeleting(false)
+          setPhraseIndex((phraseIndex + 1) % phrases.length)
+        }
+      }
+    }, speed)
+    return () => clearTimeout(t)
+  }, [displayText, isDeleting, phraseIndex])
 
   return (
-    <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+    <p className="typing-cursor text-xl md:text-2xl max-w-3xl mx-auto bg-gradient-to-r from-cyan-500 via-fuchsia-500 to-amber-400 dark:from-cyan-300 dark:via-fuchsia-400 dark:to-amber-300 bg-clip-text text-transparent font-semibold animate-gradient-x tracking-wide">
       {displayText}
     </p>
   )

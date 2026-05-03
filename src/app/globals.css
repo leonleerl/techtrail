@@ -204,6 +204,294 @@ body {
     animation-play-state: paused;
   }
 
+/* ==========================================================================
+   ULTRA COOL ABOUT PAGE - 炫酷无比的视觉特效系统
+   ========================================================================== */
+
+/* 全局 perspective 工具 */
+.perspective-1000 { perspective: 1000px; }
+.perspective-2000 { perspective: 2000px; }
+.preserve-3d { transform-style: preserve-3d; }
+.backface-hidden { backface-visibility: hidden; }
+
+/* ----- 粒子上升动画 ----- */
+@keyframes float-up {
+  0% {
+    transform: translateY(100vh) translateX(0) scale(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+    transform: translateY(90vh) translateX(10px) scale(1);
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-10vh) translateX(-30px) scale(0.5);
+    opacity: 0;
+  }
+}
+.animate-float-up { animation: float-up linear infinite; }
+
+/* ----- 缓慢旋转 ----- */
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.animate-spin-slow { animation: spin-slow 20s linear infinite; }
+.animate-spin-reverse { animation: spin-slow 15s linear infinite reverse; }
+
+/* ----- 渐变彩虹流动文字 ----- */
+@keyframes gradient-x {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+.animate-gradient-x {
+  background-size: 200% 200%;
+  animation: gradient-x 4s ease infinite;
+}
+
+/* ----- 故障 (Glitch) 效果 ----- */
+@keyframes glitch-anim-1 {
+  0%, 100% { clip-path: inset(0 0 95% 0); transform: translate(0); }
+  20% { clip-path: inset(20% 0 60% 0); transform: translate(-2px, 1px); }
+  40% { clip-path: inset(50% 0 30% 0); transform: translate(2px, -1px); }
+  60% { clip-path: inset(80% 0 5% 0); transform: translate(-1px, 2px); }
+  80% { clip-path: inset(10% 0 80% 0); transform: translate(1px, -2px); }
+}
+@keyframes glitch-anim-2 {
+  0%, 100% { clip-path: inset(85% 0 0 0); transform: translate(0); }
+  20% { clip-path: inset(40% 0 30% 0); transform: translate(2px, -1px); }
+  40% { clip-path: inset(15% 0 60% 0); transform: translate(-2px, 1px); }
+  60% { clip-path: inset(70% 0 10% 0); transform: translate(1px, 2px); }
+  80% { clip-path: inset(25% 0 50% 0); transform: translate(-1px, -2px); }
+}
+.glitch-text { position: relative; display: inline-block; }
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.glitch-text::before {
+  color: #00fff0;
+  text-shadow: 2px 0 #00fff0;
+  animation: glitch-anim-1 2.5s infinite linear alternate-reverse;
+  mix-blend-mode: screen;
+}
+.glitch-text::after {
+  color: #ff00d4;
+  text-shadow: -2px 0 #ff00d4;
+  animation: glitch-anim-2 3s infinite linear alternate-reverse;
+  mix-blend-mode: screen;
+}
+
+/* ----- 闪烁光标 ----- */
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+.animate-blink { animation: blink 1s steps(1) infinite; }
+
+/* ----- 滚动揭示（默认隐藏，加 .is-visible 后显现）----- */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(60px) scale(0.95);
+  transition: opacity 0.9s cubic-bezier(.2,.8,.2,1), transform 0.9s cubic-bezier(.2,.8,.2,1);
+}
+.reveal-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-80px);
+  transition: opacity 0.9s cubic-bezier(.2,.8,.2,1), transform 0.9s cubic-bezier(.2,.8,.2,1);
+}
+.reveal-left.is-visible { opacity: 1; transform: translateX(0); }
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(80px);
+  transition: opacity 0.9s cubic-bezier(.2,.8,.2,1), transform 0.9s cubic-bezier(.2,.8,.2,1);
+}
+.reveal-right.is-visible { opacity: 1; transform: translateX(0); }
+
+.reveal-flip {
+  opacity: 0;
+  transform: perspective(1000px) rotateX(-30deg) translateY(60px);
+  transition: opacity 1s cubic-bezier(.2,.8,.2,1), transform 1s cubic-bezier(.2,.8,.2,1);
+}
+.reveal-flip.is-visible { opacity: 1; transform: perspective(1000px) rotateX(0deg) translateY(0); }
+
+/* ----- 网格背景（cyber grid） ----- */
+.cyber-grid {
+  background-image:
+    linear-gradient(rgba(99, 102, 241, 0.15) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(99, 102, 241, 0.15) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+.dark .cyber-grid {
+  background-image:
+    linear-gradient(rgba(93, 122, 184, 0.18) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(93, 122, 184, 0.18) 1px, transparent 1px);
+}
+
+@keyframes grid-pan {
+  0% { background-position: 0 0; }
+  100% { background-position: 50px 50px; }
+}
+.cyber-grid-animated { animation: grid-pan 8s linear infinite; }
+
+/* ----- 霓虹边框扫光 ----- */
+@keyframes border-flow {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+.neon-border {
+  position: relative;
+  background-clip: padding-box;
+}
+.neon-border::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  z-index: -1;
+  border-radius: inherit;
+  background: linear-gradient(120deg,
+    #06b6d4, #8b5cf6, #ec4899, #f59e0b, #06b6d4);
+  background-size: 200% 100%;
+  animation: border-flow 4s linear infinite;
+  filter: blur(2px);
+  opacity: 0.85;
+}
+
+/* ----- 漂浮 ----- */
+@keyframes floaty {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-12px) rotate(2deg); }
+}
+.animate-floaty { animation: floaty 5s ease-in-out infinite; }
+
+/* ----- 脉冲发光环 ----- */
+@keyframes pulse-ring {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 30px rgba(139, 92, 246, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(139, 92, 246, 0); }
+}
+.animate-pulse-ring { animation: pulse-ring 2.5s infinite; }
+
+/* ----- 文字打字光标 ----- */
+.typing-cursor::after {
+  content: '▊';
+  margin-left: 4px;
+  color: #06b6d4;
+  animation: blink 0.9s steps(1) infinite;
+  text-shadow: 0 0 12px #06b6d4;
+}
+
+/* ----- 流光扫过 ----- */
+@keyframes shine {
+  0% { transform: translateX(-150%) skewX(-20deg); }
+  100% { transform: translateX(250%) skewX(-20deg); }
+}
+.shine-on-hover { position: relative; overflow: hidden; }
+.shine-on-hover::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  transform: translateX(-150%) skewX(-20deg);
+  transition: none;
+}
+.shine-on-hover:hover::after {
+  animation: shine 1s ease-out;
+}
+
+/* ----- 时间轴节点呼吸 ----- */
+@keyframes timeline-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(168, 85, 247, 0.7), 0 0 20px rgba(168, 85, 247, 0.4);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 0 14px rgba(168, 85, 247, 0), 0 0 40px rgba(168, 85, 247, 0.8);
+    transform: scale(1.1);
+  }
+}
+.timeline-node-pulse { animation: timeline-pulse 2.4s ease-in-out infinite; }
+
+/* ----- 3D 立方体旋转 ----- */
+@keyframes cube-rotate {
+  from { transform: rotateX(-15deg) rotateY(0deg); }
+  to { transform: rotateX(-15deg) rotateY(360deg); }
+}
+.animate-cube-rotate { animation: cube-rotate 22s linear infinite; }
+
+/* ----- 选中文字效果 ----- */
+.dark ::selection {
+  background: rgba(139, 92, 246, 0.5);
+  color: #fff;
+  text-shadow: 0 0 8px #fff;
+}
+
+/* ----- 隐藏滚动条但仍可滚动（局部） ----- */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ----- 倾斜卡片光晕（mouse spotlight via CSS variable） ----- */
+.spotlight-card {
+  position: relative;
+  overflow: hidden;
+}
+.spotlight-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    600px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(139, 92, 246, 0.15),
+    transparent 40%
+  );
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.spotlight-card:hover::before { opacity: 1; }
+
+/* ----- 文字描边 ----- */
+.text-stroke {
+  -webkit-text-stroke: 2px currentColor;
+  color: transparent;
+}
+.text-stroke-thin {
+  -webkit-text-stroke: 1px currentColor;
+  color: transparent;
+}
+
+/* ----- 减少动效偏好 ----- */
+@media (prefers-reduced-motion: reduce) {
+  .animate-float-up,
+  .animate-spin-slow,
+  .animate-spin-reverse,
+  .animate-gradient-x,
+  .animate-blink,
+  .animate-floaty,
+  .animate-pulse-ring,
+  .animate-cube-rotate,
+  .cyber-grid-animated,
+  .glitch-text::before,
+  .glitch-text::after,
+  .timeline-node-pulse {
+    animation: none !important;
+  }
+}
+
 /* Admin 页面强制使用亮色模式 */
 .admin-layout-wrapper,
 .admin-layout-wrapper * {
