@@ -309,8 +309,10 @@ export default function AboutPage() {
               <div className="relative rounded-3xl p-[2px] bg-gradient-to-br from-amber-400 via-rose-500 to-fuchsia-500 animate-gradient-x" style={{ backgroundSize: '300% 300%' }}>
                 <video
                   id="guitar-video"
-                  src="/hktk.mp4"
+                  src="/api/blob/hktk.mp4"
                   controls
+                  preload="metadata"
+                  playsInline
                   className="w-full rounded-3xl bg-black"
                 />
               </div>
