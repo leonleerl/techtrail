@@ -4,7 +4,6 @@ import { PostListItem, BlogSidebar, FilterCategoryBar, NavbarBlogs } from '@/com
 import { useCategories } from '@/hooks/useCategories';
 import { usePosts } from '@/hooks/usePosts';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Card } from '@/components/ui/card';
 
 type FilterType = 'all' | 'featured' | null
 
@@ -89,11 +88,15 @@ function BlogsPage() {
     };
   }, [hasMore, postsLoading]);
 
-  // Get popular posts (sorted by views)
-  const popularPosts = useMemo(() => {
+  const publishedPostCount = useMemo(() => {
+    return posts.filter(post => post.published).length;
+  }, [posts]);
+
+  // Get recent posts for the sidebar
+  const recentPosts = useMemo(() => {
     return [...posts]
       .filter(post => post.published)
-      .sort((a, b) => b.views - a.views)
+      .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
       .slice(0, 10);
   }, [posts]);
 
@@ -140,16 +143,14 @@ function BlogsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-[#f7f9fe] text-slate-900 dark:bg-slate-950 dark:text-white">
       <NavbarBlogs />
-      
-      {/* Main content area */}
-      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-6 mt-12">
-        {/* Filter and Category bar */}
-        <div className="mb-6">
-          <FilterCategoryBar 
-            categories={categories} 
-            isLoading={isLoading} 
+
+      <main className="mx-auto w-full max-w-6xl px-4 pb-14 pt-20 sm:px-6 lg:px-8">
+        <div className="relative z-10 mb-6 rounded-2xl bg-white/95 p-3 shadow-lg ring-1 ring-slate-200/70 backdrop-blur dark:bg-slate-950/90 dark:ring-slate-800">
+          <FilterCategoryBar
+            categories={categories}
+            isLoading={isLoading}
             error={error}
             activeFilter={activeFilter}
             selectedCategory={selectedCategory}
@@ -161,47 +162,44 @@ function BlogsPage() {
           />
         </div>
 
-        {/* Content area: left post list + right sidebar */}
-        <div className="flex flex-col lg:flex-row gap-6">
-          {/* Left post list */}
-          <div className="flex-1 min-w-0">
+        <div className="flex flex-col gap-6 lg:flex-row">
+          <div className="min-w-0 flex-1">
             {postsLoading && displayedPosts.length === 0 ? (
               <div className="space-y-4">
                 {[...Array(5)].map((_, i) => (
-                  <Card key={i} className="p-4">
-                    <Skeleton className="h-6 w-3/4 mb-2" />
-                    <Skeleton className="h-4 w-full mb-2" />
+                  <div key={i} className="rounded-2xl bg-white p-6 shadow-md dark:bg-slate-950">
+                    <Skeleton className="mb-2 h-6 w-3/4" />
+                    <Skeleton className="mb-2 h-4 w-full" />
                     <Skeleton className="h-4 w-2/3" />
-                  </Card>
+                  </div>
                 ))}
               </div>
             ) : postsError ? (
-              <div className="text-center py-12">
-                <p className="text-destructive text-lg">Error: {postsError}</p>
+              <div className="rounded-2xl bg-white py-12 text-center shadow-md dark:bg-slate-950">
+                <p className="text-lg text-destructive">Error: {postsError}</p>
               </div>
             ) : displayedPosts.length === 0 ? (
-              <div className="text-center py-16">
-                <p className="text-muted-foreground text-lg">No articles available</p>
+              <div className="rounded-2xl bg-white py-16 text-center shadow-md dark:bg-slate-950">
+                <p className="text-lg text-muted-foreground">No articles available</p>
               </div>
             ) : (
               <>
-                <Card className="overflow-hidden">
+                <div className="overflow-hidden rounded-2xl bg-white shadow-md ring-1 ring-slate-200/70 dark:bg-slate-950/85 dark:ring-slate-800">
                   {displayedPosts.map((post) => (
                     <PostListItem key={post.id} post={post} />
                   ))}
-                </Card>
-                
-                {/* Infinite scroll trigger */}
+                </div>
+
                 {hasMore && (
                   <div ref={observerTarget} className="py-8 text-center">
                     {postsLoading ? (
                       <div className="space-y-4">
                         {[...Array(3)].map((_, i) => (
-                          <Card key={i} className="p-4">
-                            <Skeleton className="h-6 w-3/4 mb-2" />
-                            <Skeleton className="h-4 w-full mb-2" />
+                          <div key={i} className="rounded-2xl bg-white p-6 shadow-md dark:bg-slate-950">
+                            <Skeleton className="mb-2 h-6 w-3/4" />
+                            <Skeleton className="mb-2 h-4 w-full" />
                             <Skeleton className="h-4 w-2/3" />
-                          </Card>
+                          </div>
                         ))}
                       </div>
                     ) : (
@@ -213,12 +211,11 @@ function BlogsPage() {
             )}
           </div>
 
-          {/* Right sidebar */}
-          <div className="lg:w-80 flex-shrink-0">
-            <BlogSidebar popularPosts={popularPosts} />
+          <div className="flex-shrink-0 lg:w-80">
+            <BlogSidebar popularPosts={recentPosts} categories={categories} articleCount={publishedPostCount} />
           </div>
         </div>
-      </div>
+      </main>
     </div>
   );
 }

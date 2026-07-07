@@ -6,6 +6,7 @@ import { Button } from '@/components/ui'
 import { MarkdownRenderer } from '@/components/ui/markdown-renderer'
 import { Home, Calendar, Eye, Tag } from 'lucide-react'
 import { fetchPost } from '@/lib/api-client/post.client'
+import { NavbarBlogs } from '@/components/blogs'
 
 // Interface for extracting Markdown headings
 interface Heading {
@@ -172,10 +173,10 @@ function BlogPage() {
   // Loading state
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:bg-web3-gradient flex items-center justify-center">
+      <div className="flex min-h-screen items-center justify-center bg-[#f7f9fe] dark:bg-slate-950">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600 dark:text-white">Loading...</p>
+          <div className="mx-auto h-12 w-12 animate-spin rounded-full border-b-2 border-blue-600"></div>
+          <p className="mt-4 text-slate-600 dark:text-white">Loading...</p>
         </div>
       </div>
     )
@@ -184,9 +185,9 @@ function BlogPage() {
   // Error state
   if (error || !post) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:bg-web3-gradient flex items-center justify-center">
+      <div className="flex min-h-screen items-center justify-center bg-[#f7f9fe] dark:bg-slate-950">
         <div className="text-center">
-          <p className="text-red-600 dark:text-red-400 mb-4">{error || 'Post not found'}</p>
+          <p className="mb-4 text-red-600 dark:text-red-400">{error || 'Post not found'}</p>
           <Button onClick={() => router.push('/blogs')}>
             <Home className="w-4 h-4 mr-2" />
             Back to Blogs
@@ -207,29 +208,44 @@ function BlogPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:bg-web3-gradient">
-      {/* Top navigation back to home button */}
-      <nav className="bg-white dark:bg-web3-dark-200/85 dark:backdrop-blur-sm dark:border-b dark:border-cold-blue-400/50 dark:shadow-armor-blue shadow-sm border-b sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-3">
-          <Button 
-            variant="ghost" 
+    <div className="min-h-screen bg-[#f7f9fe] text-slate-900 dark:bg-slate-950 dark:text-white">
+      <NavbarBlogs />
+
+      <main className="mx-auto w-full max-w-6xl px-4 pb-14 pt-20 sm:px-6 lg:px-8">
+        <div className="mb-4 flex justify-start">
+          <Button
+            variant="ghost"
             onClick={() => router.push('/blogs')}
-            className="hover:bg-gray-100 dark:hover:bg-slate-700 flex items-center gap-2"
+            className="flex items-center gap-2 rounded-full text-slate-600 bg-gray-200 transition-colors hover:bg-white hover:text-blue-600 dark:text-slate-300 dark:hover:bg-slate-900 dark:hover:text-cyan-300"
           >
-            <Home className="w-4 h-4" />
-            Back to Blogs
+            <Home className="h-4 w-4" />
+            Back
           </Button>
         </div>
-      </nav>
 
-      {/* Main content area */}
-      <div className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-10 gap-6">
-          {/* Left sidebar (1/10) */}
-          <aside className="col-span-10 lg:col-span-2">
-            <div className="sticky top-20 bg-white dark:bg-web3-dark-200/85 dark:backdrop-blur-sm dark:border dark:border-cold-blue-400/50 dark:shadow-armor-blue rounded-lg shadow-sm p-4 max-h-[calc(100vh-120px)] overflow-y-auto">
-              <h3 className="text-sm font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-                <span className="w-1 h-4 bg-blue-600 rounded"></span>
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_280px]">
+          <article className="rounded-2xl bg-white p-7 shadow-lg ring-1 ring-slate-200/70 dark:bg-slate-950/90 dark:ring-slate-800 sm:p-10">
+            <div className="mb-8 border-b border-slate-100 pb-6 dark:border-slate-800">
+              <div className="flex flex-wrap items-center gap-3 text-sm text-slate-500 dark:text-slate-400">
+                <Tag className="h-4 w-4" />
+                {post.categories?.map((c) => (
+                  <span
+                    key={c.id}
+                    className="rounded-full bg-blue-50 px-3 py-1 text-blue-700 dark:bg-cyan-400/10 dark:text-cyan-300"
+                  >
+                    {c.name}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <MarkdownRenderer content={post.content} className="prose-lg" />
+          </article>
+
+          <aside className="lg:sticky lg:top-20 lg:self-start">
+            <div className="max-h-[calc(100vh-120px)] overflow-y-auto rounded-2xl bg-white p-5 shadow-md ring-1 ring-slate-200/70 dark:bg-slate-950/90 dark:ring-slate-800">
+              <h3 className="mb-4 flex items-center gap-2 text-sm font-bold text-slate-900 dark:text-white">
+                <span className="h-4 w-1 rounded bg-blue-600"></span>
                 Table of Contents
               </h3>
               <nav className="space-y-1">
@@ -239,9 +255,9 @@ function BlogPage() {
                       key={heading.id}
                       onClick={() => scrollToHeading(heading.id)}
                       className={`
-                        w-full text-left text-sm py-2 px-3 rounded transition-all
-                        hover:bg-blue-50 dark:hover:bg-cold-blue-300/20 dark:hover:shadow-web3-glow-sm hover:text-blue-600 dark:hover:text-cold-blue-500
-                        ${activeId === heading.id ? 'bg-blue-100 dark:bg-cold-blue-300/30 dark:shadow-web3-glow-sm dark:border dark:border-cold-blue-400/40 text-blue-700 dark:text-cold-blue-500 font-medium' : 'text-gray-600 dark:text-metallic-200'}
+                        w-full rounded px-3 py-2 text-left text-sm transition-all
+                        hover:bg-blue-50 hover:text-blue-600 dark:hover:bg-cyan-400/10 dark:hover:text-cyan-300
+                        ${activeId === heading.id ? 'bg-blue-100 font-medium text-blue-700 dark:bg-cyan-400/10 dark:text-cyan-300' : 'text-slate-600 dark:text-slate-300'}
                       `}
                       style={{ paddingLeft: `${(heading.level - 1) * 12 + 12}px` }}
                     >
@@ -249,60 +265,39 @@ function BlogPage() {
                     </button>
                   ))
                 ) : (
-                  <p className="text-sm text-gray-500 dark:text-gray-400">No headings</p>
+                  <p className="text-sm text-slate-500 dark:text-slate-400">No headings</p>
                 )}
               </nav>
+
+              <div className="mt-5 space-y-3 border-t border-slate-100 pt-5 text-sm text-slate-500 dark:border-slate-800 dark:text-slate-400">
+                <div className="flex items-center gap-2">
+                  <Calendar className="h-4 w-4" />
+                  <span>Created {formatDate(post.createdAt)}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Calendar className="h-4 w-4" />
+                  <span>Updated {formatDate(post.updatedAt)}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Eye className="h-4 w-4" />
+                  <span>{post.views.toLocaleString()} views</span>
+                </div>
+              </div>
             </div>
           </aside>
 
-          {/* Right main content (9/10) */}
-          <main className="col-span-10 lg:col-span-8">
-            <article className="bg-white dark:bg-web3-dark-200/85 dark:backdrop-blur-sm dark:border dark:border-cold-blue-400/50 dark:shadow-armor-blue rounded-lg shadow-sm p-8 lg:p-12">
-              {/* Article title */}
-              <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-6">{post.title}</h1>
-              
-              {/* Article metadata */}
-              <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 dark:text-metallic-200 mb-8 pb-6 border-b dark:border-cold-blue-400/50 dark:shadow-web3-glow-border">
-                <div className="flex items-center gap-2">
-                  <Calendar className="w-4 h-4" />
-                  <span>{formatDate(post.createdAt)}</span>
-                </div>
-                <div className="flex flex-wrap items-center gap-2">
-                  <Tag className="w-4 h-4" />
-                  {post.categories?.map((c) => (
-                    <span
-                      key={c.id}
-                      className="bg-blue-100 dark:bg-cold-blue-300/20 dark:border dark:border-cold-blue-400/50 dark:shadow-web3-glow-sm text-blue-700 dark:text-cold-blue-500 px-3 py-1 rounded-full"
-                    >
-                      {c.name}
-                    </span>
-                  ))}
-                </div>
-                <div className="flex items-center gap-2">
-                  <Eye className="w-4 h-4" />
-                  <span>{post.views} views</span>
-                </div>
-              </div>
-
-              {/* Article content */}
-              <div className="prose prose-lg max-w-none dark:prose-invert">
-                <MarkdownRenderer content={post.content} />
-              </div>
-            </article>
-
-            {/* Bottom back to home button */}
-            <div className="mt-8 flex justify-center">
-              <Button 
-                onClick={() => router.push('/blogs')}
-                className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg flex items-center gap-2 shadow-md hover:shadow-lg transition-all"
-              >
-                <Home className="w-5 h-5" />
-                Back to Blogs
-              </Button>
-            </div>
-          </main>
         </div>
-      </div>
+
+        <div className="mt-8 flex justify-center">
+          <Button
+            onClick={() => router.push('/blogs')}
+            className="flex items-center gap-2 rounded-full bg-blue-600 px-8 py-3 text-white shadow-md transition-all hover:bg-blue-700 hover:shadow-lg"
+          >
+            <Home className="h-5 w-5" />
+            Back to Blogs
+          </Button>
+        </div>
+      </main>
     </div>
   )
 }

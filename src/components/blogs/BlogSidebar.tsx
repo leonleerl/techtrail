@@ -1,8 +1,7 @@
 "use client"
 
 import React from 'react'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Separator } from '@/components/ui/separator'
+import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 
 interface Post {
@@ -13,131 +12,93 @@ interface Post {
   createdAt: string
 }
 
-interface BlogSidebarProps {
-  popularPosts?: Post[]
+interface Category {
+  id: string
+  name: string
 }
 
-function BlogSidebar({ popularPosts = [] }: BlogSidebarProps) {
+interface BlogSidebarProps {
+  popularPosts?: Post[]
+  categories?: Category[]
+  articleCount?: number
+}
+
+function BlogSidebar({ popularPosts = [], categories = [], articleCount = 0 }: BlogSidebarProps) {
   const router = useRouter()
 
   return (
-    <div className="w-full lg:w-80 space-y-6">
-
-      {/* Popular articles */}
-      {popularPosts.length > 0 && (
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-lg">Popular Articles 🔥</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {popularPosts.slice(0, 5).map((post, index) => (
-                <div key={post.id}>
-                  <button
-                    onClick={() => router.push(`/blogs/${post.slug}`)}
-                    className="w-full text-left group hover:cursor-pointer hover:-translate-y-0.5 transition-transform duration-300"
-                  >
-                    <div className="flex items-start gap-3">
-                      <div className="flex-shrink-0 w-6 h-6 rounded-full bg-primary/10 text-primary text-xs font-semibold flex items-center justify-center">
-                        {index + 1}
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <h4 className="text-sm font-medium line-clamp-2 group-hover:text-primary transition-colors">
-                          {post.title}
-                        </h4>
-                        <div className="flex items-center gap-2 mt-1 text-xs text-muted-foreground">
-                          <span>{post.views} views</span>
-                        </div>
-                      </div>
-                    </div>
-                  </button>
-                  {index < Math.min(popularPosts.length, 5) - 1 && (
-                    <Separator className="mt-4" />
-                  )}
-                </div>
-              ))}
+    <aside className="w-full space-y-5 lg:w-80">
+      <section className="overflow-hidden rounded-2xl bg-white shadow-md ring-1 ring-slate-200/70 dark:bg-slate-950/85 dark:ring-slate-800">
+        <div className="relative z-0 h-20">
+          <Image
+            src="/perth-bg.jpeg"
+            alt="Perth skyline"
+            fill
+            sizes="320px"
+            className="object-cover object-[center_70%]"
+          />
+        </div>
+        <div className="relative z-10 -mt-6 px-6 pb-6 text-center">
+          <Image
+            src="/leon.JPG"
+            alt="Runlong Li avatar"
+            width={88}
+            height={88}
+            className="mx-auto h-[88px] w-[88px] rounded-full border-4 border-white object-cover shadow-md dark:border-slate-950"
+          />
+          <h3 className="mt-3 text-lg font-semibold text-slate-900 dark:text-white">Runlong Li</h3>
+          <p className="mt-1 text-sm leading-6 text-slate-500 dark:text-slate-400">
+            Full Stack Engineer <br /> AWS Certified Solution Architect <br /> Web3 Developer
+          </p>
+          <div className="mt-5 grid grid-cols-2 gap-3 text-sm">
+            <div className="rounded-xl bg-slate-50 p-3 dark:bg-slate-900">
+              <div className="font-semibold text-slate-900 dark:text-white">{articleCount}</div>
+              <div className="text-xs text-slate-500 dark:text-slate-400">Articles</div>
             </div>
-          </CardContent>
-        </Card>
-      )}
-
-      {/* Popular docs */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-lg">Useful Links <span className="text-primary">🔗</span></CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-2">
-            <div className="flex flex-wrap items-start gap-2">
-              <div className="flex-shrink-0 font-semibold">Etherscan:</div>
-              <div className="flex-1 min-w-0">
-                <a
-                  href="https://etherscan.io/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block text-sm text-muted-foreground hover:text-primary transition-colors py-1 break-words"
-                >
-                  https://etherscan.io/
-                </a>
-              </div>
-            </div>
-            <div className="flex flex-wrap items-start gap-2">
-              <div className="flex-shrink-0 font-semibold">OpenSea:</div>
-              <div className="flex-1 min-w-0">
-                <a
-                  href="https://opensea.io/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block text-sm text-muted-foreground hover:text-primary transition-colors py-1 break-words"
-                >
-                  https://opensea.io/
-                </a>
-              </div>
-            </div>
-
-            <div className="flex flex-wrap items-start gap-2">
-              <div className="flex-shrink-0 font-semibold">Foundry:</div>
-              <div className="flex-1 min-w-0">
-                <a
-                  href="https://getfoundry.sh/introduction/getting-started"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block text-sm text-muted-foreground hover:text-primary transition-colors py-1 break-words"
-                >
-                  https://getfoundry.sh/introduction/getting-started
-                </a>
-              </div>
-            </div>
-            <div className="flex flex-wrap items-start gap-2">
-              <div className="flex-shrink-0 font-semibold">Wagmi:</div>
-              <div className="flex-1 min-w-0">
-                <a
-                  href="https://wagmi.sh/react/guides/connect-wallet"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block text-sm text-muted-foreground hover:text-primary transition-colors py-1 break-words"
-                >
-                  https://wagmi.sh/react/guides/connect-wallet
-                </a>
-              </div>
-            </div>
-            <div className="flex flex-wrap items-start gap-2">
-              <div className="flex-shrink-0 font-semibold">PoW Faucet:</div>
-              <div className="flex-1 min-w-0">
-                <a
-                  href="https://faucets.pk910.de/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block text-sm text-muted-foreground hover:text-primary transition-colors py-1 break-words"
-                >
-                  https://faucets.pk910.de/
-                </a>
-              </div>
+            <div className="rounded-xl bg-slate-50 p-3 dark:bg-slate-900">
+              <div className="font-semibold text-slate-900 dark:text-white">{categories.length}</div>
+              <div className="text-xs text-slate-500 dark:text-slate-400">Categories</div>
             </div>
           </div>
-        </CardContent>
-      </Card>
-    </div>
+        </div>
+      </section>
+
+      {popularPosts.length > 0 && (
+        <section className="rounded-2xl bg-white p-6 shadow-md ring-1 ring-slate-200/70 dark:bg-slate-950/85 dark:ring-slate-800">
+          <h3 className="mb-4 text-base font-semibold text-slate-900 dark:text-white">Recent Posts</h3>
+          <div className="space-y-4">
+            {popularPosts.slice(0, 5).map((post) => (
+              <button
+                key={post.id}
+                type="button"
+                onClick={() => router.push(`/blogs/${post.slug}`)}
+                className="block w-full text-left"
+              >
+                <span className="line-clamp-2 text-sm leading-6 text-slate-600 transition-colors hover:text-blue-600 dark:text-slate-300 dark:hover:text-cyan-300">
+                  {post.title}
+                </span>
+              </button>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {categories.length > 0 && (
+        <section className="rounded-2xl bg-white p-6 shadow-md ring-1 ring-slate-200/70 dark:bg-slate-950/85 dark:ring-slate-800">
+          <h3 className="mb-4 text-base font-semibold text-slate-900 dark:text-white">Categories</h3>
+          <div className="flex flex-wrap gap-2">
+            {categories.map((category) => (
+              <span
+                key={category.id}
+                className="rounded-full bg-blue-50 px-3 py-1.5 text-xs font-medium text-blue-700 dark:bg-cyan-400/10 dark:text-cyan-300"
+              >
+                {category.name}
+              </span>
+            ))}
+          </div>
+        </section>
+      )}
+    </aside>
   )
 }
 
