@@ -1,29 +1,33 @@
 import prisma from "@/lib/prisma";
+import { createAdminSessionToken, ADMIN_SESSION_COOKIE, ADMIN_SESSION_MAX_AGE } from "@/lib/admin-auth";
+import bcrypt from "bcryptjs";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
     const { username, password } = await req.json();
 
-    console.log(username, password);
-
     const user = await prisma.admin.findFirst({
         where: {
             username: username,
-            password: password
         }
     });
-    console.log(user);
-    if (!user) {
+
+    if (!user || !(await bcrypt.compare(password, user.password))) {
         return NextResponse.json({ message: 'Invalid username or password' }, { status: 401 });
     }
+
+    const token = await createAdminSessionToken({
+      adminId: user.id,
+      username: user.username,
+    });
     const cookieStore = await cookies();
-    cookieStore.set('admin_auth', 'true', {
+    cookieStore.set(ADMIN_SESSION_COOKIE, token, {
       httpOnly: true,
       path: '/',
-      maxAge: 60 * 60,
+      maxAge: ADMIN_SESSION_MAX_AGE,
       sameSite: 'lax',
       secure: process.env.NODE_ENV === 'production',
-    }); // 1 hour
+    });
     return NextResponse.json({ message: 'Login successful' });
 }
