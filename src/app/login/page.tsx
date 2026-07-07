@@ -23,7 +23,6 @@ function LoginPage() {
   const onSubmit = async (data: LoginFormSchemaType) => {
     setLoading(true);
     setError(null);
-    console.log(data);
     try {
       const res = await fetch('/api/admin', {
         method: 'POST',

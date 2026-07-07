@@ -1,5 +1,6 @@
 import prisma from "@/lib/prisma";
 import { failure, success } from "@/lib/api-response";
+import { requireAdminAuth } from "@/lib/admin-auth";
 import { CategoryFormSchemaType } from "@/schemas/category.schema";
 import { CategoryFormSchema } from "@/schemas/category.schema";
 
@@ -24,6 +25,11 @@ export async function PUT(
   { params }: { params: Promise<{ id: string }> }
 ) {
     try{
+        const unauthorized = await requireAdminAuth(req);
+        if (unauthorized) {
+            return unauthorized;
+        }
+
         const {id} = await params;
         const existingCategory = await prisma.category.findUnique({
             where: {id},
@@ -54,6 +60,11 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
     try{
+        const unauthorized = await requireAdminAuth(req);
+        if (unauthorized) {
+            return unauthorized;
+        }
+
         const {id} = await params;
         const deletedCategory = await prisma.category.delete({
             where: {id},

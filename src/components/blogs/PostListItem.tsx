@@ -1,9 +1,8 @@
 "use client"
 
-import { EyeIcon, MessageSquareIcon, CalendarIcon, BookHeart } from 'lucide-react'
+import { CalendarIcon, EyeIcon } from 'lucide-react'
 import React from 'react'
 import { useRouter } from 'next/navigation'
-import { cn } from '@/lib/utils'
 
 interface Post {
   id: string
@@ -31,80 +30,71 @@ function PostListItem({ post, commentCount = 0 }: PostListItemProps) {
     router.push(`/blogs/${post.slug}`)
   }
 
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString)
-    const now = new Date()
-    const diffTime = Math.abs(now.getTime() - date.getTime())
-    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24))
-    
-    if (diffDays === 0) {
-      return 'Today'
-    } else if (diffDays === 1) {
-      return '1 day ago'
-    } else {
-      return `${diffDays} days ago`
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      handleClick()
     }
   }
 
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString)
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    })
+  }
+
   return (
-    <div 
+    <article
       onClick={handleClick}
-      className={cn(
-        "group cursor-pointer border-b pb-3 px-5 hover:bg-accent/30 transition-colors",
-        "flex"
-      )}
+      onKeyDown={handleKeyDown}
+      role="button"
+      tabIndex={0}
+      className="group cursor-pointer border-b border-slate-100 bg-white px-6 py-7 transition-all duration-300 last:border-b-0 hover:bg-blue-50/40 dark:border-slate-800 dark:bg-slate-950/80 dark:hover:bg-slate-900/80 sm:px-8"
     >
-      {/* Left content */}
-      <div className="flex-1 min-w-0">
-        <div className="flex flex-wrap items-center gap-2 mb-2.5">
+      <div className="space-y-3">
+        <h2 className="text-2xl font-semibold leading-tight text-slate-900 transition-colors group-hover:text-blue-600 dark:text-white dark:group-hover:text-cyan-300">
+          {post.title}
+        </h2>
+
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-slate-500 dark:text-slate-400">
+          <span className="flex items-center gap-1.5">
+            <CalendarIcon className="h-3.5 w-3.5" />
+            Created {formatDate(post.createdAt)}
+          </span>
+          <span className="flex items-center gap-1.5">
+            <EyeIcon className="h-3.5 w-3.5" />
+            {post.views.toLocaleString()} views
+          </span>
           {post.categories?.map((c) => (
             <span
               key={c.id}
-              className="text-xs px-2.5 py-1 rounded-full bg-primary/10 text-primary border border-primary/20"
+              className="rounded-full bg-blue-100 px-2.5 py-1 text-blue-700 dark:bg-cyan-400/10 dark:text-cyan-300"
             >
               {c.name}
             </span>
           ))}
           {post.is_featured && (
-            <span className="text-xs px-2.5 py-1 rounded-full bg-orange-500/10 text-orange-500 border border-orange-500/20">
+            <span className="rounded-full bg-orange-100 px-2.5 py-1 text-orange-600 dark:bg-orange-400/10 dark:text-orange-300">
               Featured
             </span>
           )}
         </div>
-        
-        <h3 className="text-lg font-semibold mb-2.5 group-hover:text-primary transition-colors line-clamp-2 leading-snug">
-          {post.title}
-        </h3>
-        
+
         {post.description && (
-          <p className="text-sm text-muted-foreground mb-3 line-clamp-2 leading-relaxed">
+          <p className="line-clamp-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
             {post.description}
           </p>
         )}
-        
-        <div className="flex items-center gap-5 text-xs text-muted-foreground my-2">
-          <div className="flex items-center gap-1.5">
-            <CalendarIcon className="w-3.5 h-3.5" />
-            <span>{formatDate(post.createdAt)}</span>
-          </div>
-          <div className="flex items-center gap-1.5">
-            <EyeIcon className="w-3.5 h-3.5" />
-            <span>{post.views} views</span>
-          </div>
-          {commentCount > 0 && (
-            <div className="flex items-center gap-1.5">
-              <MessageSquareIcon className="w-3.5 h-3.5 text-orange-500" />
-              <span className="text-orange-500">{commentCount}</span>
-            </div>
-          )}
+
+        <div className="text-sm font-medium text-blue-600 transition-transform group-hover:translate-x-1 dark:text-cyan-300">
+          Read more
+          {commentCount > 0 ? ` / ${commentCount} comments` : ''}
         </div>
       </div>
-      
-      {/* Right bookmark icon */}
-      <div className="flex-shrink-0 pt-1">
-        <BookHeart className="w-5 h-5 text-muted-foreground hover:text-primary transition-colors" />
-      </div>
-    </div>
+    </article>
   )
 }
 

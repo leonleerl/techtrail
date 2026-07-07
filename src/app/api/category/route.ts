@@ -1,5 +1,6 @@
 import prisma from "@/lib/prisma";
 import { AlreadyExistsError, failure, success } from "@/lib/api-response";
+import { requireAdminAuth } from "@/lib/admin-auth";
 import { CategoryDto } from "@/types";
 import { CategoryFormSchema, CategoryFormSchemaType } from "@/schemas/category.schema";
 
@@ -62,6 +63,11 @@ export async function GET(req: Request) {
 // create a new category 
 export async function POST(req: Request) {
   try{
+    const unauthorized = await requireAdminAuth(req);
+    if (unauthorized) {
+      return unauthorized;
+    }
+
     const body = await req.json();
     const parsedBody : CategoryFormSchemaType = CategoryFormSchema.parse(body);
 

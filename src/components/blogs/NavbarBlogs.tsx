@@ -1,16 +1,12 @@
 "use client"
 
-import React, { useEffect, useState } from 'react'
-import { Button } from '@/components/ui'
+import React from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import ThemeSwitch from '../theme-switch'
-import { cn } from '@/lib/utils'
 
 function NavbarBlogs() {
     const router = useRouter();
-    const [isExpanded, setIsExpanded] = useState(false);
-    const [showRounded, setShowRounded] = useState(true);
 
     const handleBlogs = () => {
         router.push('/blogs');
@@ -20,44 +16,24 @@ function NavbarBlogs() {
         router.push('/about');
     }
 
-    useEffect(() => {
-        const expandTimer = setTimeout(() => {
-            setIsExpanded(true);
-        }, 50);
-
-        const removeRoundedTimer = setTimeout(() => {
-            setShowRounded(false);
-        }, 800); 
-
-        return () => {
-            clearTimeout(expandTimer);
-            clearTimeout(removeRoundedTimer);
-        };
-    }, []);
-
   return (
-    <div className="h-14 w-full fixed top-0 left-0 right-0 z-50 overflow-hidden">
-      {/* Background layer with animation */}
-      <div className={cn(
-        "absolute top-0 h-full bg-gray-600 dark:bg-gray-800 opacity-80 transition-all duration-900 ease-out",
-        isExpanded 
-          ? "w-full left-0" 
-          : "w-4/5 left-1/2 -translate-x-1/2",
-        showRounded ? "rounded-b-xl" : "rounded-none"
-      )} />
-      
-      {/* Content layer */}
-      <div className='relative h-full w-4/5 mx-auto flex items-center justify-between px-4 z-10'>
-        <div className='hidden md:block'>
-          <Image src='/leon.JPG' alt='logo' width={100} height={100} className='rounded-full w-10 h-10 object-cover border-1 border-white transition-transform duration-500 hover:scale-110 hover:cursor-pointer' onClick={()=>{router.push('/')}}/>
-        </div>
-        <div className='flex items-center gap-2'>
+    <header className="fixed top-0 left-0 right-0 z-50 border-b border-white/20 bg-white/85 shadow-sm backdrop-blur-md dark:border-white/10 dark:bg-slate-950/75">
+      <div className="mx-auto flex h-14 w-full max-w-6xl items-center justify-between px-4 sm:px-6">
+        <button
+          type="button"
+          onClick={() => router.push('/')}
+          className="flex items-center gap-3 text-sm font-semibold text-slate-900 transition-colors hover:text-blue-600 dark:text-white dark:hover:text-cyan-300"
+        >
+          <Image src='/leon.JPG' alt='Leon Li avatar' width={40} height={40} className='h-9 w-9 rounded-full object-cover ring-2 ring-white/80' />
+          <span className="hidden sm:inline">Welcome to my blogs</span>
+        </button>
+        <div className='flex items-center gap-4 text-sm font-medium text-slate-700 dark:text-slate-200'>
           <ThemeSwitch />
-          <Button className='nav-link-button text-white text-2xl hover:cursor-pointer transition-transform duration-300 hover:-translate-y-1' variant='ghost' onClick={handleBlogs}>Blogs</Button>
-          <Button className='nav-link-button text-white hover:text-white text-2xl hover:cursor-pointer transition-transform duration-300 hover:-translate-y-1' variant='ghost' onClick={handleAboutMe}>About me</Button>
+          <button type="button" className='transition-colors hover:text-blue-600 dark:hover:text-cyan-300' onClick={handleBlogs}>Blogs</button>
+          <button type="button" className='transition-colors hover:text-blue-600 dark:hover:text-cyan-300' onClick={handleAboutMe}>About</button>
         </div>
       </div>
-    </div>
+    </header>
   )
 }
 

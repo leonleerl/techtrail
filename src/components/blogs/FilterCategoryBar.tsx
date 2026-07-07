@@ -54,40 +54,40 @@ function FilterCategoryBar({
       <button
         onClick={() => onFilterChange('all')}
         className={cn(
-          "hover:cursor-pointer hover:-translate-y-0.5 transition-transform duration-300 px-4 py-2 text-sm font-medium rounded-md whitespace-nowrap",
+          "hover:cursor-pointer transition-colors duration-300 px-4 py-2 text-sm font-medium rounded-full whitespace-nowrap",
           activeFilter === 'all'
-            ? "bg-primary text-primary-foreground"
-            : "text-muted-foreground hover:text-foreground hover:bg-accent"
+            ? "bg-blue-600 text-white shadow-sm dark:bg-cyan-500 dark:text-slate-950"
+            : "text-slate-600 hover:bg-blue-50 hover:text-blue-700 dark:text-slate-300 dark:hover:bg-cyan-400/10 dark:hover:text-cyan-300"
         )}
       >
-        All 📖
+        All
       </button>
 
       {/* Featured button */}
       <button
         onClick={() => onFilterChange('featured')}
         className={cn(
-          "hover:cursor-pointer hover:-translate-y-0.5 transition-transform duration-300 px-4 py-2 text-sm font-medium rounded-md whitespace-nowrap",
+          "hover:cursor-pointer transition-colors duration-300 px-4 py-2 text-sm font-medium rounded-full whitespace-nowrap",
           activeFilter === 'featured'
-            ? "bg-primary text-primary-foreground"
-            : "text-muted-foreground hover:text-foreground hover:bg-accent"
+            ? "bg-blue-600 text-white shadow-sm dark:bg-cyan-500 dark:text-slate-950"
+            : "text-slate-600 hover:bg-blue-50 hover:text-blue-700 dark:text-slate-300 dark:hover:bg-cyan-400/10 dark:hover:text-cyan-300"
         )}
       >
-        Featured 🌟
+        Featured
       </button>
 
       {/* Latest button with sort indicator */}
       <button
         onClick={onLatestToggle}
         className={cn(
-          "hover:cursor-pointer hover:-translate-y-0.5 transition-transform duration-300 px-4 py-2 text-sm font-medium rounded-md whitespace-nowrap flex items-center gap-1 w-[110px] justify-center relative",
+          "hover:cursor-pointer transition-colors duration-300 px-4 py-2 text-sm font-medium rounded-full whitespace-nowrap flex items-center gap-1 w-[110px] justify-center relative",
           isLatestActive
-            ? "bg-primary text-primary-foreground"
-            : "text-muted-foreground hover:text-foreground hover:bg-accent"
+            ? "bg-blue-600 text-white shadow-sm dark:bg-cyan-500 dark:text-slate-950"
+            : "text-slate-600 hover:bg-blue-50 hover:text-blue-700 dark:text-slate-300 dark:hover:bg-cyan-400/10 dark:hover:text-cyan-300"
         )}
       >
         <span className="flex items-center gap-1">
-          Latest 🕒
+          Latest
           {isLatestActive && (
             sortOrder === 'desc' ? (
               <MoveDown className="w-4 h-4 flex-shrink-0" />
@@ -106,7 +106,7 @@ function FilterCategoryBar({
         <SelectTrigger className="w-[180px]">
           <SelectValue placeholder="Choose a category" />
         </SelectTrigger>
-        <SelectContent className='bg-amber-100 dark:bg-amber-900'>
+        <SelectContent className='bg-white dark:bg-slate-950'>
           {categories.map(category => (
             <SelectItem key={category.id} value={category.id}>
               {category.name}
