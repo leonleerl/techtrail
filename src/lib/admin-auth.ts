@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 export const ADMIN_SESSION_COOKIE = "admin_session";
-export const ADMIN_SESSION_MAX_AGE = 60 * 60;
+export const ADMIN_SESSION_MAX_AGE = 60 * 60 * 6;
 
 const encoder = new TextEncoder();
 const decoder = new TextDecoder();
